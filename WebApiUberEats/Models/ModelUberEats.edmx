@@ -1,0 +1,1413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="bdubereatsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="45" />
+          <Property Name="ap_paterno" Type="varchar" MaxLength="45" />
+          <Property Name="ap_materno" Type="varchar" MaxLength="45" />
+          <Property Name="telefono" Type="varchar" MaxLength="15" />
+          <Property Name="contrasena" Type="varchar" MaxLength="45" />
+          <Property Name="pais_id" Type="int" />
+          <Property Name="estado_confirmacion" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="comercio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" />
+          <Property Name="direccion" Type="varchar" MaxLength="45" />
+          <Property Name="coordenadas" Type="varchar" MaxLength="10" />
+          <Property Name="RUC" Type="varchar" MaxLength="45" />
+          <Property Name="telefono" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="comprobantes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="pedido_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="tip_doc_ident" Type="char" MaxLength="1" />
+          <Property Name="num_doc_ident" Type="varchar" MaxLength="15" />
+          <Property Name="razonsocial" Type="varchar" MaxLength="45" />
+          <Property Name="direccion" Type="varchar" MaxLength="45" />
+          <Property Name="descuento" Type="varchar" MaxLength="45" />
+          <Property Name="estado_envio" Type="char" MaxLength="1" />
+          <Property Name="tipo_doc" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="formas_pago">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" />
+          <Property Name="es_efectivo" Type="int" />
+          <Property Name="url_servicio" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="fotos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url" Type="varchar" MaxLength="45" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="fotos_comercio">
+          <Key>
+            <PropertyRef Name="foto_id" />
+            <PropertyRef Name="comercio_id" />
+          </Key>
+          <Property Name="foto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comercio_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fotos_producto">
+          <Key>
+            <PropertyRef Name="foto_id" />
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="foto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="producto_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="notificaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="45" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" />
+          <Property Name="fecha_programada" Type="datetime" />
+          <Property Name="tipo" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="paises">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="codigo_pais" Type="varchar" MaxLength="4" />
+          <Property Name="foto_id" Type="int" />
+        </EntityType>
+        <EntityType Name="pedido_det">
+          <Key>
+            <PropertyRef Name="pedido_id" />
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="pedido_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="45" />
+          <Property Name="producto_id" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="precio_item" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="precio_unitario" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="igv" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="descuento" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="comprobante_id" Type="int" />
+        </EntityType>
+        <EntityType Name="pedido_forma_pago">
+          <Key>
+            <PropertyRef Name="pedido_id" />
+          </Key>
+          <Property Name="pedido_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="forma_pago_id" Type="int" />
+          <Property Name="valor_pago" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="vuelto" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="total" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <EntityType Name="pedidos_cab">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_crea" Type="varchar" MaxLength="45" />
+          <Property Name="fecha_entrega" Type="varchar" MaxLength="45" />
+          <Property Name="valor_venta" Type="varchar" MaxLength="45" />
+          <Property Name="fecha_envio" Type="varchar" MaxLength="45" />
+          <Property Name="comercio_comision" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="promocion_id" Type="int" />
+          <Property Name="pct_descuento_global" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="monto_descuento" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="repartidor_id" Type="int" />
+          <Property Name="repartidor_km_calculo" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="repartidor_comision" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="repartidor_tiempo_total" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="repartidor_propina" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="ped_estado" Type="char" MaxLength="1" />
+          <Property Name="ubicacion_id" Type="int" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" />
+          <Property Name="precio" Type="varchar" MaxLength="45" />
+          <Property Name="stock" Type="varchar" MaxLength="45" />
+          <Property Name="comercio_id" Type="int" />
+          <Property Name="categoria_id" Type="int" />
+        </EntityType>
+        <EntityType Name="promociones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="45" />
+          <Property Name="descripcion" Type="varchar" MaxLength="45" />
+          <Property Name="fecha_inicio" Type="varchar" MaxLength="10" />
+          <Property Name="fecha_fin" Type="varchar" MaxLength="10" />
+          <Property Name="porcentaje" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="precio_fijo" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="tipo" Type="char" MaxLength="1" />
+          <Property Name="consumo_min" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="descuento_max" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <EntityType Name="repartidores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="apellido" Type="varchar" MaxLength="45" />
+          <Property Name="correo" Type="varchar" MaxLength="45" />
+          <Property Name="telefono" Type="varchar" MaxLength="45" />
+          <Property Name="cuidad" Type="varchar" MaxLength="45" />
+          <Property Name="cod_invitación" Type="varchar" MaxLength="10" />
+          <Property Name="tipo_vehiculo" Type="varchar" MaxLength="45" />
+          <Property Name="estado" Type="varchar" MaxLength="45" />
+          <Property Name="foto_id_antecedencites" Type="int" />
+          <Property Name="foto_id_soat" Type="int" />
+          <Property Name="foto_id_perfil" Type="int" />
+          <Property Name="kilometraje" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="foto_id_licencia_con" Type="int" />
+          <Property Name="confirmacion" Type="char" MaxLength="1" />
+          <Property Name="comision" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="tiempo_trabajo" Type="varchar" MaxLength="10" />
+          <Property Name="propinacion" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="coordenadas" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="ubicacion_cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cliente_id" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" />
+          <Property Name="direccion" Type="varchar" MaxLength="45" />
+          <Property Name="coordenadas" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <Association Name="FK__clientes__pais_i__4E88ABD4">
+          <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paises">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="pais_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__comproban__pedid__6FE99F9F">
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="1" />
+          <End Role="comprobantes" Type="Self.comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedidos_cab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="comprobantes">
+              <PropertyRef Name="pedido_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fotos_com__comer__5441852A">
+          <End Role="comercio" Type="Self.comercio" Multiplicity="1" />
+          <End Role="fotos_comercio" Type="Self.fotos_comercio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comercio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fotos_comercio">
+              <PropertyRef Name="comercio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fotos_com__foto___534D60F1">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="1" />
+          <End Role="fotos_comercio" Type="Self.fotos_comercio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fotos_comercio">
+              <PropertyRef Name="foto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fotos_pro__foto___5CD6CB2B">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="1" />
+          <End Role="fotos_producto" Type="Self.fotos_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fotos_producto">
+              <PropertyRef Name="foto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__fotos_pro__produ__5DCAEF64">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="fotos_producto" Type="Self.fotos_producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="fotos_producto">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__paises__foto_id__4BAC3F29">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="paises" Type="Self.paises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paises">
+              <PropertyRef Name="foto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedido_de__pedid__72C60C4A">
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="1" />
+          <End Role="pedido_det" Type="Self.pedido_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedidos_cab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_det">
+              <PropertyRef Name="pedido_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedido_fo__forma__797309D9">
+          <End Role="formas_pago" Type="Self.formas_pago" Multiplicity="0..1" />
+          <End Role="pedido_forma_pago" Type="Self.pedido_forma_pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formas_pago">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_forma_pago">
+              <PropertyRef Name="forma_pago_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedido_fo__pedid__7A672E12">
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="1" />
+          <End Role="pedido_forma_pago" Type="Self.pedido_forma_pago" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="pedidos_cab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_forma_pago">
+              <PropertyRef Name="pedido_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos_c__promo__6B24EA82">
+          <End Role="promociones" Type="Self.promociones" Multiplicity="0..1" />
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="promociones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos_cab">
+              <PropertyRef Name="promocion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos_c__repar__6C190EBB">
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="0..1" />
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="repartidores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos_cab">
+              <PropertyRef Name="repartidor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos_c__ubica__6D0D32F4">
+          <End Role="ubicacion_cliente" Type="Self.ubicacion_cliente" Multiplicity="0..1" />
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ubicacion_cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos_cab">
+              <PropertyRef Name="ubicacion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__productos__categ__59063A47">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="categoria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__productos__comer__59FA5E80">
+          <End Role="comercio" Type="Self.comercio" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comercio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="comercio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__repartido__foto___60A75C0F">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="repartidores">
+              <PropertyRef Name="foto_id_antecedencites" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__repartido__foto___619B8048">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="repartidores">
+              <PropertyRef Name="foto_id_soat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__repartido__foto___628FA481">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="repartidores">
+              <PropertyRef Name="foto_id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__repartido__foto___6383C8BA">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="repartidores">
+              <PropertyRef Name="foto_id_licencia_con" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ubicacion__clien__68487DD7">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="ubicacion_cliente" Type="Self.ubicacion_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ubicacion_cliente">
+              <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comprobante_id">
+          <End Role="comprobantes" Type="Self.comprobantes" Multiplicity="0..1" />
+          <End Role="pedido_det" Type="Self.pedido_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprobantes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_det">
+              <PropertyRef Name="comprobante_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_producto_id">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="pedido_det" Type="Self.pedido_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_det">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bdubereatsModelStoreContainer">
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comercio" EntityType="Self.comercio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comprobantes" EntityType="Self.comprobantes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="formas_pago" EntityType="Self.formas_pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fotos" EntityType="Self.fotos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fotos_comercio" EntityType="Self.fotos_comercio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fotos_producto" EntityType="Self.fotos_producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notificaciones" EntityType="Self.notificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="paises" EntityType="Self.paises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pedido_det" EntityType="Self.pedido_det" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pedido_forma_pago" EntityType="Self.pedido_forma_pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pedidos_cab" EntityType="Self.pedidos_cab" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos" EntityType="Self.productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="promociones" EntityType="Self.promociones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="repartidores" EntityType="Self.repartidores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ubicacion_cliente" EntityType="Self.ubicacion_cliente" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__clientes__pais_i__4E88ABD4" Association="Self.FK__clientes__pais_i__4E88ABD4">
+            <End Role="paises" EntitySet="paises" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__comproban__pedid__6FE99F9F" Association="Self.FK__comproban__pedid__6FE99F9F">
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+            <End Role="comprobantes" EntitySet="comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fotos_com__comer__5441852A" Association="Self.FK__fotos_com__comer__5441852A">
+            <End Role="comercio" EntitySet="comercio" />
+            <End Role="fotos_comercio" EntitySet="fotos_comercio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fotos_com__foto___534D60F1" Association="Self.FK__fotos_com__foto___534D60F1">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="fotos_comercio" EntitySet="fotos_comercio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fotos_pro__foto___5CD6CB2B" Association="Self.FK__fotos_pro__foto___5CD6CB2B">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="fotos_producto" EntitySet="fotos_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__fotos_pro__produ__5DCAEF64" Association="Self.FK__fotos_pro__produ__5DCAEF64">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="fotos_producto" EntitySet="fotos_producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__paises__foto_id__4BAC3F29" Association="Self.FK__paises__foto_id__4BAC3F29">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="paises" EntitySet="paises" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedido_de__pedid__72C60C4A" Association="Self.FK__pedido_de__pedid__72C60C4A">
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+            <End Role="pedido_det" EntitySet="pedido_det" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedido_fo__forma__797309D9" Association="Self.FK__pedido_fo__forma__797309D9">
+            <End Role="formas_pago" EntitySet="formas_pago" />
+            <End Role="pedido_forma_pago" EntitySet="pedido_forma_pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedido_fo__pedid__7A672E12" Association="Self.FK__pedido_fo__pedid__7A672E12">
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+            <End Role="pedido_forma_pago" EntitySet="pedido_forma_pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos_c__promo__6B24EA82" Association="Self.FK__pedidos_c__promo__6B24EA82">
+            <End Role="promociones" EntitySet="promociones" />
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos_c__repar__6C190EBB" Association="Self.FK__pedidos_c__repar__6C190EBB">
+            <End Role="repartidores" EntitySet="repartidores" />
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos_c__ubica__6D0D32F4" Association="Self.FK__pedidos_c__ubica__6D0D32F4">
+            <End Role="ubicacion_cliente" EntitySet="ubicacion_cliente" />
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+          </AssociationSet>
+          <AssociationSet Name="FK__productos__categ__59063A47" Association="Self.FK__productos__categ__59063A47">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__productos__comer__59FA5E80" Association="Self.FK__productos__comer__59FA5E80">
+            <End Role="comercio" EntitySet="comercio" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__repartido__foto___60A75C0F" Association="Self.FK__repartido__foto___60A75C0F">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="repartidores" EntitySet="repartidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__repartido__foto___619B8048" Association="Self.FK__repartido__foto___619B8048">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="repartidores" EntitySet="repartidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__repartido__foto___628FA481" Association="Self.FK__repartido__foto___628FA481">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="repartidores" EntitySet="repartidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__repartido__foto___6383C8BA" Association="Self.FK__repartido__foto___6383C8BA">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="repartidores" EntitySet="repartidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ubicacion__clien__68487DD7" Association="Self.FK__ubicacion__clien__68487DD7">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="ubicacion_cliente" EntitySet="ubicacion_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comprobante_id" Association="Self.fk_comprobante_id">
+            <End Role="comprobantes" EntitySet="comprobantes" />
+            <End Role="pedido_det" EntitySet="pedido_det" />
+          </AssociationSet>
+          <AssociationSet Name="fk_producto_id" Association="Self.fk_producto_id">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="pedido_det" EntitySet="pedido_det" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bdubereatsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="Self.FK__productos__categ__59FA5E80" FromRole="categoria" ToRole="productos" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ap_paterno" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ap_materno" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="contrasena" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="pais_id" Type="Int32" />
+          <Property Name="estado_confirmacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="paises" Relationship="Self.FK__clientes__pais_i__4F7CD00D" FromRole="clientes" ToRole="paises" />
+          <NavigationProperty Name="ubicacion_cliente" Relationship="Self.FK__ubicacion__clien__693CA210" FromRole="clientes" ToRole="ubicacion_cliente" />
+        </EntityType>
+        <EntityType Name="comercio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="coordenadas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RUC" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="Self.FK__productos__comer__5AEE82B9" FromRole="comercio" ToRole="productos" />
+          <NavigationProperty Name="fotos" Relationship="Self.fotos_comercio" FromRole="comercio" ToRole="fotos" />
+        </EntityType>
+        <EntityType Name="comprobantes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="pedido_id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="tip_doc_ident" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="num_doc_ident" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="razonsocial" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="descuento" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="estado_envio" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="tipo_doc" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="pedidos_cab" Relationship="Self.FK__comproban__pedid__70DDC3D8" FromRole="comprobantes" ToRole="pedidos_cab" />
+          <NavigationProperty Name="pedido_det" Relationship="Self.fk_comprobante_id" FromRole="comprobantes" ToRole="pedido_det" />
+        </EntityType>
+        <EntityType Name="formas_pago">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="es_efectivo" Type="Int32" />
+          <Property Name="url_servicio" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pedido_forma_pago" Relationship="Self.FK__pedido_fo__forma__00200768" FromRole="formas_pago" ToRole="pedido_forma_pago" />
+        </EntityType>
+        <EntityType Name="fotos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="url" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="paises" Relationship="Self.FK__paises__id__4CA06362" FromRole="fotos" ToRole="paises" />
+          <NavigationProperty Name="repartidores" Relationship="Self.FK__repartido__foto___619B8048" FromRole="fotos" ToRole="repartidores" />
+          <NavigationProperty Name="repartidores1" Relationship="Self.FK__repartido__foto___628FA481" FromRole="fotos" ToRole="repartidores" />
+          <NavigationProperty Name="repartidores2" Relationship="Self.FK__repartido__foto___6383C8BA" FromRole="fotos" ToRole="repartidores" />
+          <NavigationProperty Name="repartidores3" Relationship="Self.FK__repartido__foto___6477ECF3" FromRole="fotos" ToRole="repartidores" />
+          <NavigationProperty Name="comercio" Relationship="Self.fotos_comercio" FromRole="fotos" ToRole="comercio" />
+          <NavigationProperty Name="productos" Relationship="Self.fotos_producto" FromRole="fotos" ToRole="productos" />
+          <NavigationProperty Name="paises1" Relationship="bdubereatsModel.FK__paises__foto_id__4BAC3F29" FromRole="fotos" ToRole="paises" />
+        </EntityType>
+        <EntityType Name="notificaciones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_programada" Type="DateTime" Precision="3" />
+          <Property Name="tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="paises">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_pais" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="foto_id" Type="Int32" />
+          <NavigationProperty Name="clientes" Relationship="Self.FK__clientes__pais_i__4F7CD00D" FromRole="paises" ToRole="clientes" />
+          <NavigationProperty Name="fotos" Relationship="Self.FK__paises__id__4CA06362" FromRole="paises" ToRole="fotos" />
+          <NavigationProperty Name="fotos1" Relationship="bdubereatsModel.FK__paises__foto_id__4BAC3F29" FromRole="paises" ToRole="fotos" />
+        </EntityType>
+        <EntityType Name="pedido_det">
+          <Key>
+            <PropertyRef Name="pedido_id" />
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="pedido_id" Type="Int32" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="producto_id" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio_item" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="precio_unitario" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="igv" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="descuento" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="comprobante_id" Type="Int32" />
+          <NavigationProperty Name="comprobantes" Relationship="Self.fk_comprobante_id" FromRole="pedido_det" ToRole="comprobantes" />
+          <NavigationProperty Name="pedidos_cab" Relationship="Self.FK__pedido_de__pedid__2180FB33" FromRole="pedido_det" ToRole="pedidos_cab" />
+          <NavigationProperty Name="productos" Relationship="Self.fk_producto_id" FromRole="pedido_det" ToRole="productos" />
+        </EntityType>
+        <EntityType Name="pedido_forma_pago">
+          <Key>
+            <PropertyRef Name="pedido_id" />
+          </Key>
+          <Property Name="pedido_id" Type="Int32" Nullable="false" />
+          <Property Name="forma_pago_id" Type="Int32" />
+          <Property Name="valor_pago" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="vuelto" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="total" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="formas_pago" Relationship="Self.FK__pedido_fo__forma__00200768" FromRole="pedido_forma_pago" ToRole="formas_pago" />
+          <NavigationProperty Name="pedidos_cab" Relationship="Self.FK__pedido_fo__pedid__01142BA1" FromRole="pedido_forma_pago" ToRole="pedidos_cab" />
+        </EntityType>
+        <EntityType Name="pedidos_cab">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="fecha_crea" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_entrega" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="valor_venta" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_envio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="comercio_comision" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="promocion_id" Type="Int32" />
+          <Property Name="pct_descuento_global" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="monto_descuento" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="repartidor_id" Type="Int32" />
+          <Property Name="repartidor_km_calculo" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="repartidor_comision" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="repartidor_tiempo_total" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="repartidor_propina" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="ped_estado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ubicacion_id" Type="Int32" />
+          <NavigationProperty Name="comprobantes" Relationship="Self.FK__comproban__pedid__70DDC3D8" FromRole="pedidos_cab" ToRole="comprobantes" />
+          <NavigationProperty Name="pedido_det" Relationship="Self.FK__pedido_de__pedid__2180FB33" FromRole="pedidos_cab" ToRole="pedido_det" />
+          <NavigationProperty Name="pedido_forma_pago" Relationship="Self.FK__pedido_fo__pedid__01142BA1" FromRole="pedidos_cab" ToRole="pedido_forma_pago" />
+          <NavigationProperty Name="promociones" Relationship="Self.FK__pedidos_c__promo__6C190EBB" FromRole="pedidos_cab" ToRole="promociones" />
+          <NavigationProperty Name="repartidores" Relationship="Self.FK__pedidos_c__repar__6D0D32F4" FromRole="pedidos_cab" ToRole="repartidores" />
+          <NavigationProperty Name="ubicacion_cliente" Relationship="Self.FK__pedidos_c__ubica__6E01572D" FromRole="pedidos_cab" ToRole="ubicacion_cliente" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="stock" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="comercio_id" Type="Int32" />
+          <Property Name="categoria_id" Type="Int32" />
+          <NavigationProperty Name="categoria" Relationship="Self.FK__productos__categ__59FA5E80" FromRole="productos" ToRole="categoria" />
+          <NavigationProperty Name="comercio" Relationship="Self.FK__productos__comer__5AEE82B9" FromRole="productos" ToRole="comercio" />
+          <NavigationProperty Name="pedido_det" Relationship="Self.fk_producto_id" FromRole="productos" ToRole="pedido_det" />
+          <NavigationProperty Name="fotos" Relationship="Self.fotos_producto" FromRole="productos" ToRole="fotos" />
+        </EntityType>
+        <EntityType Name="promociones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_inicio" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_fin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="porcentaje" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="precio_fijo" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="consumo_min" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="descuento_max" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="pedidos_cab" Relationship="Self.FK__pedidos_c__promo__6C190EBB" FromRole="promociones" ToRole="pedidos_cab" />
+        </EntityType>
+        <EntityType Name="repartidores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="cuidad" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="cod_invitación" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_vehiculo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="foto_id_antecedencites" Type="Int32" />
+          <Property Name="foto_id_soat" Type="Int32" />
+          <Property Name="foto_id_perfil" Type="Int32" />
+          <Property Name="kilometraje" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="foto_id_licencia_con" Type="Int32" />
+          <Property Name="confirmacion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="comision" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="tiempo_trabajo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="propinacion" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="coordenadas" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="fotos" Relationship="Self.FK__repartido__foto___619B8048" FromRole="repartidores" ToRole="fotos" />
+          <NavigationProperty Name="fotos1" Relationship="Self.FK__repartido__foto___628FA481" FromRole="repartidores" ToRole="fotos" />
+          <NavigationProperty Name="fotos2" Relationship="Self.FK__repartido__foto___6383C8BA" FromRole="repartidores" ToRole="fotos" />
+          <NavigationProperty Name="fotos3" Relationship="Self.FK__repartido__foto___6477ECF3" FromRole="repartidores" ToRole="fotos" />
+          <NavigationProperty Name="pedidos_cab" Relationship="Self.FK__pedidos_c__repar__6D0D32F4" FromRole="repartidores" ToRole="pedidos_cab" />
+        </EntityType>
+        <EntityType Name="ubicacion_cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="cliente_id" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="coordenadas" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clientes" Relationship="Self.FK__ubicacion__clien__693CA210" FromRole="ubicacion_cliente" ToRole="clientes" />
+          <NavigationProperty Name="pedidos_cab" Relationship="Self.FK__pedidos_c__ubica__6E01572D" FromRole="ubicacion_cliente" ToRole="pedidos_cab" />
+        </EntityType>
+        <Association Name="FK__productos__categ__59FA5E80">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="categoria_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__clientes__pais_i__4F7CD00D">
+          <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paises">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="pais_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ubicacion__clien__693CA210">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="ubicacion_cliente" Type="Self.ubicacion_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ubicacion_cliente">
+              <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__productos__comer__5AEE82B9">
+          <End Role="comercio" Type="Self.comercio" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comercio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="comercio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__comproban__pedid__70DDC3D8">
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="1" />
+          <End Role="comprobantes" Type="Self.comprobantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedidos_cab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="comprobantes">
+              <PropertyRef Name="pedido_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comprobante_id">
+          <End Role="comprobantes" Type="Self.comprobantes" Multiplicity="0..1" />
+          <End Role="pedido_det" Type="Self.pedido_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comprobantes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_det">
+              <PropertyRef Name="comprobante_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedido_fo__forma__00200768">
+          <End Role="formas_pago" Type="Self.formas_pago" Multiplicity="0..1" />
+          <End Role="pedido_forma_pago" Type="Self.pedido_forma_pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formas_pago">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_forma_pago">
+              <PropertyRef Name="forma_pago_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__paises__id__4CA06362">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="1" />
+          <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paises">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__repartido__foto___619B8048">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="repartidores">
+              <PropertyRef Name="foto_id_antecedencites" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__repartido__foto___628FA481">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="repartidores">
+              <PropertyRef Name="foto_id_soat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__repartido__foto___6383C8BA">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="repartidores">
+              <PropertyRef Name="foto_id_perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__repartido__foto___6477ECF3">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="0..1" />
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="repartidores">
+              <PropertyRef Name="foto_id_licencia_con" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedido_de__pedid__2180FB33">
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="1" />
+          <End Role="pedido_det" Type="Self.pedido_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pedidos_cab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_det">
+              <PropertyRef Name="pedido_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_producto_id">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="pedido_det" Type="Self.pedido_det" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_det">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedido_fo__pedid__01142BA1">
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="1" />
+          <End Role="pedido_forma_pago" Type="Self.pedido_forma_pago" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="pedidos_cab">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedido_forma_pago">
+              <PropertyRef Name="pedido_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos_c__promo__6C190EBB">
+          <End Role="promociones" Type="Self.promociones" Multiplicity="0..1" />
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="promociones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos_cab">
+              <PropertyRef Name="promocion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos_c__repar__6D0D32F4">
+          <End Role="repartidores" Type="Self.repartidores" Multiplicity="0..1" />
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="repartidores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos_cab">
+              <PropertyRef Name="repartidor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__pedidos_c__ubica__6E01572D">
+          <End Role="ubicacion_cliente" Type="Self.ubicacion_cliente" Multiplicity="0..1" />
+          <End Role="pedidos_cab" Type="Self.pedidos_cab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ubicacion_cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pedidos_cab">
+              <PropertyRef Name="ubicacion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fotos_comercio">
+          <End Role="comercio" Type="Self.comercio" Multiplicity="*" />
+          <End Role="fotos" Type="Self.fotos" Multiplicity="*" />
+        </Association>
+        <Association Name="fotos_producto">
+          <End Role="fotos" Type="Self.fotos" Multiplicity="*" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="bdubereatsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categoria" EntityType="Self.categoria" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" />
+          <EntitySet Name="comercio" EntityType="Self.comercio" />
+          <EntitySet Name="comprobantes" EntityType="Self.comprobantes" />
+          <EntitySet Name="formas_pago" EntityType="Self.formas_pago" />
+          <EntitySet Name="fotos" EntityType="Self.fotos" />
+          <EntitySet Name="notificaciones" EntityType="Self.notificaciones" />
+          <EntitySet Name="paises" EntityType="Self.paises" />
+          <EntitySet Name="pedido_det" EntityType="Self.pedido_det" />
+          <EntitySet Name="pedido_forma_pago" EntityType="Self.pedido_forma_pago" />
+          <EntitySet Name="pedidos_cab" EntityType="Self.pedidos_cab" />
+          <EntitySet Name="productos" EntityType="Self.productos" />
+          <EntitySet Name="promociones" EntityType="Self.promociones" />
+          <EntitySet Name="repartidores" EntityType="Self.repartidores" />
+          <EntitySet Name="ubicacion_cliente" EntityType="Self.ubicacion_cliente" />
+          <AssociationSet Name="FK__productos__categ__59FA5E80" Association="Self.FK__productos__categ__59FA5E80">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__clientes__pais_i__4F7CD00D" Association="Self.FK__clientes__pais_i__4F7CD00D">
+            <End Role="paises" EntitySet="paises" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ubicacion__clien__693CA210" Association="Self.FK__ubicacion__clien__693CA210">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="ubicacion_cliente" EntitySet="ubicacion_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__productos__comer__5AEE82B9" Association="Self.FK__productos__comer__5AEE82B9">
+            <End Role="comercio" EntitySet="comercio" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__comproban__pedid__70DDC3D8" Association="Self.FK__comproban__pedid__70DDC3D8">
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+            <End Role="comprobantes" EntitySet="comprobantes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comprobante_id" Association="Self.fk_comprobante_id">
+            <End Role="comprobantes" EntitySet="comprobantes" />
+            <End Role="pedido_det" EntitySet="pedido_det" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedido_fo__forma__00200768" Association="Self.FK__pedido_fo__forma__00200768">
+            <End Role="formas_pago" EntitySet="formas_pago" />
+            <End Role="pedido_forma_pago" EntitySet="pedido_forma_pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__paises__id__4CA06362" Association="Self.FK__paises__id__4CA06362">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="paises" EntitySet="paises" />
+          </AssociationSet>
+          <AssociationSet Name="FK__repartido__foto___619B8048" Association="Self.FK__repartido__foto___619B8048">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="repartidores" EntitySet="repartidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__repartido__foto___628FA481" Association="Self.FK__repartido__foto___628FA481">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="repartidores" EntitySet="repartidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__repartido__foto___6383C8BA" Association="Self.FK__repartido__foto___6383C8BA">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="repartidores" EntitySet="repartidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__repartido__foto___6477ECF3" Association="Self.FK__repartido__foto___6477ECF3">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="repartidores" EntitySet="repartidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedido_de__pedid__2180FB33" Association="Self.FK__pedido_de__pedid__2180FB33">
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+            <End Role="pedido_det" EntitySet="pedido_det" />
+          </AssociationSet>
+          <AssociationSet Name="fk_producto_id" Association="Self.fk_producto_id">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="pedido_det" EntitySet="pedido_det" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedido_fo__pedid__01142BA1" Association="Self.FK__pedido_fo__pedid__01142BA1">
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+            <End Role="pedido_forma_pago" EntitySet="pedido_forma_pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos_c__promo__6C190EBB" Association="Self.FK__pedidos_c__promo__6C190EBB">
+            <End Role="promociones" EntitySet="promociones" />
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos_c__repar__6D0D32F4" Association="Self.FK__pedidos_c__repar__6D0D32F4">
+            <End Role="repartidores" EntitySet="repartidores" />
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+          </AssociationSet>
+          <AssociationSet Name="FK__pedidos_c__ubica__6E01572D" Association="Self.FK__pedidos_c__ubica__6E01572D">
+            <End Role="ubicacion_cliente" EntitySet="ubicacion_cliente" />
+            <End Role="pedidos_cab" EntitySet="pedidos_cab" />
+          </AssociationSet>
+          <AssociationSet Name="fotos_comercio" Association="Self.fotos_comercio">
+            <End Role="comercio" EntitySet="comercio" />
+            <End Role="fotos" EntitySet="fotos" />
+          </AssociationSet>
+          <AssociationSet Name="fotos_producto" Association="Self.fotos_producto">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__paises__foto_id__4BAC3F29" Association="bdubereatsModel.FK__paises__foto_id__4BAC3F29">
+            <End Role="fotos" EntitySet="fotos" />
+            <End Role="paises" EntitySet="paises" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__paises__foto_id__4BAC3F29">
+          <End Type="bdubereatsModel.fotos" Role="fotos" Multiplicity="0..1" />
+          <End Type="bdubereatsModel.paises" Role="paises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fotos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paises">
+              <PropertyRef Name="foto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="bdubereatsEntities">
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="bdubereatsModel.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="bdubereatsModel.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="ap_paterno" ColumnName="ap_paterno" />
+                <ScalarProperty Name="ap_materno" ColumnName="ap_materno" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="pais_id" ColumnName="pais_id" />
+                <ScalarProperty Name="estado_confirmacion" ColumnName="estado_confirmacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comercio">
+            <EntityTypeMapping TypeName="bdubereatsModel.comercio">
+              <MappingFragment StoreEntitySet="comercio">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="coordenadas" ColumnName="coordenadas" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comprobantes">
+            <EntityTypeMapping TypeName="bdubereatsModel.comprobantes">
+              <MappingFragment StoreEntitySet="comprobantes">
+                <ScalarProperty Name="pedido_id" ColumnName="pedido_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tip_doc_ident" ColumnName="tip_doc_ident" />
+                <ScalarProperty Name="num_doc_ident" ColumnName="num_doc_ident" />
+                <ScalarProperty Name="razonsocial" ColumnName="razonsocial" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="estado_envio" ColumnName="estado_envio" />
+                <ScalarProperty Name="tipo_doc" ColumnName="tipo_doc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formas_pago">
+            <EntityTypeMapping TypeName="bdubereatsModel.formas_pago">
+              <MappingFragment StoreEntitySet="formas_pago">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="es_efectivo" ColumnName="es_efectivo" />
+                <ScalarProperty Name="url_servicio" ColumnName="url_servicio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fotos">
+            <EntityTypeMapping TypeName="bdubereatsModel.fotos">
+              <MappingFragment StoreEntitySet="fotos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notificaciones">
+            <EntityTypeMapping TypeName="bdubereatsModel.notificaciones">
+              <MappingFragment StoreEntitySet="notificaciones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_programada" ColumnName="fecha_programada" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paises">
+            <EntityTypeMapping TypeName="bdubereatsModel.paises">
+              <MappingFragment StoreEntitySet="paises">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo_pais" ColumnName="codigo_pais" />
+                <ScalarProperty Name="foto_id" ColumnName="foto_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedido_det">
+            <EntityTypeMapping TypeName="bdubereatsModel.pedido_det">
+              <MappingFragment StoreEntitySet="pedido_det">
+                <ScalarProperty Name="pedido_id" ColumnName="pedido_id" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="producto_id" ColumnName="producto_id" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio_item" ColumnName="precio_item" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="igv" ColumnName="igv" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="comprobante_id" ColumnName="comprobante_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedido_forma_pago">
+            <EntityTypeMapping TypeName="bdubereatsModel.pedido_forma_pago">
+              <MappingFragment StoreEntitySet="pedido_forma_pago">
+                <ScalarProperty Name="pedido_id" ColumnName="pedido_id" />
+                <ScalarProperty Name="forma_pago_id" ColumnName="forma_pago_id" />
+                <ScalarProperty Name="valor_pago" ColumnName="valor_pago" />
+                <ScalarProperty Name="vuelto" ColumnName="vuelto" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pedidos_cab">
+            <EntityTypeMapping TypeName="bdubereatsModel.pedidos_cab">
+              <MappingFragment StoreEntitySet="pedidos_cab">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha_crea" ColumnName="fecha_crea" />
+                <ScalarProperty Name="fecha_entrega" ColumnName="fecha_entrega" />
+                <ScalarProperty Name="valor_venta" ColumnName="valor_venta" />
+                <ScalarProperty Name="fecha_envio" ColumnName="fecha_envio" />
+                <ScalarProperty Name="comercio_comision" ColumnName="comercio_comision" />
+                <ScalarProperty Name="promocion_id" ColumnName="promocion_id" />
+                <ScalarProperty Name="pct_descuento_global" ColumnName="pct_descuento_global" />
+                <ScalarProperty Name="monto_descuento" ColumnName="monto_descuento" />
+                <ScalarProperty Name="repartidor_id" ColumnName="repartidor_id" />
+                <ScalarProperty Name="repartidor_km_calculo" ColumnName="repartidor_km_calculo" />
+                <ScalarProperty Name="repartidor_comision" ColumnName="repartidor_comision" />
+                <ScalarProperty Name="repartidor_tiempo_total" ColumnName="repartidor_tiempo_total" />
+                <ScalarProperty Name="repartidor_propina" ColumnName="repartidor_propina" />
+                <ScalarProperty Name="ped_estado" ColumnName="ped_estado" />
+                <ScalarProperty Name="ubicacion_id" ColumnName="ubicacion_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos">
+            <EntityTypeMapping TypeName="bdubereatsModel.productos">
+              <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="comercio_id" ColumnName="comercio_id" />
+                <ScalarProperty Name="categoria_id" ColumnName="categoria_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="promociones">
+            <EntityTypeMapping TypeName="bdubereatsModel.promociones">
+              <MappingFragment StoreEntitySet="promociones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="porcentaje" ColumnName="porcentaje" />
+                <ScalarProperty Name="precio_fijo" ColumnName="precio_fijo" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="consumo_min" ColumnName="consumo_min" />
+                <ScalarProperty Name="descuento_max" ColumnName="descuento_max" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="repartidores">
+            <EntityTypeMapping TypeName="bdubereatsModel.repartidores">
+              <MappingFragment StoreEntitySet="repartidores">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="cuidad" ColumnName="cuidad" />
+                <ScalarProperty Name="cod_invitación" ColumnName="cod_invitación" />
+                <ScalarProperty Name="tipo_vehiculo" ColumnName="tipo_vehiculo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="foto_id_antecedencites" ColumnName="foto_id_antecedencites" />
+                <ScalarProperty Name="foto_id_soat" ColumnName="foto_id_soat" />
+                <ScalarProperty Name="foto_id_perfil" ColumnName="foto_id_perfil" />
+                <ScalarProperty Name="kilometraje" ColumnName="kilometraje" />
+                <ScalarProperty Name="foto_id_licencia_con" ColumnName="foto_id_licencia_con" />
+                <ScalarProperty Name="confirmacion" ColumnName="confirmacion" />
+                <ScalarProperty Name="comision" ColumnName="comision" />
+                <ScalarProperty Name="tiempo_trabajo" ColumnName="tiempo_trabajo" />
+                <ScalarProperty Name="propinacion" ColumnName="propinacion" />
+                <ScalarProperty Name="coordenadas" ColumnName="coordenadas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ubicacion_cliente">
+            <EntityTypeMapping TypeName="bdubereatsModel.ubicacion_cliente">
+              <MappingFragment StoreEntitySet="ubicacion_cliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="coordenadas" ColumnName="coordenadas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="fotos_comercio" TypeName="bdubereatsModel.fotos_comercio" StoreEntitySet="fotos_comercio">
+            <EndProperty Name="comercio">
+              <ScalarProperty Name="id" ColumnName="comercio_id" />
+            </EndProperty>
+            <EndProperty Name="fotos">
+              <ScalarProperty Name="id" ColumnName="foto_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="fotos_producto" TypeName="bdubereatsModel.fotos_producto" StoreEntitySet="fotos_producto">
+            <EndProperty Name="fotos">
+              <ScalarProperty Name="id" ColumnName="foto_id" />
+            </EndProperty>
+            <EndProperty Name="productos">
+              <ScalarProperty Name="id" ColumnName="producto_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c062099a56604643bd11ff2296534176" Name="Diagram1" ZoomLevel="109">
+        <EntityTypeShape EntityType="bdubereatsModel.categoria" Width="1.5" PointX="7" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.clientes" Width="1.5" PointX="7.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.comercio" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.comprobantes" Width="1.5" PointX="14.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.formas_pago" Width="1.5" PointX="15" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.fotos" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.notificaciones" Width="1.5" PointX="12" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.paises" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.pedido_det" Width="1.5" PointX="19.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.pedido_forma_pago" Width="1.5" PointX="17.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.pedidos_cab" Width="1.5" PointX="12" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.productos" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.promociones" Width="1.5" PointX="10" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.repartidores" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.ubicacion_cliente" Width="1.5" PointX="9.75" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="bdubereatsModel.FK__productos__categ__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__clientes__pais_i__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__ubicacion__clien__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__productos__comer__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__comproban__pedid__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.fk_comprobante_id" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__pedido_fo__forma__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__paises__id__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__repartido__foto___619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__repartido__foto___628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__repartido__foto___6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__repartido__foto___6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__pedido_de__pedid__2180FB33" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.fk_producto_id" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__pedido_fo__pedid__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__pedidos_c__promo__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__pedidos_c__repar__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__pedidos_c__ubica__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.fotos_comercio" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.fotos_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__paises__foto_id__4BAC3F29" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
