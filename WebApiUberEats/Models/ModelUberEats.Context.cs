@@ -13,10 +13,10 @@ namespace WebApiUberEats.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bdubereatsEntities : DbContext
+    public partial class bdubereatsEntities1 : DbContext
     {
-        public bdubereatsEntities()
-            : base("name=bdubereatsEntities")
+        public bdubereatsEntities1()
+            : base("name=bdubereatsEntities1")
         {
         }
     
@@ -25,20 +25,22 @@ namespace WebApiUberEats.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<categoria> categoria { get; set; }
-        public virtual DbSet<clientes> clientes { get; set; }
-        public virtual DbSet<comercio> comercio { get; set; }
-        public virtual DbSet<comprobantes> comprobantes { get; set; }
-        public virtual DbSet<formas_pago> formas_pago { get; set; }
-        public virtual DbSet<fotos> fotos { get; set; }
-        public virtual DbSet<notificaciones> notificaciones { get; set; }
-        public virtual DbSet<paises> paises { get; set; }
-        public virtual DbSet<pedido_det> pedido_det { get; set; }
-        public virtual DbSet<pedido_forma_pago> pedido_forma_pago { get; set; }
-        public virtual DbSet<pedidos_cab> pedidos_cab { get; set; }
-        public virtual DbSet<productos> productos { get; set; }
-        public virtual DbSet<promociones> promociones { get; set; }
-        public virtual DbSet<repartidores> repartidores { get; set; }
-        public virtual DbSet<ubicacion_cliente> ubicacion_cliente { get; set; }
+        public virtual DbSet<Categoria_Comercio> Categoria_Comercio { get; set; }
+        public virtual DbSet<Categoria_Producto> Categoria_Producto { get; set; }
+        public virtual DbSet<Cliente> Cliente { get; set; }
+        public virtual DbSet<Comercio> Comercio { get; set; }
+        public virtual DbSet<Entrega> Entrega { get; set; }
+        public virtual DbSet<Facturacion> Facturacion { get; set; }
+        public virtual DbSet<Metodo_Entrega> Metodo_Entrega { get; set; }
+        public virtual DbSet<Pago> Pago { get; set; }
+        public virtual DbSet<Pais> Pais { get; set; }
+        public virtual DbSet<Pedido> Pedido { get; set; }
+        public virtual DbSet<Producto> Producto { get; set; }
+        public virtual DbSet<Repartidor> Repartidor { get; set; }
+        public virtual DbSet<Tarjeta> Tarjeta { get; set; }
+        public virtual DbSet<Tipo_Comprobante> Tipo_Comprobante { get; set; }
+        public virtual DbSet<Tipo_Documento> Tipo_Documento { get; set; }
+        public virtual DbSet<Tipo_Pago> Tipo_Pago { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

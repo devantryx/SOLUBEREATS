@@ -7,10 +7,10 @@ namespace WebApiUberEats.Transfers
 {
     public class paisesdt
     {
-        public int id { get; set; }
+        public int idpais { get; set; }
         public string codigo_pais { get; set; }
         public string nombre { get; set; }
-        public string foto_id { get; set; }
+        public string nombrefoto { get; set; }
 
     }
 }

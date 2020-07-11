@@ -12,24 +12,18 @@ namespace WebApiUberEats.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Comercio
+    public partial class Tipo_Comprobante
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Comercio()
+        public Tipo_Comprobante()
         {
-            this.Pedido = new HashSet<Pedido>();
-            this.Producto = new HashSet<Producto>();
+            this.Facturacion = new HashSet<Facturacion>();
         }
     
-        public int idcomercio { get; set; }
-        public Nullable<int> idusuario { get; set; }
-        public Nullable<int> idcategoria_comercio { get; set; }
+        public int idtipocomprobante { get; set; }
+        public string descripcion { get; set; }
     
-        public virtual Categoria_Comercio Categoria_Comercio { get; set; }
-        public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pedido> Pedido { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Producto> Producto { get; set; }
+        public virtual ICollection<Facturacion> Facturacion { get; set; }
     }
 }

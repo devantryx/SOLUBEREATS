@@ -12,28 +12,27 @@ namespace WebApiUberEats.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class productos
+    public partial class Pedido
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public productos()
+        public Pedido()
         {
-            this.pedido_det = new HashSet<pedido_det>();
-            this.fotos = new HashSet<fotos>();
+            this.Entrega = new HashSet<Entrega>();
+            this.Facturacion = new HashSet<Facturacion>();
         }
     
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string descripcion { get; set; }
-        public string precio { get; set; }
-        public string stock { get; set; }
-        public Nullable<int> comercio_id { get; set; }
-        public Nullable<int> categoria_id { get; set; }
+        public int idpedido { get; set; }
+        public string instrucciones_especiales_pedido { get; set; }
+        public Nullable<int> cantidad_pedido { get; set; }
+        public string direccion_entrega { get; set; }
+        public Nullable<int> idcomercio { get; set; }
+        public Nullable<int> idproducto { get; set; }
     
-        public virtual categoria categoria { get; set; }
-        public virtual comercio comercio { get; set; }
+        public virtual Comercio Comercio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pedido_det> pedido_det { get; set; }
+        public virtual ICollection<Entrega> Entrega { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<fotos> fotos { get; set; }
+        public virtual ICollection<Facturacion> Facturacion { get; set; }
+        public virtual Producto Producto { get; set; }
     }
 }

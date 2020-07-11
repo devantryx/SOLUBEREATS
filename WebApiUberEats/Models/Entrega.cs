@@ -12,15 +12,13 @@ namespace WebApiUberEats.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class pedido_forma_pago
+    public partial class Entrega
     {
-        public int pedido_id { get; set; }
-        public Nullable<int> forma_pago_id { get; set; }
-        public Nullable<decimal> valor_pago { get; set; }
-        public Nullable<decimal> vuelto { get; set; }
-        public Nullable<decimal> total { get; set; }
+        public int identrega { get; set; }
+        public Nullable<int> idpedido { get; set; }
+        public Nullable<int> idrepartidor { get; set; }
     
-        public virtual formas_pago formas_pago { get; set; }
-        public virtual pedidos_cab pedidos_cab { get; set; }
+        public virtual Pedido Pedido { get; set; }
+        public virtual Repartidor Repartidor { get; set; }
     }
 }

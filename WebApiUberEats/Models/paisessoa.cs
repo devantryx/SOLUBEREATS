@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
@@ -13,15 +14,18 @@ namespace WebApiUberEats.Models
         //Obtiene lista de paises
         public static IEnumerable<paisesdt> ObtenerListaPaises()
         {
-            bdubereatsEntities db = new bdubereatsEntities();
 
-            var list = from b in db.paises.Where(p => p.id == p.id)
+            bdubereatsEntities1 db = new bdubereatsEntities1();
+
+            var list = from b in db.Pais.Where(p => p.idpais == p.idpais).OrderBy(p => p.codigo_pais)
                        select new paisesdt()
                        {
-                           id = b.id,
-                           codigo_pais = b.codigo_pais,
-                           nombre = b.nombre
+                           idpais       = b.idpais,
+                           nombre = b.nombrepais,
+                           codigo_pais  = b.codigo_pais,                           
+                           nombrefoto   =b.nombrefoto
                        };
+
             return list;
 
         }

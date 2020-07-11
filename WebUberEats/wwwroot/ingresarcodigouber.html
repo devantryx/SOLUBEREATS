@@ -57,21 +57,8 @@
         new Vue({
             el: "#app",
             data: {
-                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png',
-                nombre: "",
-                paises: []
-
-            },
-            mounted: function () {
-                this.bpaises();
-            },
-            methods: {
-                bpaises: function () {
-                    var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
-                    this.$http.get(url).then(function (response) {
-                        this.paises = response.body;
-                    });
-                }
+                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png'
+               
             }
         });
     </script>

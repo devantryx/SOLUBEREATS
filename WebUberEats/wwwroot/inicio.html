@@ -37,12 +37,14 @@
                             <div class="form-group row">
 
                                 <div class="col-sm-1" style="padding-right:0px">
-                                    <select v-model="id" class="form-control">
+                                    <select v-model="idpais" class="form-control">
 
-                                        <option v-for="item in paises" :value="item.id">{{item.codigo_pais}}</option>
+                                        <option v-for="item in paises" :value="item.idpais">+{{item.codigo_pais}}</option>
                                     </select>
 
                                 </div>
+                                {{idpais}}
+                                
                                 <input type="text" placeholder="Email o número móvil" style="width:536px" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==9) return false;" />
                             </div>
                             <div class="form-group row">
@@ -50,12 +52,13 @@
                                     <form method="get" action="menuprincipal.html">
                                         <button class="btn btn-success btn-block">Siguiente</button>
                                     </form>
-                                                                    
+
                                 </div>
                             </div>
                             <div class="text-center">
                                 <a href="crearcuenta.html">Crear nueva cuenta</a>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -70,22 +73,27 @@
         new Vue({
             el: "#app",
             data: {
-                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png',
-                id:1,
-                nombre: "",
-                paises: []
+                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png',                              
+                idpais: 7,      
+                codigo_pais:"",
+                paises: [],
 
             },
+
             mounted: function () {
                 this.bpaises();
             },          
 
             methods: {
                 bpaises: function () {
+                    
                     var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
+
                     this.$http.get(url).then(function (response) {
-                        this.paises = response.body;
+                        this.paises = response.body;                              
                     });
+
+                   
                 }
             }
         });

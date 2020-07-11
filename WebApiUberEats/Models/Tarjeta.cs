@@ -12,26 +12,23 @@ namespace WebApiUberEats.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class comprobantes
+    public partial class Tarjeta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public comprobantes()
+        public Tarjeta()
         {
-            this.pedido_det = new HashSet<pedido_det>();
+            this.Pago = new HashSet<Pago>();
         }
     
-        public int pedido_id { get; set; }
-        public int id { get; set; }
-        public string tip_doc_ident { get; set; }
-        public string num_doc_ident { get; set; }
-        public string razonsocial { get; set; }
-        public string direccion { get; set; }
-        public string descuento { get; set; }
-        public string estado_envio { get; set; }
-        public string tipo_doc { get; set; }
+        public int idtarjeta { get; set; }
+        public string nombre_tarjeta { get; set; }
+        public string numero_tarjeta { get; set; }
+        public string codigo_tarjeta { get; set; }
+        public string fechaven_tarjeta { get; set; }
+        public Nullable<int> idusuario { get; set; }
     
-        public virtual pedidos_cab pedidos_cab { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pedido_det> pedido_det { get; set; }
+        public virtual ICollection<Pago> Pago { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

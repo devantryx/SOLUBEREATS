@@ -12,24 +12,27 @@ namespace WebApiUberEats.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Comercio
+    public partial class Producto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Comercio()
+        public Producto()
         {
             this.Pedido = new HashSet<Pedido>();
-            this.Producto = new HashSet<Producto>();
         }
     
-        public int idcomercio { get; set; }
-        public Nullable<int> idusuario { get; set; }
-        public Nullable<int> idcategoria_comercio { get; set; }
+        public int idproducto { get; set; }
+        public string nombreproducto { get; set; }
+        public string descripcion { get; set; }
+        public Nullable<int> stock { get; set; }
+        public Nullable<decimal> precio { get; set; }
+        public Nullable<decimal> porcentajedsc { get; set; }
+        public string nombrefotoproducto { get; set; }
+        public Nullable<int> idcomercio { get; set; }
+        public Nullable<int> idcategoria_producto { get; set; }
     
-        public virtual Categoria_Comercio Categoria_Comercio { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual Categoria_Producto Categoria_Producto { get; set; }
+        public virtual Comercio Comercio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Producto> Producto { get; set; }
     }
 }

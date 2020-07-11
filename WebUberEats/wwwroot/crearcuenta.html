@@ -38,8 +38,8 @@
                         <h6>Introduce tu número de teléfono (obligatorio).</h6></br>
                         <div class="form-group row">
                             <div class="col-sm-1" style="padding-right:0px">
-                                <select v-model="id" class="form-control">
-                                    <option v-for="item in paises" :value="item.id">{{item.codigo_pais}}</option>
+                                <select v-model="idpais" class="form-control">
+                                    <option v-for="item in paises" :value="item.idpais">{{item.codigo_pais}}</option>
                                 </select>
                             </div>
                             <input type="text" placeholder="Email o número móvil" style="width:536px" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==9) return false;" />
@@ -156,7 +156,7 @@
                                 <form method="get" action="menuprincipal.html">
                                     <button class="btn btn-success btn-block">Siguiente</button>
                                 </form><br/>
-                                <h8>  Al continuar, aceptas los <h8 style="color:forestgreen;font-weight:bold">terminos de uso</h8 style="color:green;"> y la <h8 style="color:forestgreen;font-weight:bold">politica de privacidad.</h8></h8>
+                                Al continuar, aceptas los <span style="color:forestgreen;font-weight:bold">terminos de uso</span> y la <span style="color:forestgreen;font-weight:bold">politica de privacidad.</span>
                             </div>
                           
                         </div>
@@ -176,15 +176,13 @@
             el: "#app",           
             data: {
                 src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png',
-
-                id: 1,
-                codigo_pais: "",
+                idpais: 7,
                 paises: []
-
             },
             mounted: function () {
                 this.bpaises();
             },
+
             methods: {
                 bpaises: function () {
                     var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
@@ -198,92 +196,32 @@
         new Vue({
             el: "#app2",
             data: {
-                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png',
+                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png'
 
-                id: 1,
-                codigo_pais: "",
-                paises: []
-
-            },
-            mounted: function () {
-                this.bpaises();
-            },
-            methods: {
-                bpaises: function () {
-                    var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
-                    this.$http.get(url).then(function (response) {
-                        this.paises = response.body;
-                    });
-                }
             }
         });
 
         new Vue({
             el: "#app3",
             data: {
-                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png',
+                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png'
 
-                id: 1,
-                codigo_pais: "",
-                paises: []
-
-            },
-            mounted: function () {
-                this.bpaises();
-            },
-            methods: {
-                bpaises: function () {
-                    var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
-                    this.$http.get(url).then(function (response) {
-                        this.paises = response.body;
-                    });
-                }
             }
         });
 
         new Vue({
             el: "#app4",
             data: {
-                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png',
+                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png'
 
-                id: 1,
-                codigo_pais: "",
-                paises: []
-
-            },
-            mounted: function () {
-                this.bpaises();
-            },
-            methods: {
-                bpaises: function () {
-                    var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
-                    this.$http.get(url).then(function (response) {
-                        this.paises = response.body;
-                    });
-                }
             }
         });
 
         new Vue({
             el: "#app5",
             data: {
-                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png',
+                src: 'https://res.cloudinary.com/dxqdhkf3m/image/upload/v1594243426/ubereats/189-1891389_transparent-uber-eats-logo-png_wjbryn.png'
 
-                id: 1,
-                codigo_pais: "",
-                paises: []
-
-            },
-            mounted: function () {
-                this.bpaises();
-            },
-            methods: {
-                bpaises: function () {
-                    var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
-                    this.$http.get(url).then(function (response) {
-                        this.paises = response.body;
-                    });
-                }
             }
         });
     </script>

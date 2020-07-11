@@ -12,21 +12,18 @@ namespace WebApiUberEats.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class formas_pago
+    public partial class Metodo_Entrega
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public formas_pago()
+        public Metodo_Entrega()
         {
-            this.pedido_forma_pago = new HashSet<pedido_forma_pago>();
+            this.Repartidor = new HashSet<Repartidor>();
         }
     
-        public int id { get; set; }
-        public string nombre { get; set; }
+        public int idmetodoentrega { get; set; }
         public string descripcion { get; set; }
-        public Nullable<int> es_efectivo { get; set; }
-        public string url_servicio { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<pedido_forma_pago> pedido_forma_pago { get; set; }
+        public virtual ICollection<Repartidor> Repartidor { get; set; }
     }
 }

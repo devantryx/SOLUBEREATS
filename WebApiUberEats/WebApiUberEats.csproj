@@ -60,6 +60,12 @@
     <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
@@ -194,22 +200,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\categoria.cs">
+    <Compile Include="Models\Categoria_Comercio.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\clientes.cs">
+    <Compile Include="Models\Categoria_Producto.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\comercio.cs">
+    <Compile Include="Models\Cliente.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\comprobantes.cs">
+    <Compile Include="Models\Comercio.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\formas_pago.cs">
+    <Compile Include="Models\Entrega.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\fotos.cs">
+    <Compile Include="Models\Facturacion.cs">
+      <DependentUpon>ModelUberEats.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Metodo_Entrega.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelUberEats.Context.cs">
@@ -227,32 +236,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelUberEats.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\notificaciones.cs">
+    <Compile Include="Models\Pago.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\paises.cs">
+    <Compile Include="Models\Pais.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\paisessoa.cs" />
-    <Compile Include="Models\pedidos_cab.cs">
+    <Compile Include="Models\Pedido.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\pedido_det.cs">
+    <Compile Include="Models\Producto.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\pedido_forma_pago.cs">
+    <Compile Include="Models\Repartidor.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\productos.cs">
+    <Compile Include="Models\Tarjeta.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\promociones.cs">
+    <Compile Include="Models\Tipo_Comprobante.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\repartidores.cs">
+    <Compile Include="Models\Tipo_Documento.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ubicacion_cliente.cs">
+    <Compile Include="Models\Tipo_Pago.cs">
+      <DependentUpon>ModelUberEats.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuario.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,20 +275,13 @@
     <Content Include="Global.asax" />
     <Content Include="Models\ModelUberEats.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelUberEats.Context.cs</LastGenOutput>
       <DependentUpon>ModelUberEats.edmx</DependentUpon>
+      <LastGenOutput>ModelUberEats.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\ModelUberEats.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelUberEats.edmx</DependentUpon>
       <LastGenOutput>ModelUberEats.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="Models\ModelUberEats.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelUberEats.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ModelUberEats.edmx.diagram">
-      <DependentUpon>ModelUberEats.edmx</DependentUpon>
     </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -290,6 +295,13 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="Models\ModelUberEats.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelUberEats.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelUberEats.edmx.diagram">
+      <DependentUpon>ModelUberEats.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

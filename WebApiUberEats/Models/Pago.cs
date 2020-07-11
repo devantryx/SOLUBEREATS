@@ -12,12 +12,15 @@ namespace WebApiUberEats.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class notificaciones
+    public partial class Pago
     {
-        public int id { get; set; }
-        public string titulo { get; set; }
-        public string descripcion { get; set; }
-        public Nullable<System.DateTime> fecha_programada { get; set; }
-        public string tipo { get; set; }
+        public int idpago { get; set; }
+        public Nullable<int> idtipopago { get; set; }
+        public Nullable<int> idtarjeta { get; set; }
+        public Nullable<int> idcliente { get; set; }
+    
+        public virtual Cliente Cliente { get; set; }
+        public virtual Tarjeta Tarjeta { get; set; }
+        public virtual Tipo_Pago Tipo_Pago { get; set; }
     }
 }
