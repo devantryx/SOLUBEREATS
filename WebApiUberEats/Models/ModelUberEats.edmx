@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="bdubereatsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="bdubereatsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categoria_Comercio">
           <Key>
             <PropertyRef Name="idcategoria_comercio" />
@@ -42,6 +42,13 @@
           <Property Name="idpedido" Type="int" />
           <Property Name="idrepartidor" Type="int" />
         </EntityType>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="estado" />
+          </Key>
+          <Property Name="estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Facturacion">
           <Key>
             <PropertyRef Name="idfacturacion" />
@@ -69,6 +76,7 @@
           <Property Name="idtipopago" Type="int" />
           <Property Name="idtarjeta" Type="int" />
           <Property Name="idcliente" Type="int" />
+          <Property Name="idpedido" Type="int" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -89,6 +97,7 @@
           <Property Name="direccion_entrega" Type="varchar" MaxLength="500" />
           <Property Name="idcomercio" Type="int" />
           <Property Name="idproducto" Type="int" />
+          <Property Name="estado" Type="int" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -96,7 +105,7 @@
           </Key>
           <Property Name="idproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombreproducto" Type="varchar" MaxLength="50" />
-          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="descripcion" Type="varchar" MaxLength="500" />
           <Property Name="stock" Type="int" />
           <Property Name="precio" Type="numeric" Precision="9" Scale="2" />
           <Property Name="porcentajedsc" Type="numeric" Precision="9" Scale="2" />
@@ -116,6 +125,7 @@
           <Property Name="coordenadas" Type="varchar" MaxLength="100" />
           <Property Name="idmetodoentrega" Type="int" />
           <Property Name="idusuario" Type="int" />
+          <Property Name="estado" Type="int" />
         </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
@@ -154,7 +164,7 @@
             <PropertyRef Name="idusuario" />
           </Key>
           <Property Name="idusuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="apellidos" Type="varchar" MaxLength="50" />
           <Property Name="telefono" Type="varchar" MaxLength="12" />
           <Property Name="correo" Type="varchar" MaxLength="50" />
@@ -162,6 +172,8 @@
           <Property Name="direccion" Type="varchar" MaxLength="100" />
           <Property Name="nombrefoto" Type="varchar" MaxLength="50" />
           <Property Name="idpais" Type="int" />
+          <Property Name="razonsocial" Type="varchar" MaxLength="500" />
+          <Property Name="idcategoria_comercio" Type="int" />
         </EntityType>
         <Association Name="FK__Cliente__idusuar__4E88ABD4">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
@@ -271,6 +283,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Pago__idpedido__0D7A0286">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="idpedido" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="idpedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Pago__idtarjeta__6C190EBB">
           <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="0..1" />
           <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
@@ -292,6 +316,18 @@
             </Principal>
             <Dependent Role="Pago">
               <PropertyRef Name="idtipopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido__estado__0F624AF8">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="estado" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -397,6 +433,7 @@
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comercio" EntityType="Self.Comercio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entrega" EntityType="Self.Entrega" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Facturacion" EntityType="Self.Facturacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Metodo_Entrega" EntityType="Self.Metodo_Entrega" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
@@ -445,6 +482,10 @@
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
+          <AssociationSet Name="FK__Pago__idpedido__0D7A0286" Association="Self.FK__Pago__idpedido__0D7A0286">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
           <AssociationSet Name="FK__Pago__idtarjeta__6C190EBB" Association="Self.FK__Pago__idtarjeta__6C190EBB">
             <End Role="Tarjeta" EntitySet="Tarjeta" />
             <End Role="Pago" EntitySet="Pago" />
@@ -452,6 +493,10 @@
           <AssociationSet Name="FK__Pago__idtipopago__6B24EA82" Association="Self.FK__Pago__idtipopago__6B24EA82">
             <End Role="Tipo_Pago" EntitySet="Tipo_Pago" />
             <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__estado__0F624AF8" Association="Self.FK__Pedido__estado__0F624AF8">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
           <AssociationSet Name="FK__Pedido__idcomerc__656C112C" Association="Self.FK__Pedido__idcomerc__656C112C">
             <End Role="Comercio" EntitySet="Comercio" />
@@ -486,8 +531,7 @@
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bdubereatsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -538,6 +582,14 @@
           <NavigationProperty Name="Pedido" Relationship="Self.FK__Entrega__idpedid__787EE5A0" FromRole="Entrega" ToRole="Pedido" />
           <NavigationProperty Name="Repartidor" Relationship="Self.FK__Entrega__idrepar__797309D9" FromRole="Entrega" ToRole="Repartidor" />
         </EntityType>
+        <EntityType Name="Estados">
+          <Key>
+            <PropertyRef Name="estado" />
+          </Key>
+          <Property Name="estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__estado__0F624AF8" FromRole="Estados" ToRole="Pedido" />
+        </EntityType>
         <EntityType Name="Facturacion">
           <Key>
             <PropertyRef Name="idfacturacion" />
@@ -569,7 +621,9 @@
           <Property Name="idtipopago" Type="Int32" />
           <Property Name="idtarjeta" Type="Int32" />
           <Property Name="idcliente" Type="Int32" />
+          <Property Name="idpedido" Type="Int32" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK__Pago__idcliente__6D0D32F4" FromRole="Pago" ToRole="Cliente" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pago__idpedido__0D7A0286" FromRole="Pago" ToRole="Pedido" />
           <NavigationProperty Name="Tarjeta" Relationship="Self.FK__Pago__idtarjeta__6C190EBB" FromRole="Pago" ToRole="Tarjeta" />
           <NavigationProperty Name="Tipo_Pago" Relationship="Self.FK__Pago__idtipopago__6B24EA82" FromRole="Pago" ToRole="Tipo_Pago" />
         </EntityType>
@@ -593,9 +647,12 @@
           <Property Name="direccion_entrega" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="idcomercio" Type="Int32" />
           <Property Name="idproducto" Type="Int32" />
+          <Property Name="estado" Type="Int32" />
           <NavigationProperty Name="Comercio" Relationship="Self.FK__Pedido__idcomerc__656C112C" FromRole="Pedido" ToRole="Comercio" />
           <NavigationProperty Name="Entrega" Relationship="Self.FK__Entrega__idpedid__787EE5A0" FromRole="Pedido" ToRole="Entrega" />
+          <NavigationProperty Name="Estados" Relationship="Self.FK__Pedido__estado__0F624AF8" FromRole="Pedido" ToRole="Estados" />
           <NavigationProperty Name="Facturacion" Relationship="Self.FK__Facturaci__idped__75A278F5" FromRole="Pedido" ToRole="Facturacion" />
+          <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__idpedido__0D7A0286" FromRole="Pedido" ToRole="Pago" />
           <NavigationProperty Name="Producto" Relationship="Self.FK__Pedido__idproduc__66603565" FromRole="Pedido" ToRole="Producto" />
         </EntityType>
         <EntityType Name="Producto">
@@ -604,7 +661,7 @@
           </Key>
           <Property Name="idproducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombreproducto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="stock" Type="Int32" />
           <Property Name="precio" Type="Decimal" Precision="9" Scale="2" />
           <Property Name="porcentajedsc" Type="Decimal" Precision="9" Scale="2" />
@@ -627,6 +684,7 @@
           <Property Name="coordenadas" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="idmetodoentrega" Type="Int32" />
           <Property Name="idusuario" Type="Int32" />
+          <Property Name="estado" Type="Int32" />
           <NavigationProperty Name="Entrega" Relationship="Self.FK__Entrega__idrepar__797309D9" FromRole="Repartidor" ToRole="Entrega" />
           <NavigationProperty Name="Metodo_Entrega" Relationship="Self.FK__Repartido__idmet__5EBF139D" FromRole="Repartidor" ToRole="Metodo_Entrega" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Repartido__idusu__5FB337D6" FromRole="Repartidor" ToRole="Usuario" />
@@ -673,7 +731,7 @@
             <PropertyRef Name="idusuario" />
           </Key>
           <Property Name="idusuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="telefono" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -681,11 +739,13 @@
           <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="nombrefoto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idpais" Type="Int32" />
+          <Property Name="razonsocial" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__idusuar__4E88ABD4" FromRole="Usuario" ToRole="Cliente" />
           <NavigationProperty Name="Comercio" Relationship="Self.FK__Comercio__idusua__534D60F1" FromRole="Usuario" ToRole="Comercio" />
           <NavigationProperty Name="Pais" Relationship="Self.FK__Usuario__idpais__4BAC3F29" FromRole="Usuario" ToRole="Pais" />
           <NavigationProperty Name="Repartidor" Relationship="Self.FK__Repartido__idusu__5FB337D6" FromRole="Usuario" ToRole="Repartidor" />
           <NavigationProperty Name="Tarjeta" Relationship="Self.FK__Tarjeta__idusuar__628FA481" FromRole="Usuario" ToRole="Tarjeta" />
+          <Property Name="idcategoria_comercio" Type="Int32" />
         </EntityType>
         <Association Name="FK__Comercio__idcate__5441852A">
           <End Role="Categoria_Comercio" Type="Self.Categoria_Comercio" Multiplicity="0..1" />
@@ -795,6 +855,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Pedido__estado__0F624AF8">
+          <End Role="Estados" Type="Self.Estados" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estados">
+              <PropertyRef Name="estado" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Facturaci__idped__75A278F5">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
           <End Role="Facturacion" Type="Self.Facturacion" Multiplicity="*" />
@@ -840,6 +912,18 @@
             </Principal>
             <Dependent Role="Repartidor">
               <PropertyRef Name="idmetodoentrega" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pago__idpedido__0D7A0286">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="idpedido" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="idpedido" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -915,12 +999,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bdubereatsEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bdubereatsEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categoria_Comercio" EntityType="Self.Categoria_Comercio" />
           <EntitySet Name="Categoria_Producto" EntityType="Self.Categoria_Producto" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="Comercio" EntityType="Self.Comercio" />
           <EntitySet Name="Entrega" EntityType="Self.Entrega" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" />
           <EntitySet Name="Facturacion" EntityType="Self.Facturacion" />
           <EntitySet Name="Metodo_Entrega" EntityType="Self.Metodo_Entrega" />
           <EntitySet Name="Pago" EntityType="Self.Pago" />
@@ -969,6 +1054,10 @@
             <End Role="Repartidor" EntitySet="Repartidor" />
             <End Role="Entrega" EntitySet="Entrega" />
           </AssociationSet>
+          <AssociationSet Name="FK__Pedido__estado__0F624AF8" Association="Self.FK__Pedido__estado__0F624AF8">
+            <End Role="Estados" EntitySet="Estados" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
           <AssociationSet Name="FK__Facturaci__idped__75A278F5" Association="Self.FK__Facturaci__idped__75A278F5">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="Facturacion" EntitySet="Facturacion" />
@@ -984,6 +1073,10 @@
           <AssociationSet Name="FK__Repartido__idmet__5EBF139D" Association="Self.FK__Repartido__idmet__5EBF139D">
             <End Role="Metodo_Entrega" EntitySet="Metodo_Entrega" />
             <End Role="Repartidor" EntitySet="Repartidor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pago__idpedido__0D7A0286" Association="Self.FK__Pago__idpedido__0D7A0286">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
           <AssociationSet Name="FK__Pago__idtarjeta__6C190EBB" Association="Self.FK__Pago__idtarjeta__6C190EBB">
             <End Role="Tarjeta" EntitySet="Tarjeta" />
@@ -1015,7 +1108,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="bdubereatsEntities1">
+        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="bdubereatsEntities4">
           <EntitySetMapping Name="Categoria_Comercio">
             <EntityTypeMapping TypeName="bdubereatsModel.Categoria_Comercio">
               <MappingFragment StoreEntitySet="Categoria_Comercio">
@@ -1058,6 +1151,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Estados">
+            <EntityTypeMapping TypeName="bdubereatsModel.Estados">
+              <MappingFragment StoreEntitySet="Estados">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Facturacion">
             <EntityTypeMapping TypeName="bdubereatsModel.Facturacion">
               <MappingFragment StoreEntitySet="Facturacion">
@@ -1086,6 +1187,7 @@
                 <ScalarProperty Name="idtipopago" ColumnName="idtipopago" />
                 <ScalarProperty Name="idtarjeta" ColumnName="idtarjeta" />
                 <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+                <ScalarProperty Name="idpedido" ColumnName="idpedido" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1108,6 +1210,7 @@
                 <ScalarProperty Name="direccion_entrega" ColumnName="direccion_entrega" />
                 <ScalarProperty Name="idcomercio" ColumnName="idcomercio" />
                 <ScalarProperty Name="idproducto" ColumnName="idproducto" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1137,6 +1240,7 @@
                 <ScalarProperty Name="coordenadas" ColumnName="coordenadas" />
                 <ScalarProperty Name="idmetodoentrega" ColumnName="idmetodoentrega" />
                 <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1179,6 +1283,7 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="bdubereatsModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="idcategoria_comercio" ColumnName="idcategoria_comercio" />
                 <ScalarProperty Name="idusuario" ColumnName="idusuario" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="apellidos" ColumnName="apellidos" />
@@ -1188,6 +1293,7 @@
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
                 <ScalarProperty Name="nombrefoto" ColumnName="nombrefoto" />
                 <ScalarProperty Name="idpais" ColumnName="idpais" />
+                <ScalarProperty Name="razonsocial" ColumnName="razonsocial" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

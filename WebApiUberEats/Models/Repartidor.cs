@@ -28,6 +28,7 @@ namespace WebApiUberEats.Models
         public string coordenadas { get; set; }
         public Nullable<int> idmetodoentrega { get; set; }
         public Nullable<int> idusuario { get; set; }
+        public Nullable<int> estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Entrega> Entrega { get; set; }

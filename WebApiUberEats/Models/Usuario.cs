@@ -11,7 +11,8 @@ namespace WebApiUberEats.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,17 +23,31 @@ namespace WebApiUberEats.Models
             this.Repartidor = new HashSet<Repartidor>();
             this.Tarjeta = new HashSet<Tarjeta>();
         }
-    
+
         public int idusuario { get; set; }
+        [Required(ErrorMessage = "El campo nombre es requerido")]
         public string nombre { get; set; }
+        [Required(ErrorMessage = "El campo apellido es requerido")]
         public string apellidos { get; set; }
+        [MaxLength(9, ErrorMessage = "El número de teléfono debe tener 9 digitos")]
+        [Required(ErrorMessage = "El campo teléfono es requerido")]
         public string telefono { get; set; }
+        [Required(ErrorMessage = "El campo correo es requerido")]
         public string correo { get; set; }
+        [StringLength(20, MinimumLength = 4, ErrorMessage = "la contraseña debe contener entre 4 a 20 caracteres")]
+        [Required(ErrorMessage = "El campo contraseña es requerido")]
         public string clave { get; set; }
+        [Required(ErrorMessage = "El campo dirección es requerido")]
         public string direccion { get; set; }
         public string nombrefoto { get; set; }
+        [Required(ErrorMessage = "El campo idpais es requerido")]
         public Nullable<int> idpais { get; set; }
-    
+        //[Required(ErrorMessage = "El campo razonsocial es requerido")]
+        public string razonsocial { get; set; }
+        //[Required(ErrorMessage = "El campo idcategoria_comercio es requerido")]
+        public Nullable<int> idcategoria_comercio { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cliente> Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

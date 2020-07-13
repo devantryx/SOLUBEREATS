@@ -8,6 +8,7 @@ namespace WebApiUberEats
 {
     public static class WebApiConfig
     {
+
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de API web
@@ -22,6 +23,9 @@ namespace WebApiUberEats
                 routeTemplate: "api/paises/ObtenerListaPaises",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+
         }
     }
 }

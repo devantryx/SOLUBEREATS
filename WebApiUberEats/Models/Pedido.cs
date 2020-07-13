@@ -19,6 +19,7 @@ namespace WebApiUberEats.Models
         {
             this.Entrega = new HashSet<Entrega>();
             this.Facturacion = new HashSet<Facturacion>();
+            this.Pago = new HashSet<Pago>();
         }
     
         public int idpedido { get; set; }
@@ -27,12 +28,16 @@ namespace WebApiUberEats.Models
         public string direccion_entrega { get; set; }
         public Nullable<int> idcomercio { get; set; }
         public Nullable<int> idproducto { get; set; }
+        public Nullable<int> estado { get; set; }
     
         public virtual Comercio Comercio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Entrega> Entrega { get; set; }
+        public virtual Estados Estados { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Facturacion> Facturacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pago> Pago { get; set; }
         public virtual Producto Producto { get; set; }
     }
 }

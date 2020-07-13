@@ -18,8 +18,10 @@ namespace WebApiUberEats.Models
         public Nullable<int> idtipopago { get; set; }
         public Nullable<int> idtarjeta { get; set; }
         public Nullable<int> idcliente { get; set; }
+        public Nullable<int> idpedido { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual Pedido Pedido { get; set; }
         public virtual Tarjeta Tarjeta { get; set; }
         public virtual Tipo_Pago Tipo_Pago { get; set; }
     }
