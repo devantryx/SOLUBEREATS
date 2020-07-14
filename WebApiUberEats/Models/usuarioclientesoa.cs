@@ -84,8 +84,10 @@ namespace WebApiUberEats.Models
 
             if (vnrotel > 0) //si el nùmero telefono ingresado existe en bd no permitira el registro y retornara null.
                 return null;
-             
-          
+
+            //regla 2: Valida datos obligatorios 
+            //implementado en la clase Usuario a travez del DataAnnotations
+
             //Instancias la clase Usuario y sus propiedades que seran insertados
             Usuario usuario = new Usuario()
             {   //Propiedades de la clase Usuario
@@ -117,6 +119,7 @@ namespace WebApiUberEats.Models
                 db.SaveChanges();
                
             }
+            //captura los campos que estan vacios y muestra mensaje segun configuracion en la clase Usuario
             catch (DbEntityValidationException ex){
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
                 throw new DbEntityValidationException(errorMessages);
@@ -177,6 +180,7 @@ namespace WebApiUberEats.Models
                 db.SaveChanges();
 
             }
+            //captura los campos que estan vacios y muestra mensaje segun configuracion en la clase Usuario
             catch (DbEntityValidationException ex)
             {
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
@@ -214,6 +218,7 @@ namespace WebApiUberEats.Models
                 db.SaveChanges();           
 
             }
+           
             catch (DbEntityValidationException ex)
             {
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));

@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
+    <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\TarjetaController.cs" />
     <Compile Include="Controllers\UsuarioclienteController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Models\Pedido.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\pedidosoa.cs" />
     <Compile Include="Models\Producto.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
@@ -277,9 +279,14 @@
     <Compile Include="Models\usuarioclientesoa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transfers\categoria_comerciodt.cs" />
+    <Compile Include="Transfers\categoria_productodt.cs" />
     <Compile Include="Transfers\clientedt.cs" />
     <Compile Include="Transfers\comerciodt.cs" />
+    <Compile Include="Transfers\estadopedidodt.cs" />
     <Compile Include="Transfers\paisesdt.cs" />
+    <Compile Include="Transfers\pedidodetalledt.cs" />
+    <Compile Include="Transfers\pedidodt.cs" />
+    <Compile Include="Transfers\productocategoriadt.cs" />
     <Compile Include="Transfers\productocomerciodt.cs" />
     <Compile Include="Transfers\productodt.cs" />
     <Compile Include="Transfers\tarjetadt.cs" />

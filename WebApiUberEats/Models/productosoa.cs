@@ -9,11 +9,34 @@ namespace WebApiUberEats.Models
 {
     public partial class producto
     {
+        public static productocomerciodt ListarProductosComercio(int idcomercio)
+        {
+            //ObtenerUsuarioCliente -> no mostrarlo en la presentacion por que no fue enviado.
+            bdubereatsEntities4 db = new bdubereatsEntities4();
+            var obj = db.Producto.Select(b => // Obtiene lista de usuario cliente
+                new productocomerciodt()
+                {
+                    idcomercio = (int)b.idcomercio,
+                    nombreproducto = b.nombreproducto,
+                    descripcion = b.descripcion,
+                    precio = (decimal)b.precio,
+                    nombrefotoproducto = b.nombrefotoproducto,
+
+                    categoria_Comerciodt = new categoria_comerciodt()
+                    {
+
+                        descripcion = b.Categoria_Producto.descripcion,
+                    }
+
+                }).SingleOrDefault(b => b.idcomercio == idcomercio); // devuelvo elemento si cumple con la condicion
+            return obj;
+        }
+
         public static productodt ObtenerProductoRegistrado(int idproducto)       
         {
             //ObtenerProductoRegistrado -> no mostrarlo en la presentacion por que no fue enviado
             bdubereatsEntities4 db = new bdubereatsEntities4();
-            var obj = db.Producto.Select(b => // Obtiene lista de usuario cliente
+            var obj = db.Producto.Select(b => // Obtiene lista de Producto
                 new productodt()
                 {   //Propiedad de la clase Producto
                     idproducto = b.idproducto,
@@ -32,13 +55,13 @@ namespace WebApiUberEats.Models
         public static productodt InsertarProducto(productodt productodt) 
         {
             bdubereatsEntities4 db = new bdubereatsEntities4();
-            //regla 1: valida datos unicos (correo,numero telefono)
-            var idp = db.Producto.Where(p => p.idproducto == productodt.idproducto).Count();
+            //regla 1: valida datos unicos (idproducto)
+            var idproducto = db.Producto.Where(p => p.idproducto == productodt.idproducto).Count();
             var istock = db.Producto.Where(p => productodt.stock <= 0).Count(); //valida el stock ingresado si es 0 devuelve 1
             var iprecio = db.Producto.Where(p => productodt.precio <= 0).Count(); //valida el precio ingresado si es 0 devuelve 1
    
 
-            if (idp > 0) //si el idproducto ingresado existe en bd no permitira el registro y retornara null.
+            if (idproducto > 0) //si el idproducto ingresado existe en bd no permitira el registro y retornara null.
                 return null;
 
             if (istock > 0) //si la variable istock tiene valor 1  retornara null,caso contrario continua.
@@ -72,6 +95,7 @@ namespace WebApiUberEats.Models
                 db.SaveChanges();
 
             }
+            //captura los campos que estan vacios y muestra mensaje segun configuracion en la clase Producto
             catch (DbEntityValidationException ex)
             {
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
@@ -82,28 +106,24 @@ namespace WebApiUberEats.Models
 
         }
 
-        public static productocomerciodt ListarProductosComercio(int idcomercio)
-        //ObtenerUsuarioCliente -> no mostrarlo en la presentacion por que no fue enviado.
-        {
+        public static IEnumerable<productocategoriadt>  ListarProductoCategoria(int idcategoria_producto) {
             bdubereatsEntities4 db = new bdubereatsEntities4();
-            var obj = db.Producto.Select(b => // Obtiene lista de usuario cliente
-                new productocomerciodt()
-                {
-                    idcomercio          =(int)b.idcomercio,
-                   nombreproducto       = b.nombreproducto,
-                   descripcion          = b.descripcion,
-                   precio               = (decimal) b.precio,
-                   nombrefotoproducto   = b.nombrefotoproducto,                  
-                        
-                   categoria_Comerciodt = new categoria_comerciodt()
-                        {
-                         
-                          descripcion = b.Categoria_Producto.descripcion,
-                        }                    
+            //regla 2: lista de forma descendente de mayor a menor el precio
+            var list = from b in db.Producto.Where(p => p.idcategoria_producto == idcategoria_producto).OrderByDescending(p => p.precio)
+                       select new productocategoriadt()
+                       {
+                           nombreproducto = b.nombreproducto,
+                           descripcion = b.descripcion,
+                           precio = (decimal)b.precio,
+                           nombrefotoproducto = b.nombrefotoproducto,
+                           categoria_productodt = new categoria_productodt()
+                           {
+                               descripcion_categoria = b.Categoria_Producto.descripcion
+                           }
+                       };
 
-                }).SingleOrDefault(b => b.idcomercio == idcomercio); // devuelvo elemento si cumple con la condicion
-            return obj;
+            return list;
+
         }
-
     }
 }

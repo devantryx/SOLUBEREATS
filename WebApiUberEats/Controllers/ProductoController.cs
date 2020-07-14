@@ -32,6 +32,13 @@ namespace WebApiUberEats.Controllers
         {
             return producto.ListarProductosComercio(idcomercio);
         }
-        
+
+        [HttpGet]
+        [Route("api/Producto/ListarProductoCategoria")]
+        public IEnumerable<productocategoriadt> ListarProductoCategoria(int idcategoria_producto) {
+            return producto.ListarProductoCategoria(idcategoria_producto);
+        }
+
+
     }
 }
