@@ -13,7 +13,7 @@ namespace WebApiUberEats.Models
         public static pedidodt ObtenerPedidoRegistrado(int idpedido)
         {
             //ObtenerPedidoRegistrado -> no mostrarlo en la presentacion por que no fue enviado
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
                 new pedidodt()
                 {   //Propiedad de la clase Pedido
@@ -30,7 +30,7 @@ namespace WebApiUberEats.Models
         }
 
         public static pedidodt InsertaPedido(pedidodt pedidodt) {
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 3: valida datos unicos (idpedido)
             var vidpedido = db.Pedido.Where(p => p.idpedido == pedidodt.idpedido).Count();
             //regla 2: valida la cantidad de pedido debe ser mayor  o igual a 1
@@ -87,7 +87,7 @@ namespace WebApiUberEats.Models
         }
 
         public static pedidodetalledt ObtieneListaDetallePedido(int idpedido) {
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
                 new pedidodetalledt()
                 {   

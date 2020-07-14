@@ -13,10 +13,10 @@ namespace WebApiUberEats.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bdubereatsEntities4 : DbContext
+    public partial class BdUberEatsEntities : DbContext
     {
-        public bdubereatsEntities4()
-            : base("name=bdubereatsEntities4")
+        public BdUberEatsEntities()
+            : base("name=BdUberEatsEntities")
         {
         }
     

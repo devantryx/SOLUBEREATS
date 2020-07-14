@@ -14,7 +14,7 @@ namespace WebApiUberEats.Models
         public static usuariodt ObtenerUsuarioClienteRegistrado(int idusuario)       
         {
             //ObtenerUsuarioClienteRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Usuario.Select(b => // Obtiene lista de usuario cliente
                 new usuariodt()
                 {   //Propiedad de la clase Usuario
@@ -31,7 +31,7 @@ namespace WebApiUberEats.Models
         public static comerciodt ObtenerUsuarioComercioRegistrado(int idcomercio)       
         {
             //ObtenerUsuarioComercioRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Comercio.Select(b => // Obtiene lista de usuario comercio
                 new comerciodt()
                 {   //Propiedad de la clase Usuario
@@ -53,7 +53,7 @@ namespace WebApiUberEats.Models
 
         public static tarjetadt ObtenerTarjetaRegistrado(int? idusuario) {
             //ObtenerTarjetaRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Tarjeta.Select(b => 
             new tarjetadt()
             {
@@ -72,7 +72,7 @@ namespace WebApiUberEats.Models
 
         public static usuariodt InsertarUsuarioCliente(usuariodt usuariodt)
         {
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida datos unicos (correo,numero telefono)
 
             var vcorreo = db.Usuario.Where(u => u.correo.ToLower().Trim()   == usuariodt.correo.ToLower().Trim()).Count();
@@ -130,7 +130,7 @@ namespace WebApiUberEats.Models
         public static usuariodt InsertarUsuarioComercio(usuariodt usuariodt)
         {
 
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida datos unicos (correo,numero telefono)
             var vcorreo = db.Usuario.Where(u => u.correo.ToLower().Trim() == usuariodt.correo.ToLower().Trim()).Count();
             var vnrotel = db.Usuario.Where(u => u.telefono.ToLower().Trim() == usuariodt.telefono.ToLower().Trim()).Count();
@@ -191,7 +191,7 @@ namespace WebApiUberEats.Models
 
         public static tarjetadt InsertarTarjeta(tarjetadt tarjetadt) {
 
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida datos unicos (nùmero tarjeta)
             var vnrotarjeta = db.Tarjeta.Where(t => t.numero_tarjeta == tarjetadt.numero_tarjeta).Count();//si el numero de tarjeta ingresada existe en bd la variable vnrotarjeta sera 1
             //regla 2: valida que el numero de tarjeta este asociado a una persona registrada
