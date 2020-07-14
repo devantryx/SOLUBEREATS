@@ -204,5 +204,24 @@ namespace WebApiUberEats.Models
             return obj;//retorna obj
         }
 
+
+        public static estadopedidodt PedidoEntregado(int idpedido, pedidodt pedidodt)
+        {
+            bdubereatsEntities4 db = new bdubereatsEntities4();
+
+            //regla 1: el pedido debe estar en estado confirmado (2)
+            var vpedidoconfirmado2 = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 2).Count();//si es true devuelve 1, caso contrario devuelve 0
+
+            if (vpedidoconfirmado2 > 0)
+                return null;
+
+            Pedido pedidos = db.Pedido.Find(idpedido);
+            pedidos.estado = pedidodt.estado;
+            db.Entry(pedidos).State = EntityState.Modified;
+            db.SaveChanges();
+            return pedido.PedidoConfirmado(idpedido);
+
+        }
+
     }
 }

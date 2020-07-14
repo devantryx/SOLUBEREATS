@@ -18,5 +18,12 @@ namespace WebApiUberEats.Controllers
             return pedido.ObtieneListaPedidosConfirmados(estado);
 
         }
+
+        [HttpPut]
+        [Route("api/entrega/PedidoEntregado")]
+        public estadopedidodt PedidoEntregado(int idpedido, pedidodt pedidodt)
+        {
+            return pedido.PedidoEntregado(idpedido, pedidodt);
+        }
     }
 }
