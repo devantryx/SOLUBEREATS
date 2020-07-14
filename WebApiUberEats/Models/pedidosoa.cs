@@ -104,5 +104,105 @@ namespace WebApiUberEats.Models
                 }).SingleOrDefault(b => b.idpedido == idpedido); 
                 return obj;
         }
+
+        public static estadopedidodt ConfirmarPedido(int idpedido, pedidodt pedidodt) {
+            
+            bdubereatsEntities4 db = new bdubereatsEntities4();
+            //regla 1: valida que el id pedido exista en bd
+            var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();//si es true devuelve 1,caso contrario devuelve 0
+            //regla 2: valida que el pedido se encuentre en estado generado(1)
+            var vestadogenerado = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 1).Count();//si es true devuelve 1, caso contrario devuelve 0
+
+
+            if (vidpedidoexiste > 0)
+                return null;
+
+            if (vestadogenerado > 0)
+                return null;
+
+            Pedido pedidos= db.Pedido.Find(idpedido);
+            pedidos.estado = pedidodt.estado;
+            db.Entry(pedidos).State = EntityState.Modified;
+            db.SaveChanges();
+            return pedido.PedidoConfirmado(idpedido);
+        }
+
+        public static estadopedidodt PedidoConfirmado(int idpedido) {
+            //trae lista del pedido que se ha confirmado
+            bdubereatsEntities4 db = new bdubereatsEntities4();
+            var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
+                new estadopedidodt()
+                {
+                    idpedido    = b.idpedido,
+                    descripcion = b.Estados.descripcion
+
+                }).SingleOrDefault(b => b.idpedido == idpedido);
+            return obj;
+        }
+
+
+        public static estadopedidodt CancelarPedido(int idpedido, pedidodt pedidodt)
+        {
+
+            bdubereatsEntities4 db = new bdubereatsEntities4();
+            //regla 1: valida que el id pedido exista en bd
+            var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();//si es true devuelve 1,caso contrario devuelve 0
+            //regla 2: valida que el pedido se encuentre en estado generado(1)
+            var vestadogenerado = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 1).Count();//si es true devuelve 1, caso contrario devuelve 0
+
+
+            if (vidpedidoexiste > 0)
+                return null;
+
+            if (vestadogenerado > 0)
+                return null;
+
+            Pedido pedidos = db.Pedido.Find(idpedido);
+            pedidos.estado = pedidodt.estado;
+            db.Entry(pedidos).State = EntityState.Modified;
+            db.SaveChanges();
+            return pedido.PedidoCancelado(idpedido);
+        }
+
+        public static estadopedidodt PedidoCancelado(int idpedido)
+        {
+            bdubereatsEntities4 db = new bdubereatsEntities4();
+            var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
+                new estadopedidodt()
+                {
+                    idpedido = b.idpedido,
+                    descripcion = b.Estados.descripcion
+
+                }).SingleOrDefault(b => b.idpedido == idpedido);
+            return obj;
+        }
+
+        public static pedidosestado2dt ObtieneListaPedidosConfirmados(int estado) {
+            
+            bdubereatsEntities4 db = new bdubereatsEntities4();
+
+            //regla 1: valida el estado en confirmado (2)
+            var vestado2 = db.Pedido.Where(p => p.estado != estado).Count();//si es true devuelve 1,caso contrario devuelve 0
+
+            if (vestado2 > 0) //condicional  : si vestado2 > 0 ,termina proceso y retorna null
+                return null;
+
+            var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
+                new pedidosestado2dt()
+                {
+                    idpedido = b.idpedido,
+                    estado = (int)b.estado,
+                    pedidoproductodt = new pedidoproductodt
+                    {
+                        nombreproducto = b.Producto.nombreproducto,
+                        precio = (decimal)b.Producto.precio
+                    },
+                    cantidad_pedido =(int) b.cantidad_pedido,
+                    direccion_entrega = b.direccion_entrega
+
+                }).SingleOrDefault(b => b.estado == estado);//si cumple condicional retorna data del obj  
+            return obj;//retorna obj
+        }
+
     }
 }

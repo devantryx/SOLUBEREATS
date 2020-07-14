@@ -5,10 +5,9 @@ using System.Web;
 
 namespace WebApiUberEats.Transfers
 {
-    public class estadopedidodt
+    public class tipo_pagodt
     {
-        public int idpedido         { get; set; }
-        public string descripcion   { get; set; }
-
+        public int idtipopago { get; set; }
+        public string descripcion { get; set; }
     }
 }
