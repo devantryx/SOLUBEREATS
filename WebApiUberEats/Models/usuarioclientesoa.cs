@@ -162,14 +162,7 @@ namespace WebApiUberEats.Models
                 throw new DbEntityValidationException(errorMessages);
             }
             return usuariocliente.ObtenerTarjetaRegistrado(tarjeta.idusuario);
-        }
-       
-        
-        
-        
-        
-
-
+        }               
         public static usuariodt InsertarUsuarioComercio(usuariodt usuariodt)
         {
 

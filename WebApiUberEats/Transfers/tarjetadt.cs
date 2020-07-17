@@ -13,6 +13,7 @@ namespace WebApiUberEats.Transfers
         public string   codigo_tarjeta   { get; set; }
         public string   fechaven_tarjeta { get; set; }
         public int      idusuario        { get; set; }
+        public int      idpais           { get; set; }
 
         public usuariotarjetadt usuariotarjetadt{ get; set; }
     }

@@ -11,19 +11,17 @@ namespace WebApiUberEats.Controllers
 {
     public class ProductoController : ApiController
     {
-        [HttpPost]
-        [Route("api/Producto/InsertarProducto")]
-        public productodt InsertarProducto(productodt productodt)
-        {
-            return producto.InsertarProducto(productodt);
-
-        }
-
+      
         [HttpGet]
         [Route("api/Producto/ObtenerProductoRegistrado")]
         public productodt ObtenerUsuarioCliente(int idproducto)
         {
             return producto.ObtenerProductoRegistrado(idproducto);
+        }
+        [HttpGet]
+        [Route("api/Producto/ListarProductoCategoria")]
+        public IEnumerable<productocategoriadt> ListarProductoCategoria(int idcategoria_producto) {
+            return producto.ListarProductoCategoria(idcategoria_producto);
         }
 
         [HttpGet]
@@ -33,12 +31,13 @@ namespace WebApiUberEats.Controllers
             return producto.ListarProductosComercio(idcomercio);
         }
 
-        [HttpGet]
-        [Route("api/Producto/ListarProductoCategoria")]
-        public IEnumerable<productocategoriadt> ListarProductoCategoria(int idcategoria_producto) {
-            return producto.ListarProductoCategoria(idcategoria_producto);
-        }
+        [HttpPost]
+        [Route("api/Producto/InsertarProducto")]
+        public productodt InsertarProducto(productodt productodt)
+        {
+            return producto.InsertarProducto(productodt);
 
+        }
 
     }
 }
