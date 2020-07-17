@@ -42,9 +42,9 @@ namespace WebApiUberEats.Models
         public string nombrefoto { get; set; }
         [Required(ErrorMessage = "El campo idpais es requerido")]
         public Nullable<int> idpais { get; set; }
-        //[Required(ErrorMessage = "El campo razonsocial es requerido")]
+        [Required(ErrorMessage = "El campo razonsocial es requerido")]
         public string razonsocial { get; set; }
-        //[Required(ErrorMessage = "El campo idcategoria_comercio es requerido")]
+        [Required(ErrorMessage = "El campo idcategoria_comercio es requerido")]
         public Nullable<int> idcategoria_comercio { get; set; }
 
 

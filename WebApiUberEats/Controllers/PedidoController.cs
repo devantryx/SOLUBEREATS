@@ -35,8 +35,37 @@ namespace WebApiUberEats.Controllers
             return pedido.ObtieneListaDetallePedido(idpedido);
         }
 
+        [HttpPut]
+        [Route("api/pedido/ConfirmarPedido")]
+        public estadopedidodt ConfirmarPedido(int idpedido, pedidodt pedidodt) {
+            return pedido.ConfirmarPedido(idpedido,pedidodt);
+        }
+
+        [HttpGet]
+        [Route("api/pedido/PedidoConfirmado")]
+        public estadopedidodt PedidoConfirmado(int idpedido)
+        {
+            return pedido.PedidoConfirmado(idpedido);
+
+        }
+
+        [HttpPut]
+        [Route("api/pedido/CancelarPedido")]
+        public estadopedidodt CancelarPedido(int idpedido, pedidodt pedidodt)
+        {
+            return pedido.CancelarPedido(idpedido, pedidodt);
+        }
+
+        [HttpGet]
+        [Route("api/pedido/PedidoCancelado")]
+        public estadopedidodt PedidoCancelado(int idpedido)
+        {
+            return pedido.PedidoCancelado(idpedido);
+
+        }
+
+       
+
         
-
-
     }
 }

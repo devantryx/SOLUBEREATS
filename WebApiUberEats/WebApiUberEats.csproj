@@ -195,12 +195,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\EntregaController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\TipoComprobanteController.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
     <Compile Include="Controllers\PagoController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\RepartidorController.cs" />
     <Compile Include="Controllers\TarjetaController.cs" />
     <Compile Include="Controllers\UsuarioclienteController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -267,6 +269,7 @@
     <Compile Include="Models\Repartidor.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\repartidorsoa.cs" />
     <Compile Include="Models\Tarjeta.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
@@ -288,6 +291,7 @@
     <Compile Include="Transfers\categoria_productodt.cs" />
     <Compile Include="Transfers\clientedt.cs" />
     <Compile Include="Transfers\comerciodt.cs" />
+    <Compile Include="Transfers\entregadt.cs" />
     <Compile Include="Transfers\estadopedidodt.cs" />
     <Compile Include="Transfers\facturaciondt.cs" />
     <Compile Include="Transfers\paisesdt.cs" />
@@ -296,10 +300,14 @@
     <Compile Include="Transfers\tipo_comprobantedt.cs" />
     <Compile Include="Transfers\tipo_pagodt.cs" />
     <Compile Include="Transfers\pedidodt.cs" />
+    <Compile Include="Transfers\pedidoproductodt.cs" />
+    <Compile Include="Transfers\pedidosestado2dt.cs" />
     <Compile Include="Transfers\productocategoriadt.cs" />
     <Compile Include="Transfers\productocomerciodt.cs" />
     <Compile Include="Transfers\productodt.cs" />
+    <Compile Include="Transfers\repartidorestadodt.cs" />
     <Compile Include="Transfers\tarjetadt.cs" />
+    <Compile Include="Transfers\usuarioclientedt.cs" />
     <Compile Include="Transfers\usuariocomerciodt.cs" />
     <Compile Include="Transfers\usuariodt.cs" />
     <Compile Include="Transfers\usuariotarjetadt.cs" />

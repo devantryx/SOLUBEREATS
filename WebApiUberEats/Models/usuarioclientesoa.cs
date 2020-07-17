@@ -50,7 +50,6 @@ namespace WebApiUberEats.Models
                 }).SingleOrDefault(b => b.idusuario == idcomercio); // devuelvo elemento si cumple con la condicion
             return obj; //lista el obj con sus propiedades 
         }
-
         public static tarjetadt ObtenerTarjetaRegistrado(int? idusuario) {
             //ObtenerTarjetaRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
             BdUberEatsEntities db = new BdUberEatsEntities();
@@ -69,7 +68,6 @@ namespace WebApiUberEats.Models
             }).SingleOrDefault(b => b.idusuario == idusuario);
             return obj;
         }
-
         public static usuariodt InsertarUsuarioCliente(usuariodt usuariodt)
         {
             BdUberEatsEntities db = new BdUberEatsEntities();
@@ -127,69 +125,8 @@ namespace WebApiUberEats.Models
            
             return usuariocliente.ObtenerUsuarioClienteRegistrado(usuario.idusuario); // Si el registro es exitoso, pasa como parametro el idusuario
         }
-        public static usuariodt InsertarUsuarioComercio(usuariodt usuariodt)
+        public static tarjetadt InsertarTarjeta(tarjetadt tarjetadt)
         {
-
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            //regla 1: valida datos unicos (correo,numero telefono)
-            var vcorreo = db.Usuario.Where(u => u.correo.ToLower().Trim() == usuariodt.correo.ToLower().Trim()).Count();
-            var vnrotel = db.Usuario.Where(u => u.telefono.ToLower().Trim() == usuariodt.telefono.ToLower().Trim()).Count();
-
-            if (vcorreo > 0) //si el correo ingresado existe en bd no permitira el registro y retornara null.
-                return null;
-
-            if (vnrotel > 0) //si el nùmero telefono ingresado existe en bd no permitira el registro y retornara null.
-                return null;
-
-            //regla 2: Valida datos obligatorios 
-            //implementado en la clase Usuario a travez del DataAnnotations
-
-            //Instancias la clase Usuario y sus propiedades que seran insertados
-            Usuario usuario = new Usuario()
-            {   //Propiedades de la clase Usuario
-
-                nombre = usuariodt.nombre,
-                apellidos = usuariodt.apellidos,
-                telefono = usuariodt.telefono,
-                correo = usuariodt.correo,
-                clave = usuariodt.clave,
-                direccion = usuariodt.direccion,
-                nombrefoto = usuariodt.nombrefoto,
-                idpais = usuariodt.idpais,
-                razonsocial = usuariodt.razonsocial,
-                idcategoria_comercio = usuariodt.idcategoria_comercio
-            };
-
-
-            //Instancias la clase Comercio y su propiedad que sera insertado
-            Comercio comercio = new Comercio()
-            {   //Propiedad de la clase Comercio
-
-                idusuario = usuariodt.idusuario,
-                idcategoria_comercio = usuariodt.idcategoria_comercio
-
-            };
-
-
-            try
-            {
-                db.Usuario.Add(usuario); //Agrega el objeto usuario a la clase Usuario
-                db.SaveChanges();
-                comercio.idusuario = usuario.idusuario; //Obtiene el idusuario insertado para que luego lo inserte en la tabla Comercio
-                db.Comercio.Add(comercio); //Agrega el objeto cliente a la clase Comercio
-                db.SaveChanges();
-
-            }
-            //captura los campos que estan vacios y muestra mensaje segun configuracion en la clase Usuario
-            catch (DbEntityValidationException ex)
-            {
-                string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
-                throw new DbEntityValidationException(errorMessages);
-            }
-            return usuariocliente.ObtenerUsuarioClienteRegistrado(usuario.idusuario); // Si el registro es exitoso, pasa como parametro el idusuario 
-        }
-
-        public static tarjetadt InsertarTarjeta(tarjetadt tarjetadt) {
 
             BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida datos unicos (nùmero tarjeta)
@@ -215,10 +152,10 @@ namespace WebApiUberEats.Models
             try
             {
                 db.Tarjeta.Add(tarjeta); //Agrega el objeto tarjeta a la clase Tarjeta
-                db.SaveChanges();           
+                db.SaveChanges();
 
             }
-           
+
             catch (DbEntityValidationException ex)
             {
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
@@ -226,5 +163,69 @@ namespace WebApiUberEats.Models
             }
             return usuariocliente.ObtenerTarjetaRegistrado(tarjeta.idusuario);
         }
+       
+        
+        
+        
+        
+
+
+        public static usuariodt InsertarUsuarioComercio(usuariodt usuariodt)
+        {
+
+            BdUberEatsEntities db = new BdUberEatsEntities();
+            //regla 1: valida datos unicos (correo,numero telefono)
+            var vcorreo = db.Usuario.Where(u => u.correo.ToLower().Trim() == usuariodt.correo.ToLower().Trim()).Count();
+            var vnrotel = db.Usuario.Where(u => u.telefono.ToLower().Trim() == usuariodt.telefono.ToLower().Trim()).Count();
+
+            if (vcorreo > 0) 
+                return null;
+
+            if (vnrotel > 0) 
+                return null;
+
+            //regla 2: Valida datos obligatorios 
+            //implementado en la clase Usuario a travez del DataAnnotations
+
+            Usuario usuario = new Usuario()
+            {   
+
+                nombre = usuariodt.nombre,
+                apellidos = usuariodt.apellidos,
+                telefono = usuariodt.telefono,
+                correo = usuariodt.correo,
+                clave = usuariodt.clave,
+                direccion = usuariodt.direccion,
+                nombrefoto = usuariodt.nombrefoto,
+                idpais = usuariodt.idpais,
+                razonsocial = usuariodt.razonsocial,
+                idcategoria_comercio = usuariodt.idcategoria_comercio
+            };
+
+            Comercio comercio = new Comercio()
+            {  
+                idusuario = usuariodt.idusuario,
+                idcategoria_comercio = usuariodt.idcategoria_comercio
+            };
+
+            try
+            {
+                db.Usuario.Add(usuario);
+                db.SaveChanges();
+                comercio.idusuario = usuario.idusuario; 
+                db.Comercio.Add(comercio); 
+                db.SaveChanges();
+
+            }
+            //captura los campos que estan vacios y muestra mensaje segun configuracion en la clase Usuario
+            catch (DbEntityValidationException ex)
+            {
+                string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
+                throw new DbEntityValidationException(errorMessages);
+            }
+            return usuariocliente.ObtenerUsuarioClienteRegistrado(usuario.idusuario); 
+        }
+
+
     }
 }
