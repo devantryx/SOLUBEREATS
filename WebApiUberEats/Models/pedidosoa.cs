@@ -13,7 +13,7 @@ namespace WebApiUberEats.Models
         public static pedidodt ObtenerPedidoRegistrado(int idpedido)
         {
             //ObtenerPedidoRegistrado -> no mostrarlo en la presentacion por que no fue enviado
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
                 new pedidodt()
                 {   //Propiedad de la clase Pedido
@@ -30,7 +30,7 @@ namespace WebApiUberEats.Models
         }
 
         public static pedidodt InsertaPedido(pedidodt pedidodt) {
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 3: valida datos unicos (idpedido)
             var vidpedido = db.Pedido.Where(p => p.idpedido == pedidodt.idpedido).Count();
             //regla 2: valida la cantidad de pedido debe ser mayor  o igual a 1
@@ -87,7 +87,7 @@ namespace WebApiUberEats.Models
         }
 
         public static pedidodetalledt ObtieneListaDetallePedido(int idpedido) {
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
                 new pedidodetalledt()
                 {   
@@ -107,7 +107,7 @@ namespace WebApiUberEats.Models
 
         public static estadopedidodt ConfirmarPedido(int idpedido, pedidodt pedidodt) {
             
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida que el id pedido exista en bd
             var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();//si es true devuelve 1,caso contrario devuelve 0
             //regla 2: valida que el pedido se encuentre en estado generado(1)
@@ -129,7 +129,7 @@ namespace WebApiUberEats.Models
 
         public static estadopedidodt PedidoConfirmado(int idpedido) {
             //trae lista del pedido que se ha confirmado
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
                 new estadopedidodt()
                 {
@@ -144,7 +144,7 @@ namespace WebApiUberEats.Models
         public static estadopedidodt CancelarPedido(int idpedido, pedidodt pedidodt)
         {
 
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida que el id pedido exista en bd
             var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();//si es true devuelve 1,caso contrario devuelve 0
             //regla 2: valida que el pedido se encuentre en estado generado(1)
@@ -166,7 +166,7 @@ namespace WebApiUberEats.Models
 
         public static estadopedidodt PedidoCancelado(int idpedido)
         {
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
                 new estadopedidodt()
                 {
@@ -179,7 +179,7 @@ namespace WebApiUberEats.Models
 
         public static pedidosestado2dt ObtieneListaPedidosConfirmados(int estado) {
             
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
 
             //regla 1: valida el estado en confirmado (2)
             var vestado2 = db.Pedido.Where(p => p.estado != estado).Count();//si es true devuelve 1,caso contrario devuelve 0
@@ -207,7 +207,7 @@ namespace WebApiUberEats.Models
 
         public static estadopedidodt PedidoEntregado(int idpedido, pedidodt pedidodt)
         {
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities db = new BdUberEatsEntities();
 
             //regla 1: el pedido debe estar en estado confirmado (2)
             var vpedidoconfirmado2 = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 2).Count();//si es true devuelve 1, caso contrario devuelve 0

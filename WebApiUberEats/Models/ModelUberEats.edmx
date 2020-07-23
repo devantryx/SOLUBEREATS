@@ -999,7 +999,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bdubereatsEntities4" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BdUberEatsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categoria_Comercio" EntityType="Self.Categoria_Comercio" />
           <EntitySet Name="Categoria_Producto" EntityType="Self.Categoria_Producto" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
@@ -1108,7 +1108,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="bdubereatsEntities4">
+        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="BdUberEatsEntities">
           <EntitySetMapping Name="Categoria_Comercio">
             <EntityTypeMapping TypeName="bdubereatsModel.Categoria_Comercio">
               <MappingFragment StoreEntitySet="Categoria_Comercio">

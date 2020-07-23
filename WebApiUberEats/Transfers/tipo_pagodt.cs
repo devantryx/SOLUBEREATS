@@ -9,5 +9,6 @@ namespace WebApiUberEats.Transfers
     {
         public int idtipopago { get; set; }
         public string descripcion { get; set; }
+
     }
 }

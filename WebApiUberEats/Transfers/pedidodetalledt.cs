@@ -13,6 +13,5 @@ namespace WebApiUberEats.Transfers
         public estadopedidodt estadopedidodt { get; set; }
         public usuariocomerciodt usuariocomerciodt { get; set; }
         public productocategoriadt productocategoriadt{ get; set; }
-        
     }
 }

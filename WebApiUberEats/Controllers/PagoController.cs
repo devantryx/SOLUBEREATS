@@ -11,11 +11,21 @@ namespace WebApiUberEats.Controllers
 {
     public class PagoController : ApiController
     {
+
         [HttpGet]
-        [Route("api/Pago/ObtieneListaPago")]
+        [Route("api/pago/ObtieneListaPago")]
         public IEnumerable<tipo_pagodt> ObtieneListaPago()
         {
-            return pago.ObtieneListaPago();
+            return pago.ObtenerListaTiposPago();
         }
+
+        [HttpPost]
+        [Route("api/pago/RealizarPago")]
+        public pagodt InsertaPedido(pagodt pPagodt)
+        {
+            return pago.RealizarPago(pPagodt);
+
+        }
+
     }
 }

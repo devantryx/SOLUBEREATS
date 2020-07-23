@@ -196,8 +196,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EntregaController.cs" />
-    <Compile Include="Controllers\PagoController.cs" />
+    <Compile Include="Controllers\FacturacionController.cs" />
+    <Compile Include="Controllers\TipoComprobanteController.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
+    <Compile Include="Controllers\PagoController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\RepartidorController.cs" />
@@ -249,7 +251,8 @@
     <Compile Include="Models\Pago.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\pagosoa.cs" />
+    <Compile Include="Models\tipocomprobantesoa.cs" />
+    <Compile Include="Models\facturacionsoa.cs" />
     <Compile Include="Models\Pais.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
@@ -257,6 +260,7 @@
     <Compile Include="Models\Pedido.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\pagosoa.cs" />
     <Compile Include="Models\pedidosoa.cs" />
     <Compile Include="Models\Producto.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
@@ -289,9 +293,12 @@
     <Compile Include="Transfers\comerciodt.cs" />
     <Compile Include="Transfers\entregadt.cs" />
     <Compile Include="Transfers\estadopedidodt.cs" />
-    <Compile Include="Transfers\pagodt.cs" />
+    <Compile Include="Transfers\facturaciondt.cs" />
     <Compile Include="Transfers\paisesdt.cs" />
     <Compile Include="Transfers\pedidodetalledt.cs" />
+    <Compile Include="Transfers\pagodt.cs" />
+    <Compile Include="Transfers\tipo_comprobantedt.cs" />
+    <Compile Include="Transfers\tipo_pagodt.cs" />
     <Compile Include="Transfers\pedidodt.cs" />
     <Compile Include="Transfers\pedidoproductodt.cs" />
     <Compile Include="Transfers\pedidosestado2dt.cs" />
@@ -300,13 +307,16 @@
     <Compile Include="Transfers\productodt.cs" />
     <Compile Include="Transfers\repartidorestadodt.cs" />
     <Compile Include="Transfers\tarjetadt.cs" />
-    <Compile Include="Transfers\tipo_pagodt.cs" />
     <Compile Include="Transfers\usuarioclientedt.cs" />
     <Compile Include="Transfers\usuariocomerciodt.cs" />
     <Compile Include="Transfers\usuariodt.cs" />
     <Compile Include="Transfers\usuariotarjetadt.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\mssqllocaldb.mdf" />
+    <Content Include="App_Data\mssqllocaldb_log.ldf">
+      <DependentUpon>mssqllocaldb.mdf</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Models\ModelUberEats.Context.tt">
@@ -327,9 +337,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EntityDeploy Include="Models\ModelUberEats.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
