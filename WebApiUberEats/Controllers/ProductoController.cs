@@ -26,7 +26,7 @@ namespace WebApiUberEats.Controllers
 
         [HttpGet]
         [Route("api/Producto/ListarProductosComercio")]
-        public productocomerciodt ListarProductosComercio(int idcomercio)
+        public IEnumerable<productocomerciodt> ListarProductosComercio(int idcomercio)
         {
             return producto.ListarProductosComercio(idcomercio);
         }

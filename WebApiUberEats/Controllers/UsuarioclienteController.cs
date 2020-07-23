@@ -41,5 +41,15 @@ namespace WebApiUberEats.Controllers
         {
             return usuariocliente.ObtenerUsuarioComercioRegistrado(idcomercio);
         }
+
+        //Lista todos los comercios
+        [HttpGet]
+        [Route("api/Usuariocliente/ListarComercios")]
+        public IEnumerable<comerciodt> ListarComercios()
+        {
+            return usuariocliente.ListarComercios();
+        }
+
+     
     }
 }

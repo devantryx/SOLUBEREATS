@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>UberEats::Cliente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+
+
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+                <!--#Ini -->
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-ingresarnumero" role="tabpanel" aria-labelledby="pills-ingresarnumero-tab">
+                        <!--1.Ingresa numero --->
+                        <div id="app" class="container">
+                            <div class="container-fluid">
+                                <div style="margin-left:-20px">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" onclick="window.location.href = 'inicio.html';" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                        <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+
+                                    </svg>
+                                </div>
+
+                            </div></br>
+
+                            <div class="bg-transparent text-dark">
+                                <h5>Ingresa tu número de teléfono móvil</h5></br>
+                                <div class="form-group row">
+                                    <div>
+                                        <select v-model="idpais" class="form-control" style="margin-left:15px;width:80px">
+                                            <option v-for="item in paises" :value="item.idpais">+{{item.codigo_pais}}</option>
+                                        </select>
+                                    </div>
+                                    <input type="number" class="form-control" style="width:220px" placeholder="999999999" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==9) return false;" />
+                                </div>
+
+                                <div class="fixed-bottom" style="left:auto;margin-right:30px">
+                                    <a class="nav-link  btn-dark rounded-circle" id="pills-codverif-tab" data-toggle="pill" href="#pills-codverif" role="tab" aria-controls="pills-codverif" aria-selected="false">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                                <div class="fade">
+                                    <!--ocultar :fade-->
+                                    <input type="number" v-model="idpais" id="idpais" name="idpais" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-codverif" role="tabpanel" aria-labelledby="pills-codverif-tab">
+                        <!-- 2. Ingresa codigo de verificacion--->
+                        <div id="app" class="container">
+                            <div class="container-fluid">
+                                <div style="margin-left:-20px">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" id="pills-ingresarnumero-tab" data-toggle="pill" href="#pills-ingresarnumero" role="tab" aria-controls="pills-ingresarnumero" aria-selected="false" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                        <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+
+                                    </svg>
+                                </div>
+                            </div></br>
+                            <div class="bg-transparent text-dark">
+                                <h5>Ingresa el codigo de 4 digitos enviado al </h5></br>
+                                <div class="align-content-center">
+                                    <input type="number" class="form-control" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" />
+                                </div>
+                                <div class="fixed-bottom" style="left:auto;margin-right:30px">
+                                    <a class="nav-link  btn-dark rounded-circle" id="pills-nomape-tab" data-toggle="pill" href="#pills-nomape" role="tab" aria-controls="pills-nomape" aria-selected="false">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-nomape" role="tabpanel" aria-labelledby="pills-nomape-tab">
+                        <!-- 3.-Ingresar nombre y Apellido--->
+                        <div id="app" class="container">
+                            <div class="container-fluid">
+                                <div style="margin-left:-20px">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" id="pills-codverif-tab" data-toggle="pill" href="#pills-codverif" role="tab" aria-controls="pills-codverif" aria-selected="false" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                        <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+
+                                    </svg>
+                                </div>
+                            </div></br>
+                            <div class="bg-transparent text-dark">
+                                <h5>¿Cuál es tu nombre?</h5></br>
+                                <form>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Nombre" required>
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Apellido" required>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="fixed-bottom" style="left:auto;margin-right:30px">
+                                    <a class="nav-link  btn-dark rounded-circle" id="pills-email-tab" data-toggle="pill" href="#pills-email" role="tab" aria-controls="pills-email" aria-selected="false">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-email" role="tabpanel" aria-labelledby="pills-email-tab">
+                        <!-- 3.-Ingresa Correo--->
+                        <div id="app" class="container">
+                            <div class="container-fluid">
+                                <div style="margin-left:-20px">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" id="pills-nomape-tab" data-toggle="pill" href="#pills-nomape" role="tab" aria-controls="pills-nomape" aria-selected="false" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                        <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+
+                                    </svg>
+                                </div>
+                            </div></br>
+                            <div class="bg-transparent text-dark">
+                                <h5>Cuál es tu dirección de correo electrónico </h5></br>
+                                <div class="align-content-center">
+                                    <input type="email" class="form-control" placeholder="Correo" required />
+                                </div>
+                                <div class="fixed-bottom" style="left:auto;margin-right:30px">
+                                    <a class="nav-link  btn-dark rounded-circle" id="pills-nuevopass-tab" data-toggle="pill" href="#pills-nuevopass" role="tab" aria-controls="pills-nuevopass" aria-selected="false">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-nuevopass" role="tabpanel" aria-labelledby="pills-nuevopass-tab">
+                        <!--5.- Ingresa Nueva contraseña-->
+                        <div id="app" class="container">
+                            <div class="container-fluid">
+                                <div style="margin-left:-20px">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" id="pills-nomape-tab" data-toggle="pill" href="#pills-nomape" role="tab" aria-controls="pills-nomape" aria-selected="false" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                        <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+
+                                    </svg>
+                                </div>
+                            </div></br>
+                            <div class="bg-transparent text-dark">
+                                <h5>Crea la contraseña para tu cuenta </h5></br>
+                                <div class="align-content-center">
+                                    <input type="password" class="form-control" placeholder="Minimo 8 caracteres" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length == 8) return false;" />
+                                </div>
+                                <div class="fixed-bottom" style="left:auto;margin-right:30px">
+                                    <a class="nav-link  btn-dark rounded-circle" id="pills-TerminosyCondiciones-tab" data-toggle="pill" href="#pills-TerminosyCondiciones" role="tab" aria-controls="pills-TerminosyCondiciones" aria-selected="false">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-TerminosyCondiciones" role="tabpanel" aria-labelledby="pills-TerminosyCondiciones-tab">
+                        <!--6.- Ingresa Nueva contraseña-->
+                        <div id="app" class="container">
+                            <div class="container-fluid">
+                                <div style="margin-left:-20px">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" id="pills-nuevopass-tab" data-toggle="pill" href="#pills-nuevopass" role="tab" aria-controls="pills-nuevopass" aria-selected="false" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                        <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                                    </svg>
+                                </div>
+                            </div></br>
+                            <div class="bg-transparent text-dark">
+                                <div class="d-flex justify-content-center">
+                                    <img src="https://res.cloudinary.com/dxqdhkf3m/image/upload/v1595137316/ubereats/terminosypoliticas_registrocliente_seubty.jpg" />
+                                </div></br></br>
+                                <div class="text-justify">
+                                    <h5>Al tocar la flecha de abajo, aceptas los Términos de uso y la Política privacidad de Uber</h5></br>
+                                    <span>Para conocer más, consulta nuestros</span><h6 style="color:darkcyan">términos de uso y Política de privacidad.</h6>
+                                </div>
+                                <div class="fixed-bottom" style="left:auto;margin-right:30px">
+                                    <a class="nav-link  btn-dark rounded-circle" id="pills-metodopago-tab" data-toggle="pill" href="#pills-metodopago" role="tab" aria-controls="pills-metodopago" aria-selected="false">
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z" />
+                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-metodopago" role="tabpanel" aria-labelledby="pills-metodopago-tab">
+                        <!--7.- Metodo Pago-->
+                        <div id="app" class="container">
+                            <div class="container-fluid">
+                                </br>
+                                <div class="text-right">
+                                    <span style="color:mediumseagreen;font-weight:bold">OMITIR</span>
+                                </div>
+                            </div></br>
+                            <div class="bg-transparent text-dark">
+                                </br>
+                                <div class="text-justify">
+                                    <h5>Selecciona tu método de pago preferido</h5></br>
+                                </div>
+                                <div class="list-group">
+                                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" id="pills-agregarmetodopago-tab" data-toggle="pill" href="#pills-agregarmetodopago" role="tab" aria-controls="pills-agregarmetodopago" aria-selected="false">
+                                        <svg width="1.5em" height="1.5em" style="margin-left:-10px" viewBox="0 0 16 16" class="bi bi-credit-card-2-front-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+                                        </svg>
+                                        Tarjeta de crédito o de débito
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-agregarmetodopago" role="tabpanel" aria-labelledby="pills-agregarmetodopago-tab">
+                        <!--8.- Agregar Metodo Pago-->
+                        <div id="app2" class="container">
+                            <div class="container-fluid">
+                                </br>
+                                <div style="margin-left:-20px">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" id="pills-metodopago" data-toggle="pill" href="#pills-metodopago" role="tab" aria-controls="pills-metodopago" aria-selected="false" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                        <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                                    </svg>
+                                </div>
+                                </br>
+                                <div style="margin-left:-20px">
+                                    <h5>Agrega una tarjeta</h5>
+                                </div>
+
+                            </div></br>
+                            <div class="bg-transparent text-dark">
+                                <label for="inputState">Nombre</label>
+                                <select id="inputState" class="form-control" style="background:#f5f5f5">
+                                    <option selected></option>
+                                    <option>BCP VISA</option>
+                                    <option>INTERBANK VISA</option>
+                                    <option>BBVA VISA</option>
+                                </select>
+
+                                <label for="inputState">Número de tarjeta</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" style="background:#f5f5f5;border-right:none">
+                                            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-credit-card-2-front-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <input type="number" class="form-control" id="inlineFormInputGroup" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;" style="background:#f5f5f5;border-left:none">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="inputEmail4">Fecha de vto.</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="MM/AA">
+                                    </div>
+                                    <div class="col">
+                                        <label for="inputPassword4">CVV</label>
+                                        <input type="number" class="form-control" id="inputPassword4" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <label for="inputState">País</label>
+                                    <select v-model="idpais" class="form-control" style="background:#f5f5f5">
+                                        <option v-for="item in paises" :value="item.idpais">{{item.nombre}}</option>
+                                    </select>
+                                </div>
+                                <div class="fade">
+                                    <!--ocultar :fade-->
+                                    <input type="number" v-model="idpais" id="idpais" name="idpais" disabled style="width:40px" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--#Fin -->
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Vuejs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+    <!---->
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+
+                idpais: 7,
+                codigo_pais: "",
+                paises: [],        
+            },
+
+            mounted: function () {
+                this.bpaises();
+            },
+            methods: {
+                bpaises: function () {
+                    var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
+                    this.$http.get(url).then(function (response) {
+                        this.paises = response.body;
+                    });
+                }
+            }
+        });
+        new Vue({
+            el: "#app2",
+            data: {
+
+                idpais: 7,
+                codigo_pais: "",
+                paises: [],
+            },
+
+            mounted: function () {
+                this.bpaises();
+            },
+            methods: {
+                bpaises: function () {
+                    var url = "http://localhost:58201/api/paises/ObtenerListaPaises";
+                    this.$http.get(url).then(function (response) {
+                        this.paises = response.body;
+                    });
+                }
+            }
+        });
+
+    </script>
+</body>
+</html> 

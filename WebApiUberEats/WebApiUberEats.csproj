@@ -221,10 +221,16 @@
     <Compile Include="Models\Comercio.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Detalle_Pedido.cs">
+      <DependentUpon>ModelUberEats.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entrega.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Estados.cs">
+      <DependentUpon>ModelUberEats.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Estado_Repartidor.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Facturacion.cs">
@@ -251,28 +257,31 @@
     <Compile Include="Models\Pago.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tipocomprobantesoa.cs" />
-    <Compile Include="Models\facturacionsoa.cs" />
     <Compile Include="Models\Pais.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\paisessoa.cs" />
     <Compile Include="Models\Pedido.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\pagosoa.cs" />
-    <Compile Include="Models\pedidosoa.cs" />
     <Compile Include="Models\Producto.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\productosoa.cs" />
     <Compile Include="Models\Repartidor.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\repartidorsoa.cs" />
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>ModelUberEats.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tarjeta.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tipocomprobantesoa.cs" />
+    <Compile Include="Models\facturacionsoa.cs" />
+    <Compile Include="Models\paisessoa.cs" />
+    <Compile Include="Models\pagosoa.cs" />
+    <Compile Include="Models\pedidosoa.cs" />
+    <Compile Include="Models\productosoa.cs" />
+    <Compile Include="Models\repartidorsoa.cs" />
     <Compile Include="Models\Tipo_Comprobante.cs">
       <DependentUpon>ModelUberEats.tt</DependentUpon>
     </Compile>

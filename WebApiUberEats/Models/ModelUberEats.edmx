@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="bdubereatsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="bdubereatsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categoria_Comercio">
           <Key>
             <PropertyRef Name="idcategoria_comercio" />
@@ -34,6 +34,18 @@
           <Property Name="idusuario" Type="int" />
           <Property Name="idcategoria_comercio" Type="int" />
         </EntityType>
+        <EntityType Name="Detalle_Pedido">
+          <Key>
+            <PropertyRef Name="iddetalle_pedido" />
+          </Key>
+          <Property Name="iddetalle_pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idpedido" Type="int" />
+          <Property Name="cantidad_producto" Type="int" />
+          <Property Name="nombre_producto" Type="varchar" MaxLength="250" />
+          <Property Name="precio" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="SubTotal" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="total" Type="numeric" Precision="9" Scale="2" />
+        </EntityType>
         <EntityType Name="Entrega">
           <Key>
             <PropertyRef Name="identrega" />
@@ -41,6 +53,13 @@
           <Property Name="identrega" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idpedido" Type="int" />
           <Property Name="idrepartidor" Type="int" />
+        </EntityType>
+        <EntityType Name="Estado_Repartidor">
+          <Key>
+            <PropertyRef Name="estado" />
+          </Key>
+          <Property Name="estado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Estados">
           <Key>
@@ -93,11 +112,12 @@
           </Key>
           <Property Name="idpedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="instrucciones_especiales_pedido" Type="varchar" MaxLength="100" />
-          <Property Name="cantidad_pedido" Type="int" />
+          <Property Name="item" Type="int" />
           <Property Name="direccion_entrega" Type="varchar" MaxLength="500" />
           <Property Name="idcomercio" Type="int" />
           <Property Name="idproducto" Type="int" />
           <Property Name="estado" Type="int" />
+          <Property Name="idtipopago" Type="int" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -118,7 +138,7 @@
             <PropertyRef Name="idrepartidor" />
           </Key>
           <Property Name="idrepartidor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fotoperfil" Type="varchar" MaxLength="50" />
+          <Property Name="fotovehiculo" Type="varchar" MaxLength="50" />
           <Property Name="fotolicenciaconducir" Type="varchar" MaxLength="50" />
           <Property Name="fotoantecedentes" Type="varchar" MaxLength="50" />
           <Property Name="fotosoat" Type="varchar" MaxLength="50" />
@@ -126,6 +146,16 @@
           <Property Name="idmetodoentrega" Type="int" />
           <Property Name="idusuario" Type="int" />
           <Property Name="estado" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
@@ -137,6 +167,7 @@
           <Property Name="codigo_tarjeta" Type="varchar" MaxLength="3" />
           <Property Name="fechaven_tarjeta" Type="varchar" MaxLength="5" />
           <Property Name="idusuario" Type="int" />
+          <Property Name="idpais" Type="int" />
         </EntityType>
         <EntityType Name="Tipo_Comprobante">
           <Key>
@@ -211,6 +242,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Detalle_P__idped__17036CC0">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
+          <End Role="Detalle_Pedido" Type="Self.Detalle_Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="idpedido" />
+            </Principal>
+            <Dependent Role="Detalle_Pedido">
+              <PropertyRef Name="idpedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Entrega__idpedid__787EE5A0">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
           <End Role="Entrega" Type="Self.Entrega" Multiplicity="*" />
@@ -355,6 +398,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Pedido__idtipopa__14270015">
+          <End Role="Tipo_Pago" Type="Self.Tipo_Pago" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Pago">
+              <PropertyRef Name="idtipopago" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="idtipopago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Producto__idcate__59FA5E80">
           <End Role="Categoria_Producto" Type="Self.Categoria_Producto" Multiplicity="0..1" />
           <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -379,6 +434,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Repartido__estad__123EB7A3">
+          <End Role="Estado_Repartidor" Type="Self.Estado_Repartidor" Multiplicity="0..1" />
+          <End Role="Repartidor" Type="Self.Repartidor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Repartidor">
+              <PropertyRef Name="estado" />
+            </Principal>
+            <Dependent Role="Repartidor">
+              <PropertyRef Name="estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Repartido__idmet__5EBF139D">
           <End Role="Metodo_Entrega" Type="Self.Metodo_Entrega" Multiplicity="0..1" />
           <End Role="Repartidor" Type="Self.Repartidor" Multiplicity="*" />
@@ -400,6 +467,18 @@
             </Principal>
             <Dependent Role="Repartidor">
               <PropertyRef Name="idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tarjeta__idpais__1332DBDC">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idpais" />
+            </Principal>
+            <Dependent Role="Tarjeta">
+              <PropertyRef Name="idpais" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -432,7 +511,9 @@
           <EntitySet Name="Categoria_Producto" EntityType="Self.Categoria_Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comercio" EntityType="Self.Comercio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detalle_Pedido" EntityType="Self.Detalle_Pedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entrega" EntityType="Self.Entrega" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado_Repartidor" EntityType="Self.Estado_Repartidor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Facturacion" EntityType="Self.Facturacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Metodo_Entrega" EntityType="Self.Metodo_Entrega" Schema="dbo" store:Type="Tables" />
@@ -441,6 +522,7 @@
           <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Repartidor" EntityType="Self.Repartidor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Comprobante" EntityType="Self.Tipo_Comprobante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Documento" EntityType="Self.Tipo_Documento" Schema="dbo" store:Type="Tables" />
@@ -457,6 +539,10 @@
           <AssociationSet Name="FK__Comercio__idusua__534D60F1" Association="Self.FK__Comercio__idusua__534D60F1">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Comercio" EntitySet="Comercio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Detalle_P__idped__17036CC0" Association="Self.FK__Detalle_P__idped__17036CC0">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="Detalle_Pedido" EntitySet="Detalle_Pedido" />
           </AssociationSet>
           <AssociationSet Name="FK__Entrega__idpedid__787EE5A0" Association="Self.FK__Entrega__idpedid__787EE5A0">
             <End Role="Pedido" EntitySet="Pedido" />
@@ -506,6 +592,10 @@
             <End Role="Producto" EntitySet="Producto" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
+          <AssociationSet Name="FK__Pedido__idtipopa__14270015" Association="Self.FK__Pedido__idtipopa__14270015">
+            <End Role="Tipo_Pago" EntitySet="Tipo_Pago" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
           <AssociationSet Name="FK__Producto__idcate__59FA5E80" Association="Self.FK__Producto__idcate__59FA5E80">
             <End Role="Categoria_Producto" EntitySet="Categoria_Producto" />
             <End Role="Producto" EntitySet="Producto" />
@@ -514,6 +604,10 @@
             <End Role="Comercio" EntitySet="Comercio" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <AssociationSet Name="FK__Repartido__estad__123EB7A3" Association="Self.FK__Repartido__estad__123EB7A3">
+            <End Role="Estado_Repartidor" EntitySet="Estado_Repartidor" />
+            <End Role="Repartidor" EntitySet="Repartidor" />
+          </AssociationSet>
           <AssociationSet Name="FK__Repartido__idmet__5EBF139D" Association="Self.FK__Repartido__idmet__5EBF139D">
             <End Role="Metodo_Entrega" EntitySet="Metodo_Entrega" />
             <End Role="Repartidor" EntitySet="Repartidor" />
@@ -521,6 +615,10 @@
           <AssociationSet Name="FK__Repartido__idusu__5FB337D6" Association="Self.FK__Repartido__idusu__5FB337D6">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Repartidor" EntitySet="Repartidor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tarjeta__idpais__1332DBDC" Association="Self.FK__Tarjeta__idpais__1332DBDC">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Tarjeta" EntitySet="Tarjeta" />
           </AssociationSet>
           <AssociationSet Name="FK__Tarjeta__idusuar__628FA481" Association="Self.FK__Tarjeta__idusuar__628FA481">
             <End Role="Usuario" EntitySet="Usuario" />
@@ -531,7 +629,8 @@
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="bdubereatsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -572,6 +671,19 @@
           <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__idcomerc__656C112C" FromRole="Comercio" ToRole="Pedido" />
           <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__idcome__59063A47" FromRole="Comercio" ToRole="Producto" />
         </EntityType>
+        <EntityType Name="Detalle_Pedido">
+          <Key>
+            <PropertyRef Name="iddetalle_pedido" />
+          </Key>
+          <Property Name="iddetalle_pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idpedido" Type="Int32" />
+          <Property Name="cantidad_producto" Type="Int32" />
+          <Property Name="nombre_producto" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="SubTotal" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="total" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__Detalle_P__idped__17036CC0" FromRole="Detalle_Pedido" ToRole="Pedido" />
+        </EntityType>
         <EntityType Name="Entrega">
           <Key>
             <PropertyRef Name="identrega" />
@@ -581,6 +693,14 @@
           <Property Name="idrepartidor" Type="Int32" />
           <NavigationProperty Name="Pedido" Relationship="Self.FK__Entrega__idpedid__787EE5A0" FromRole="Entrega" ToRole="Pedido" />
           <NavigationProperty Name="Repartidor" Relationship="Self.FK__Entrega__idrepar__797309D9" FromRole="Entrega" ToRole="Repartidor" />
+        </EntityType>
+        <EntityType Name="Estado_Repartidor">
+          <Key>
+            <PropertyRef Name="estado" />
+          </Key>
+          <Property Name="estado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Repartidor" Relationship="Self.FK__Repartido__estad__123EB7A3" FromRole="Estado_Repartidor" ToRole="Repartidor" />
         </EntityType>
         <EntityType Name="Estados">
           <Key>
@@ -635,6 +755,7 @@
           <Property Name="nombrepais" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="codigo_pais" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="nombrefoto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tarjeta" Relationship="Self.FK__Tarjeta__idpais__1332DBDC" FromRole="Pais" ToRole="Tarjeta" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__idpais__4BAC3F29" FromRole="Pais" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Pedido">
@@ -643,17 +764,20 @@
           </Key>
           <Property Name="idpedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="instrucciones_especiales_pedido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="cantidad_pedido" Type="Int32" />
+          <Property Name="item" Type="Int32" />
           <Property Name="direccion_entrega" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="idcomercio" Type="Int32" />
           <Property Name="idproducto" Type="Int32" />
           <Property Name="estado" Type="Int32" />
+          <Property Name="idtipopago" Type="Int32" />
           <NavigationProperty Name="Comercio" Relationship="Self.FK__Pedido__idcomerc__656C112C" FromRole="Pedido" ToRole="Comercio" />
+          <NavigationProperty Name="Detalle_Pedido" Relationship="Self.FK__Detalle_P__idped__17036CC0" FromRole="Pedido" ToRole="Detalle_Pedido" />
           <NavigationProperty Name="Entrega" Relationship="Self.FK__Entrega__idpedid__787EE5A0" FromRole="Pedido" ToRole="Entrega" />
           <NavigationProperty Name="Estados" Relationship="Self.FK__Pedido__estado__0F624AF8" FromRole="Pedido" ToRole="Estados" />
           <NavigationProperty Name="Facturacion" Relationship="Self.FK__Facturaci__idped__75A278F5" FromRole="Pedido" ToRole="Facturacion" />
           <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__idpedido__0D7A0286" FromRole="Pedido" ToRole="Pago" />
           <NavigationProperty Name="Producto" Relationship="Self.FK__Pedido__idproduc__66603565" FromRole="Pedido" ToRole="Producto" />
+          <NavigationProperty Name="Tipo_Pago" Relationship="Self.FK__Pedido__idtipopa__14270015" FromRole="Pedido" ToRole="Tipo_Pago" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -677,7 +801,7 @@
             <PropertyRef Name="idrepartidor" />
           </Key>
           <Property Name="idrepartidor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fotoperfil" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fotovehiculo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fotolicenciaconducir" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fotoantecedentes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fotosoat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -686,8 +810,19 @@
           <Property Name="idusuario" Type="Int32" />
           <Property Name="estado" Type="Int32" />
           <NavigationProperty Name="Entrega" Relationship="Self.FK__Entrega__idrepar__797309D9" FromRole="Repartidor" ToRole="Entrega" />
+          <NavigationProperty Name="Estado_Repartidor" Relationship="Self.FK__Repartido__estad__123EB7A3" FromRole="Repartidor" ToRole="Estado_Repartidor" />
           <NavigationProperty Name="Metodo_Entrega" Relationship="Self.FK__Repartido__idmet__5EBF139D" FromRole="Repartidor" ToRole="Metodo_Entrega" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Repartido__idusu__5FB337D6" FromRole="Repartidor" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
@@ -699,7 +834,9 @@
           <Property Name="codigo_tarjeta" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="fechaven_tarjeta" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="idusuario" Type="Int32" />
+          <Property Name="idpais" Type="Int32" />
           <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__idtarjeta__6C190EBB" FromRole="Tarjeta" ToRole="Pago" />
+          <NavigationProperty Name="Pais" Relationship="Self.FK__Tarjeta__idpais__1332DBDC" FromRole="Tarjeta" ToRole="Pais" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Tarjeta__idusuar__628FA481" FromRole="Tarjeta" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Tipo_Comprobante">
@@ -725,6 +862,7 @@
           <Property Name="idtipopago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Pago" Relationship="Self.FK__Pago__idtipopago__6B24EA82" FromRole="Tipo_Pago" ToRole="Pago" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__idtipopa__14270015" FromRole="Tipo_Pago" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -740,12 +878,12 @@
           <Property Name="nombrefoto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idpais" Type="Int32" />
           <Property Name="razonsocial" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="idcategoria_comercio" Type="Int32" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__idusuar__4E88ABD4" FromRole="Usuario" ToRole="Cliente" />
           <NavigationProperty Name="Comercio" Relationship="Self.FK__Comercio__idusua__534D60F1" FromRole="Usuario" ToRole="Comercio" />
           <NavigationProperty Name="Pais" Relationship="Self.FK__Usuario__idpais__4BAC3F29" FromRole="Usuario" ToRole="Pais" />
           <NavigationProperty Name="Repartidor" Relationship="Self.FK__Repartido__idusu__5FB337D6" FromRole="Usuario" ToRole="Repartidor" />
           <NavigationProperty Name="Tarjeta" Relationship="Self.FK__Tarjeta__idusuar__628FA481" FromRole="Usuario" ToRole="Tarjeta" />
-          <Property Name="idcategoria_comercio" Type="Int32" />
         </EntityType>
         <Association Name="FK__Comercio__idcate__5441852A">
           <End Role="Categoria_Comercio" Type="Self.Categoria_Comercio" Multiplicity="0..1" />
@@ -831,6 +969,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Detalle_P__idped__17036CC0">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
+          <End Role="Detalle_Pedido" Type="Self.Detalle_Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="idpedido" />
+            </Principal>
+            <Dependent Role="Detalle_Pedido">
+              <PropertyRef Name="idpedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Entrega__idpedid__787EE5A0">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1" />
           <End Role="Entrega" Type="Self.Entrega" Multiplicity="*" />
@@ -852,6 +1002,18 @@
             </Principal>
             <Dependent Role="Entrega">
               <PropertyRef Name="idrepartidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Repartido__estad__123EB7A3">
+          <End Role="Estado_Repartidor" Type="Self.Estado_Repartidor" Multiplicity="0..1" />
+          <End Role="Repartidor" Type="Self.Repartidor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Repartidor">
+              <PropertyRef Name="estado" />
+            </Principal>
+            <Dependent Role="Repartidor">
+              <PropertyRef Name="estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -951,6 +1113,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Tarjeta__idpais__1332DBDC">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="idpais" />
+            </Principal>
+            <Dependent Role="Tarjeta">
+              <PropertyRef Name="idpais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Usuario__idpais__4BAC3F29">
           <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
@@ -972,6 +1146,18 @@
             </Principal>
             <Dependent Role="Pedido">
               <PropertyRef Name="idproducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido__idtipopa__14270015">
+          <End Role="Tipo_Pago" Type="Self.Tipo_Pago" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Pago">
+              <PropertyRef Name="idtipopago" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="idtipopago" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -999,12 +1185,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BdUberEatsEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BdUberEatsEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categoria_Comercio" EntityType="Self.Categoria_Comercio" />
           <EntitySet Name="Categoria_Producto" EntityType="Self.Categoria_Producto" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="Comercio" EntityType="Self.Comercio" />
+          <EntitySet Name="Detalle_Pedido" EntityType="Self.Detalle_Pedido" />
           <EntitySet Name="Entrega" EntityType="Self.Entrega" />
+          <EntitySet Name="Estado_Repartidor" EntityType="Self.Estado_Repartidor" />
           <EntitySet Name="Estados" EntityType="Self.Estados" />
           <EntitySet Name="Facturacion" EntityType="Self.Facturacion" />
           <EntitySet Name="Metodo_Entrega" EntityType="Self.Metodo_Entrega" />
@@ -1013,6 +1201,7 @@
           <EntitySet Name="Pedido" EntityType="Self.Pedido" />
           <EntitySet Name="Producto" EntityType="Self.Producto" />
           <EntitySet Name="Repartidor" EntityType="Self.Repartidor" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" />
           <EntitySet Name="Tipo_Comprobante" EntityType="Self.Tipo_Comprobante" />
           <EntitySet Name="Tipo_Documento" EntityType="Self.Tipo_Documento" />
@@ -1046,6 +1235,10 @@
             <End Role="Comercio" EntitySet="Comercio" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <AssociationSet Name="FK__Detalle_P__idped__17036CC0" Association="Self.FK__Detalle_P__idped__17036CC0">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="Detalle_Pedido" EntitySet="Detalle_Pedido" />
+          </AssociationSet>
           <AssociationSet Name="FK__Entrega__idpedid__787EE5A0" Association="Self.FK__Entrega__idpedid__787EE5A0">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="Entrega" EntitySet="Entrega" />
@@ -1053,6 +1246,10 @@
           <AssociationSet Name="FK__Entrega__idrepar__797309D9" Association="Self.FK__Entrega__idrepar__797309D9">
             <End Role="Repartidor" EntitySet="Repartidor" />
             <End Role="Entrega" EntitySet="Entrega" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Repartido__estad__123EB7A3" Association="Self.FK__Repartido__estad__123EB7A3">
+            <End Role="Estado_Repartidor" EntitySet="Estado_Repartidor" />
+            <End Role="Repartidor" EntitySet="Repartidor" />
           </AssociationSet>
           <AssociationSet Name="FK__Pedido__estado__0F624AF8" Association="Self.FK__Pedido__estado__0F624AF8">
             <End Role="Estados" EntitySet="Estados" />
@@ -1086,12 +1283,20 @@
             <End Role="Tipo_Pago" EntitySet="Tipo_Pago" />
             <End Role="Pago" EntitySet="Pago" />
           </AssociationSet>
+          <AssociationSet Name="FK__Tarjeta__idpais__1332DBDC" Association="Self.FK__Tarjeta__idpais__1332DBDC">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Tarjeta" EntitySet="Tarjeta" />
+          </AssociationSet>
           <AssociationSet Name="FK__Usuario__idpais__4BAC3F29" Association="Self.FK__Usuario__idpais__4BAC3F29">
             <End Role="Pais" EntitySet="Pais" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
           <AssociationSet Name="FK__Pedido__idproduc__66603565" Association="Self.FK__Pedido__idproduc__66603565">
             <End Role="Producto" EntitySet="Producto" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__idtipopa__14270015" Association="Self.FK__Pedido__idtipopa__14270015">
+            <End Role="Tipo_Pago" EntitySet="Tipo_Pago" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
           <AssociationSet Name="FK__Repartido__idusu__5FB337D6" Association="Self.FK__Repartido__idusu__5FB337D6">
@@ -1108,7 +1313,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="BdUberEatsEntities">
+        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="BdUberEatsEntities1">
           <EntitySetMapping Name="Categoria_Comercio">
             <EntityTypeMapping TypeName="bdubereatsModel.Categoria_Comercio">
               <MappingFragment StoreEntitySet="Categoria_Comercio">
@@ -1142,12 +1347,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Detalle_Pedido">
+            <EntityTypeMapping TypeName="bdubereatsModel.Detalle_Pedido">
+              <MappingFragment StoreEntitySet="Detalle_Pedido">
+                <ScalarProperty Name="iddetalle_pedido" ColumnName="iddetalle_pedido" />
+                <ScalarProperty Name="idpedido" ColumnName="idpedido" />
+                <ScalarProperty Name="cantidad_producto" ColumnName="cantidad_producto" />
+                <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Entrega">
             <EntityTypeMapping TypeName="bdubereatsModel.Entrega">
               <MappingFragment StoreEntitySet="Entrega">
                 <ScalarProperty Name="identrega" ColumnName="identrega" />
                 <ScalarProperty Name="idpedido" ColumnName="idpedido" />
                 <ScalarProperty Name="idrepartidor" ColumnName="idrepartidor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado_Repartidor">
+            <EntityTypeMapping TypeName="bdubereatsModel.Estado_Repartidor">
+              <MappingFragment StoreEntitySet="Estado_Repartidor">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1206,11 +1432,12 @@
               <MappingFragment StoreEntitySet="Pedido">
                 <ScalarProperty Name="idpedido" ColumnName="idpedido" />
                 <ScalarProperty Name="instrucciones_especiales_pedido" ColumnName="instrucciones_especiales_pedido" />
-                <ScalarProperty Name="cantidad_pedido" ColumnName="cantidad_pedido" />
+                <ScalarProperty Name="item" ColumnName="item" />
                 <ScalarProperty Name="direccion_entrega" ColumnName="direccion_entrega" />
                 <ScalarProperty Name="idcomercio" ColumnName="idcomercio" />
                 <ScalarProperty Name="idproducto" ColumnName="idproducto" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="idtipopago" ColumnName="idtipopago" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1233,7 +1460,7 @@
             <EntityTypeMapping TypeName="bdubereatsModel.Repartidor">
               <MappingFragment StoreEntitySet="Repartidor">
                 <ScalarProperty Name="idrepartidor" ColumnName="idrepartidor" />
-                <ScalarProperty Name="fotoperfil" ColumnName="fotoperfil" />
+                <ScalarProperty Name="fotovehiculo" ColumnName="fotovehiculo" />
                 <ScalarProperty Name="fotolicenciaconducir" ColumnName="fotolicenciaconducir" />
                 <ScalarProperty Name="fotoantecedentes" ColumnName="fotoantecedentes" />
                 <ScalarProperty Name="fotosoat" ColumnName="fotosoat" />
@@ -1241,6 +1468,17 @@
                 <ScalarProperty Name="idmetodoentrega" ColumnName="idmetodoentrega" />
                 <ScalarProperty Name="idusuario" ColumnName="idusuario" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="bdubereatsModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1253,6 +1491,7 @@
                 <ScalarProperty Name="codigo_tarjeta" ColumnName="codigo_tarjeta" />
                 <ScalarProperty Name="fechaven_tarjeta" ColumnName="fechaven_tarjeta" />
                 <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+                <ScalarProperty Name="idpais" ColumnName="idpais" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1283,7 +1522,6 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="bdubereatsModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="idcategoria_comercio" ColumnName="idcategoria_comercio" />
                 <ScalarProperty Name="idusuario" ColumnName="idusuario" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="apellidos" ColumnName="apellidos" />
@@ -1294,6 +1532,7 @@
                 <ScalarProperty Name="nombrefoto" ColumnName="nombrefoto" />
                 <ScalarProperty Name="idpais" ColumnName="idpais" />
                 <ScalarProperty Name="razonsocial" ColumnName="razonsocial" />
+                <ScalarProperty Name="idcategoria_comercio" ColumnName="idcategoria_comercio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,332 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <title>UberEats::Menu</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" crossorigin="anonymous"></script>
+    <script>window.__PUBLIC_PATH__ = '../fonts/'</script>
+    <script src="../js/bootstrap-italia.min.js"></script>
+
+    <link rel="stylesheet" href="../css/bootstrap-italia.min.css">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="theme-color" content="#083756" />
+
+    <script>
+      
+        function LlamarInicioRestaurantes() {
+                $("#svgAtraz1").removeClass('active');
+                $("#imagenInicioRestaurantes").removeClass('active');     
+        }
+        function LlamarRestauranteProductos() {
+            //$("#imagenInicioRestaurantes").click(function () {
+            $("#imagenInicioRestaurantes").removeClass('active');
+            $("#svgAtraz1").removeClass('active');
+
+            //});
+        }
+        function LlamarProductoSeleccionado() {          
+                $("#divProducto1").removeClass('active');
+                $("#svgAtraz2").removeClass('active');            
+        }
+
+    </script>
+
+</head>
+
+
+<body>
+    <!--script bootstrap-->
+    <script src="../js/bootstrap-italia.bundle.min.js"></script>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm" style="padding-left:0px;padding-right:0px;">
+                <div class="tab-content" id="pills-tabContent">
+                    <!--1.MenuPrincipal Lista Restaurantes --->
+                    <div class="tab-pane fade show active" id="pills-menu1" role="tabpanel" aria-labelledby="pills-menu1-tab">
+
+                        <div id="app" class="">
+                            <!--#IniHeader-->
+                            <div class="it-header-slim-wrapper theme-light">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12" style="padding-left:0px">
+                                            <div class="it-header-slim-wrapper-content">
+
+                                                <div class="nav-mobile">
+                                                    <nav>
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-sm-1">
+                                                                    <!--<svg class="icon">
+                                                <use xlink:href="../svg/sprite.svg#it-burger"></use>
+                                            </svg>-->
+                                                                </div>
+                                                                <div class="col-sm-10 text-center">
+                                                                    <span>Ordenar Restaurante</span>
+                                                                </div>
+                                                                <div class="col-sm-1">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--#FinHeader-->
+                            <!--#IniHeader-->
+                            <div class="it-header-slim-wrapper theme-light">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12" style="padding-left:0px">
+                                            <div class="it-header-slim-wrapper-content">
+
+                                                <div class="nav-mobile">
+                                                    <nav>
+                                                        <!--<svg class="icon">
+                                <use xlink:href="../svg/sprite.svg#it-burger"></use>
+                                </svg>-->
+                                                        <h6>Restaurantes</h6>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--#FinHeader-->
+                            <!--start card1-->
+                            <div class="card-wrapper" v-for="item in comercios" :value="item.idcomercio">
+                                                
+                                <div class="card card-img no-after">
+                                    <div class="img-responsive-wrapper">
+                                        <div class="img-responsive">
+                                            <figure class="img-wrapper" style="cursor:pointer">
+                                                <img id="imagenInicioRestaurantes" onclick="LlamarRestauranteProductos();" data-toggle="pill" href="#pills-menu2" v-bind:src="src+item.usuariocomerciodt.nombrefoto" ><!---->
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="padding:14px">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-11" style="text-align:left;"><h6 style="margin-bottom:0px">{{item.usuariocomerciodt.razonsocial}}</h6></div>
+                                                <div class="col-1" style="text-align:right;">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="w-100"></div>
+                                                <div class="col-11" style="text-align:left;"><span style="font-size:12px">{{item.usuariocomerciodt.categoria_Comerciodt.descripcion}}</span></div>                                                                      
+                                                <div class="col-2" style="text-align:right;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div></br></br>
+                            <!--end card1-->
+
+
+                        </div>
+                    </div>
+
+                    <!--2.Restaurante Seleccionado-->
+                    <div class="tab-pane fade" id="pills-menu2" role="tabpanel" aria-labelledby="pills-menu2-tab">
+
+                        <div id="app2" class="">
+                            <div class="container-fluid">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" id="svgAtraz1" onclick="LlamarInicioRestaurantes();" data-toggle="pill" href="#pills-menu1" class="bi bi-arrow-left" style="color:black" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                    <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                                </svg>
+                            </div>
+
+                            <!--start card1-->
+                            <div class="card-wrapper" v-for="item in productocomercio" :value="item.idcomercio">
+                                <div class="card card-img no-after">
+                                    <div class="img-responsive-wrapper">
+
+                                        <div class="img-responsive">
+                                            <figure class="img-wrapper">
+                                                <img v-bind:src="src+item.usuariocomerciodt.nombrefoto" @click="ListarComercios(item.idcomercio)">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="padding:14px;">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-11" style="text-align:center;"><h6>Nombre</h6></div>
+                                                <div class="col-1" style="text-align:right;">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="w-100"></div>
+                                                <div class="col-11" style="text-align:center;"><span>Categoria</span></div>
+                                                <div class="col-2" style="text-align:right;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card1-->
+                            <!--IniTab-->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom-color:#ffffff">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-attribute="forward" aria-hidden="true" style="margin-left:100px" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Más Populares</a>
+                                </li>
+                                <!--<li class="nav-item"><a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Tab 2</a></li>-->
+
+                            </ul>
+                            <div class="tab-content" id="myTabContent" style="cursor:pointer">
+                                <div class="tab-pane p-4 fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+
+                                    <div class="media" id="divProducto1" onclick="LlamarProductoSeleccionado()" data-toggle="pill" href="#pills-menu3">
+                                        <div class="media-body">
+                                            <h5 class="mt-0 mb-1">NombreProducto</h5>
+                                            descripcion
+                                            <h6 class="mt-0 mb-1">Precio</h6></br></br>
+                                        </div>
+                                        <img class="ml-3" src="https://res.cloudinary.com/dxqdhkf3m/image/upload/v1595380888/ubereats/Productos/productos64x64/bun-with-vegetable-cheese-and-meat-2282530_s4bsns.jpg" alt="testo alternativo">
+                                    </div>
+
+                                </div>
+                                <!--FinTab-->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--3.Producto Seleccionado-->
+                    <div class="tab-pane fade" id="pills-menu3" role="tabpanel" aria-labelledby="pills-menu3-tab">
+
+                        <div id="app" class="">
+                            <div class="container-fluid">
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" id="svgAtraz2" onclick="LlamarRestauranteProductos();" data-toggle="pill" href="#pills-menu2" class="bi bi-arrow-left" style="color:black" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
+                                    <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                                </svg>
+                            </div>
+                            <!--start card1-->
+                            <div class="card-wrapper">
+                                <div class="card card-img no-after">
+                                    <div class="img-responsive-wrapper">
+
+                                        <div class="img-responsive">
+                                            <figure class="img-wrapper">
+                                                <img src="https://res.cloudinary.com/dxqdhkf3m/image/upload/v1595384183/ubereats/Productos/bun-with-vegetable-cheese-and-meat-2282530_1_xyjmqw.jpg">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="padding:14px;">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-11" style="text-align:center;"><h6>Nombre</h6></div>
+                                                <div class="col-1" style="text-align:right;">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M8 6.236l.894-1.789c.222-.443.607-1.08 1.152-1.595C10.582 2.345 11.224 2 12 2c1.676 0 3 1.326 3 2.92 0 1.211-.554 2.066-1.868 3.37-.337.334-.721.695-1.146 1.093C10.878 10.423 9.5 11.717 8 13.447c-1.5-1.73-2.878-3.024-3.986-4.064-.425-.398-.81-.76-1.146-1.093C1.554 6.986 1 6.131 1 4.92 1 3.326 2.324 2 4 2c.776 0 1.418.345 1.954.852.545.515.93 1.152 1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="w-100"></div>
+                                                <div class="col-11" style="text-align:center;"><span>Precio</span></div>
+                                                <div class="col-2" style="text-align:right;"></div>
+                                                </br></br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end card1-->
+                        </div>
+                    </div>
+
+                    <!--0.Barra opciones-->
+                    <nav class="bottom-nav">
+                        <ul>
+                            <li>
+                                <a href="#" class="active">
+                                    <svg class="icon"><use xlink:href="../svg/sprite.svg#it-pa"></use></svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <svg class="icon"><use xlink:href="../svg/sprite.svg#it-search"></use></svg>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <svg class="icon"><use xlink:href="../svg/sprite.svg#it-inbox"></use></svg>
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../perfil/perfilusuario.html">
+                                    <svg class="icon"><use xlink:href="../svg/sprite.svg#it-user"></use></svg>
+
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Script Vuejs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {   
+                src:"https://res.cloudinary.com/dxqdhkf3m/image/upload/v1595389866/ubereats/comercios/",
+                comercios: []
+            },
+            mounted: function () {
+                this.ListarComercios();
+            },
+
+            methods: {
+                ListarComercios: function () {
+                    var url = "http://localhost:58201/api/Usuariocliente/ListarComercios";
+                    this.$http.get(url).then(function (response) {
+                        this.comercios = response.body;
+                    });
+                }
+            }
+        });
+
+        new Vue({
+            el: "#app2",
+            data: {
+                src: "https://res.cloudinary.com/dxqdhkf3m/image/upload/v1595389866/ubereats/comercios/",
+                productocomercio: []
+            },
+            mounted: function () {
+                this.ListaProductosComercio();
+            },
+
+            methods: {
+                ListaProductosComercio: function () {
+                    var url = "http://localhost:58201/api/Producto/ListarProductosComercio?idcomercio=2";
+                    this.$http.get(url).then(function (response) {
+                        this.productocomercio = response.body;
+                    });
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

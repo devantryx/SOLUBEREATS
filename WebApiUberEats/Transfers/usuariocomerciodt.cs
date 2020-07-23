@@ -9,6 +9,7 @@ namespace WebApiUberEats.Transfers
     {
       
         public string razonsocial { get; set; }
+        public string nombrefoto { get; set; }
         public categoria_comerciodt categoria_Comerciodt { get; set; }
 
     }

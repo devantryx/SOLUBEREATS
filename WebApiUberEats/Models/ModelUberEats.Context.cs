@@ -13,10 +13,10 @@ namespace WebApiUberEats.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BdUberEatsEntities : DbContext
+    public partial class BdUberEatsEntities1 : DbContext
     {
-        public BdUberEatsEntities()
-            : base("name=BdUberEatsEntities")
+        public BdUberEatsEntities1()
+            : base("name=BdUberEatsEntities1")
         {
         }
     
@@ -29,7 +29,9 @@ namespace WebApiUberEats.Models
         public virtual DbSet<Categoria_Producto> Categoria_Producto { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Comercio> Comercio { get; set; }
+        public virtual DbSet<Detalle_Pedido> Detalle_Pedido { get; set; }
         public virtual DbSet<Entrega> Entrega { get; set; }
+        public virtual DbSet<Estado_Repartidor> Estado_Repartidor { get; set; }
         public virtual DbSet<Estados> Estados { get; set; }
         public virtual DbSet<Facturacion> Facturacion { get; set; }
         public virtual DbSet<Metodo_Entrega> Metodo_Entrega { get; set; }
@@ -38,6 +40,7 @@ namespace WebApiUberEats.Models
         public virtual DbSet<Pedido> Pedido { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Repartidor> Repartidor { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tarjeta> Tarjeta { get; set; }
         public virtual DbSet<Tipo_Comprobante> Tipo_Comprobante { get; set; }
         public virtual DbSet<Tipo_Documento> Tipo_Documento { get; set; }

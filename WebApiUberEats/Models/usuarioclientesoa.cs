@@ -13,11 +13,11 @@ namespace WebApiUberEats.Models
        
         public static usuariodt ObtenerUsuarioClienteRegistrado(int idusuario)       
         {
-            //ObtenerUsuarioClienteRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Usuario.Select(b => // Obtiene lista de usuario cliente
+            
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            var obj = db.Usuario.Select(b => 
                 new usuariodt()
-                {   //Propiedad de la clase Usuario
+                {  
                     idusuario   = b.idusuario,
                     nombre      = b.nombre,
                     apellidos   = b.apellidos,
@@ -25,13 +25,13 @@ namespace WebApiUberEats.Models
                     correo      = b.correo,
                     direccion   = b.direccion
 
-                }).SingleOrDefault(b => b.idusuario == idusuario); // devuelvo elemento si cumple con la condicion
+                }).SingleOrDefault(b => b.idusuario == idusuario); 
             return obj;
         }
         public static comerciodt ObtenerUsuarioComercioRegistrado(int idcomercio)       
         {
             //ObtenerUsuarioComercioRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             var obj = db.Comercio.Select(b => // Obtiene lista de usuario comercio
                 new comerciodt()
                 {   //Propiedad de la clase Usuario
@@ -52,25 +52,23 @@ namespace WebApiUberEats.Models
         }
         public static tarjetadt ObtenerTarjetaRegistrado(int? idusuario) {
             //ObtenerTarjetaRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             var obj = db.Tarjeta.Select(b => 
             new tarjetadt()
             {
-                idusuario = (int)b.idusuario,
-                numero_tarjeta = b.numero_tarjeta,
-                usuariotarjetadt = new usuariotarjetadt() { 
-                    nombre = b.Usuario.nombre,
-                    apellidos = b.Usuario.apellidos
+                idusuario           = (int)b.idusuario,
+                numero_tarjeta      = b.numero_tarjeta,
+                usuariotarjetadt    = new usuariotarjetadt() { 
+                nombre              = b.Usuario.nombre,
+                apellidos           = b.Usuario.apellidos
                 }
-                
-
 
             }).SingleOrDefault(b => b.idusuario == idusuario);
             return obj;
         }
         public static usuariodt InsertarUsuarioCliente(usuariodt usuariodt)
         {
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla 1: valida datos unicos (correo,numero telefono)
 
             var vcorreo = db.Usuario.Where(u => u.correo.ToLower().Trim()   == usuariodt.correo.ToLower().Trim()).Count();
@@ -128,7 +126,7 @@ namespace WebApiUberEats.Models
         public static tarjetadt InsertarTarjeta(tarjetadt tarjetadt)
         {
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla 1: valida datos unicos (nùmero tarjeta)
             var vnrotarjeta = db.Tarjeta.Where(t => t.numero_tarjeta == tarjetadt.numero_tarjeta).Count();//si el numero de tarjeta ingresada existe en bd la variable vnrotarjeta sera 1
             //regla 2: valida que el numero de tarjeta este asociado a una persona registrada
@@ -142,11 +140,13 @@ namespace WebApiUberEats.Models
 
             Tarjeta tarjeta = new Tarjeta()
             {
-                nombre_tarjeta = tarjetadt.nombre_tarjeta,
-                numero_tarjeta = tarjetadt.numero_tarjeta,
-                codigo_tarjeta = tarjetadt.codigo_tarjeta,
-                fechaven_tarjeta = tarjetadt.fechaven_tarjeta,
-                idusuario = tarjetadt.idusuario
+                nombre_tarjeta      = tarjetadt.nombre_tarjeta,
+                numero_tarjeta      = tarjetadt.numero_tarjeta,
+                codigo_tarjeta      = tarjetadt.codigo_tarjeta,
+                fechaven_tarjeta    = tarjetadt.fechaven_tarjeta,
+                idusuario           = tarjetadt.idusuario,
+                idpais              = tarjetadt.idpais
+               
             };
 
             try
@@ -166,7 +166,7 @@ namespace WebApiUberEats.Models
         public static usuariodt InsertarUsuarioComercio(usuariodt usuariodt)
         {
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla 1: valida datos unicos (correo,numero telefono)
             var vcorreo = db.Usuario.Where(u => u.correo.ToLower().Trim() == usuariodt.correo.ToLower().Trim()).Count();
             var vnrotel = db.Usuario.Where(u => u.telefono.ToLower().Trim() == usuariodt.telefono.ToLower().Trim()).Count();
@@ -219,6 +219,32 @@ namespace WebApiUberEats.Models
             return usuariocliente.ObtenerUsuarioClienteRegistrado(usuario.idusuario); 
         }
 
+        //Listar todos los comercios
+        public static IEnumerable<comerciodt> ListarComercios()
+        {
 
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+
+            var list = from b in db.Comercio
+                       select new comerciodt()
+                       {
+                           idusuario = (int)b.idusuario,
+                           idcomercio = (int)b.idcomercio,
+
+                           usuariocomerciodt = new usuariocomerciodt()
+                           {
+                               razonsocial = b.Usuario.razonsocial,
+                               nombrefoto = b.Usuario.nombrefoto,
+                               categoria_Comerciodt = new categoria_comerciodt()
+                               {
+                                   descripcion = b.Categoria_Comercio.descripcion
+                               }
+                           }
+                       };
+
+            return list;
+        }
+
+        
     }
 }

@@ -11,13 +11,13 @@ namespace WebApiUberEats.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Pedido
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pedido()
         {
+            this.Detalle_Pedido = new HashSet<Detalle_Pedido>();
             this.Entrega = new HashSet<Entrega>();
             this.Facturacion = new HashSet<Facturacion>();
             this.Pago = new HashSet<Pago>();
@@ -25,18 +25,16 @@ namespace WebApiUberEats.Models
     
         public int idpedido { get; set; }
         public string instrucciones_especiales_pedido { get; set; }
-        [Required(ErrorMessage = "El campo cantidad_pedido es requerido")]
-        public Nullable<int> cantidad_pedido { get; set; }
-        [Required(ErrorMessage = "El campo direccion_entrega es requerido")]
+        public Nullable<int> item { get; set; }
         public string direccion_entrega { get; set; }
-        [Required(ErrorMessage = "El campo idcomercio es requerido")]
         public Nullable<int> idcomercio { get; set; }
-        [Required(ErrorMessage = "El campo idproducto es requerido")]
         public Nullable<int> idproducto { get; set; }
-        [Required(ErrorMessage = "El campo estado es requerido")]
         public Nullable<int> estado { get; set; }
+        public Nullable<int> idtipopago { get; set; }
     
         public virtual Comercio Comercio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Detalle_Pedido> Detalle_Pedido { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Entrega> Entrega { get; set; }
         public virtual Estados Estados { get; set; }
@@ -45,5 +43,6 @@ namespace WebApiUberEats.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pago> Pago { get; set; }
         public virtual Producto Producto { get; set; }
+        public virtual Tipo_Pago Tipo_Pago { get; set; }
     }
 }

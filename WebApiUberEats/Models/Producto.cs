@@ -11,8 +11,7 @@ namespace WebApiUberEats.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Producto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +19,7 @@ namespace WebApiUberEats.Models
         {
             this.Pedido = new HashSet<Pedido>();
         }
-
+    
         public int idproducto { get; set; }
         public string nombreproducto { get; set; }
         public string descripcion { get; set; }
@@ -28,12 +27,9 @@ namespace WebApiUberEats.Models
         public Nullable<decimal> precio { get; set; }
         public Nullable<decimal> porcentajedsc { get; set; }
         public string nombrefotoproducto { get; set; }
-        [Required(ErrorMessage = "El campo idcomercio es requerido")]
         public Nullable<int> idcomercio { get; set; }
-        [Required(ErrorMessage = "El campo idcategoria_producto es requerido")]
         public Nullable<int> idcategoria_producto { get; set; }
-
-
+    
         public virtual Categoria_Producto Categoria_Producto { get; set; }
         public virtual Comercio Comercio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

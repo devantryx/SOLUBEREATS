@@ -18,6 +18,7 @@ namespace WebApiUberEats.Models
         public Tipo_Pago()
         {
             this.Pago = new HashSet<Pago>();
+            this.Pedido = new HashSet<Pedido>();
         }
     
         public int idtipopago { get; set; }
@@ -25,5 +26,7 @@ namespace WebApiUberEats.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pago> Pago { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pedido> Pedido { get; set; }
     }
 }

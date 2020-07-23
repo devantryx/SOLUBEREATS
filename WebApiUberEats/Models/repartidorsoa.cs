@@ -8,15 +8,15 @@ namespace WebApiUberEats.Models
 {
     public partial class repartidor
     {
-        public static repartidorestadodt ObtenerRepartidorDisponible(int estado)//parametro de entrada 1
+        public static repartidorestadodt ObtenerRepartidorDisponible(int estado)
         {
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
 
             //regla 1: valida si esta disponible el repartidor estado en(1)
-            var vrepestado1 = db.Repartidor.Where(p => p.estado != estado).Count();//si es true devuelve 1,caso contrario devuelve 0
+            var vrepestado1 = db.Repartidor.Where(p => p.estado != estado).Count();
 
-            if (vrepestado1 > 0) //condicional  : si vrepestado1 > 0 ,termina proceso y retorna null
+            if (vrepestado1 > 0) 
                 return null;
 
             var obj = db.Repartidor.Select(b =>
@@ -25,8 +25,8 @@ namespace WebApiUberEats.Models
                     idrepartidor = b.idrepartidor,
                   estado = (int)b.estado
 
-                }).SingleOrDefault(b => b.estado == estado);//si cumple condicional retorna data del obj  
-            return obj;//retorna obj
+                }).SingleOrDefault(b => b.estado == estado);
+            return obj;
         }
 
     }

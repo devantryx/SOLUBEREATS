@@ -17,6 +17,7 @@ namespace WebApiUberEats.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pais()
         {
+            this.Tarjeta = new HashSet<Tarjeta>();
             this.Usuario = new HashSet<Usuario>();
         }
     
@@ -25,6 +26,8 @@ namespace WebApiUberEats.Models
         public string codigo_pais { get; set; }
         public string nombrefoto { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tarjeta> Tarjeta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario> Usuario { get; set; }
     }

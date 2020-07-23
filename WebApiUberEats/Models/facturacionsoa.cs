@@ -18,7 +18,7 @@ namespace WebApiUberEats.Models
                 return null;
             }
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla1: validar que el pedido existe
             var vCountPedido = db.Pedido.Where(p => p.idpedido == facturaciondt.idpedido).Count();
             if (vCountPedido != 1)
@@ -66,14 +66,14 @@ namespace WebApiUberEats.Models
 
             try
             {
-                db.Facturacion.Add(facturacion); //Agrega el objeto pedidos a la clase Pedido
+                db.Facturacion.Add(facturacion); 
                 Pedido vPedido = db.Pedido.Find(facturaciondt.idpedido);
                 vPedido.estado = 6;
                 db.Entry(vPedido).State = EntityState.Modified;
-                db.SaveChanges();//guarda cambios
+                db.SaveChanges();
 
             }
-            //captura los campos que estan vacios y muestra mensaje segun configuracion en la clase Pedido
+
             catch (DbEntityValidationException ex)
             {
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));

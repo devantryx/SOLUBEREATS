@@ -9,7 +9,7 @@ namespace WebApiUberEats.Transfers
     {
         public int idpedido { get; set; }    
         public int estado { get; set; }
-        public int cantidad_pedido { get; set; }
+        public int item { get; set; }
         public string direccion_entrega { get; set; }
         public pedidoproductodt pedidoproductodt { get; set; }
      

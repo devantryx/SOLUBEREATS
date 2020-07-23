@@ -26,9 +26,11 @@ namespace WebApiUberEats.Models
         public string codigo_tarjeta { get; set; }
         public string fechaven_tarjeta { get; set; }
         public Nullable<int> idusuario { get; set; }
+        public Nullable<int> idpais { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pago> Pago { get; set; }
+        public virtual Pais Pais { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }

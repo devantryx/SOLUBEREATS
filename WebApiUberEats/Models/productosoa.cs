@@ -9,33 +9,39 @@ namespace WebApiUberEats.Models
 {
     public partial class producto
     {
-        public static productocomerciodt ListarProductosComercio(int idcomercio)
+        public static IEnumerable<productocomerciodt> ListarProductosComercio(int idcomercio)
         {
-            //ObtenerUsuarioCliente -> no mostrarlo en la presentacion por que no fue enviado.
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Producto.Select(b => // Obtiene lista de usuario cliente
-                new productocomerciodt()
-                {
-                    idcomercio = (int)b.idcomercio,
-                    nombreproducto = b.nombreproducto,
-                    descripcion = b.descripcion,
-                    precio = (decimal)b.precio,
-                    nombrefotoproducto = b.nombrefotoproducto,
+           
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            var list = from b in db.Producto.Where(b => b.idcomercio == idcomercio)
+                       select new productocomerciodt()
+                       {
+                           idcomercio = (int)b.idcomercio,                          
+                           nombreproducto = b.nombreproducto,
+                           descripcion = b.descripcion,
+                           precio = (decimal)b.precio,
+                           nombrefotoproducto = b.nombrefotoproducto,
 
-                    categoria_Comerciodt = new categoria_comerciodt()
-                    {
+                           usuariocomerciodt = new usuariocomerciodt() { 
+                           nombrefoto = b.Comercio.Usuario.nombrefoto
+                           },
 
-                        descripcion = b.Categoria_Producto.descripcion,
-                    }
+                           categoria_Comerciodt = new categoria_comerciodt()
+                           {
 
-                }).SingleOrDefault(b => b.idcomercio == idcomercio); // devuelvo elemento si cumple con la condicion
-            return obj;
+
+                               descripcion = b.Categoria_Producto.descripcion,
+                           }
+                       };
+
+            return list;
+            
         }
 
         public static productodt ObtenerProductoRegistrado(int idproducto)       
         {
             //ObtenerProductoRegistrado -> no mostrarlo en la presentacion por que no fue enviado
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             var obj = db.Producto.Select(b => // Obtiene lista de Producto
                 new productodt()
                 {   //Propiedad de la clase Producto
@@ -53,7 +59,7 @@ namespace WebApiUberEats.Models
         }
         public static IEnumerable<productocategoriadt> ListarProductoCategoria(int idcategoria_producto)
         {
-            bdubereatsEntities4 db = new bdubereatsEntities4();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla 2: lista de forma descendente de mayor a menor el precio
             var list = from b in db.Producto.Where(p => p.idcategoria_producto == idcategoria_producto).OrderByDescending(p => p.precio)
                        select new productocategoriadt()
@@ -70,10 +76,10 @@ namespace WebApiUberEats.Models
 
             return list;
 
-        }     
+        }
         public static productodt InsertarProducto(productodt productodt) 
         {
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla 1: valida datos unicos (idproducto)
             var idproducto = db.Producto.Where(p => p.idproducto == productodt.idproducto).Count();
             var istock = db.Producto.Where(p => productodt.stock <= 0).Count(); //regla 2:   valida el stock ingresado si es 0 devuelve 1
@@ -125,26 +131,6 @@ namespace WebApiUberEats.Models
 
         }
 
-        public static IEnumerable<productocategoriadt>  ListarProductoCategoria(int idcategoria_producto) {
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            //regla 2: lista de forma descendente de mayor a menor el precio
-            var list = from b in db.Producto.Where(p => p.idcategoria_producto == idcategoria_producto).OrderByDescending(p => p.precio)
-                       select new productocategoriadt()
-                       {
-                           nombreproducto = b.nombreproducto,
-                           descripcion = b.descripcion,
-                           precio = (decimal)b.precio,
-                           nombrefotoproducto = b.nombrefotoproducto,
-                           categoria_productodt = new categoria_productodt()
-                           {
-                               descripcion_categoria = b.Categoria_Producto.descripcion
-                           }
-                       };
-
-            return list;
-
-                }).SingleOrDefault(b => b.idcomercio == idcomercio);
-            return obj;
+          
         }
     }
-}

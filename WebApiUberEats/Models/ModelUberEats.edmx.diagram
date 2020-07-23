@@ -4,25 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5e929db5152d4f749cac6206a736e339" Name="Diagram1">
-        <EntityTypeShape EntityType="bdubereatsModel.Categoria_Comercio" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Categoria_Producto" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Cliente" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Comercio" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Entrega" Width="1.5" PointX="12.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Estados" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Facturacion" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Metodo_Entrega" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Pago" Width="1.5" PointX="7.5" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Pais" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Pedido" Width="1.5" PointX="10.5" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Producto" Width="1.5" PointX="10.5" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Repartidor" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Tarjeta" Width="1.5" PointX="5.25" PointY="19.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Tipo_Comprobante" Width="1.5" PointX="10.5" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Tipo_Documento" Width="1.5" PointX="10.5" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Tipo_Pago" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.Usuario" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+      <Diagram DiagramId="4ce6de472fe9457a9a844d97be7ec294" Name="Diagram1">
+        <EntityTypeShape EntityType="bdubereatsModel.Categoria_Comercio" Width="1.5" PointX="3" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Categoria_Producto" Width="1.5" PointX="8.25" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Cliente" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Comercio" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Detalle_Pedido" Width="1.5" PointX="9.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Entrega" Width="1.5" PointX="13.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Estado_Repartidor" Width="1.5" PointX="6" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Estados" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Facturacion" Width="1.5" PointX="12.75" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Metodo_Entrega" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Pago" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Pais" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Pedido" Width="1.5" PointX="7.5" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Producto" Width="1.5" PointX="10.5" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Repartidor" Width="1.5" PointX="8.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Tarjeta" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Tipo_Comprobante" Width="1.5" PointX="10.5" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Tipo_Documento" Width="1.5" PointX="10.5" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Tipo_Pago" Width="1.5" PointX="5.25" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bdubereatsModel.Usuario" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
         <AssociationConnector Association="bdubereatsModel.FK__Comercio__idcate__5441852A" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Producto__idcate__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Cliente__idusuar__4E88ABD4" ManuallyRouted="false" />
@@ -30,8 +33,10 @@
         <AssociationConnector Association="bdubereatsModel.FK__Comercio__idusua__534D60F1" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Pedido__idcomerc__656C112C" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Producto__idcome__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__Detalle_P__idped__17036CC0" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Entrega__idpedid__787EE5A0" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Entrega__idrepar__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__Repartido__estad__123EB7A3" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Pedido__estado__0F624AF8" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Facturaci__idped__75A278F5" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Facturaci__idtip__73BA3083" ManuallyRouted="false" />
@@ -40,8 +45,10 @@
         <AssociationConnector Association="bdubereatsModel.FK__Pago__idpedido__0D7A0286" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Pago__idtarjeta__6C190EBB" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Pago__idtipopago__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__Tarjeta__idpais__1332DBDC" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Usuario__idpais__4BAC3F29" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Pedido__idproduc__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="bdubereatsModel.FK__Pedido__idtipopa__14270015" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Repartido__idusu__5FB337D6" ManuallyRouted="false" />
         <AssociationConnector Association="bdubereatsModel.FK__Tarjeta__idusuar__628FA481" ManuallyRouted="false" />
       </Diagram>

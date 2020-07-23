@@ -12,36 +12,31 @@ namespace WebApiUberEats.Models
     {
         public static pedidodt ObtenerPedidoRegistrado(int idpedido)
         {
-            //ObtenerPedidoRegistrado -> no mostrarlo en la presentacion por que no fue enviado
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
+            
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            var obj = db.Pedido.Select(b => 
                 new pedidodt()
-                {   //Propiedad de la clase Pedido
+                {  
                     idpedido = b.idpedido,
                     instrucciones_especiales_pedido = b.instrucciones_especiales_pedido,
-                    cantidad_pedido                 = (int)b.cantidad_pedido,
+                    item                 = (int)b.item,
                     direccion_entrega               = b.direccion_entrega,
                     idcomercio                      = (int)b.idcomercio,
                     idproducto                      = (int)b.idproducto,
                     estado                          = (int)b.estado
 
-                }).SingleOrDefault(b => b.idpedido == idpedido); // devuelvo elemento si cumple con la condicion
+                }).SingleOrDefault(b => b.idpedido == idpedido); 
             return obj;
         }
 
         public static pedidodt InsertaPedido(pedidodt pedidodt) {
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla 3: valida datos unicos (idpedido)
             var vidpedido = db.Pedido.Where(p => p.idpedido == pedidodt.idpedido).Count();
             //regla 2: valida la cantidad de pedido debe ser mayor  o igual a 1
-            var vcantidad_p = db.Pedido.Where(p => 1 > pedidodt.cantidad_pedido).Count(); //si 1 > 0 (cantidad de ingreso) devuelve 1
-
-            if (vidpedido > 0)//si la variable vidpedido tiene valor 1  retornara null,caso contrario continua.
+           
+            if (vidpedido > 0)
                 return null;
-            
-            if (vcantidad_p > 0)//si la variable vcantidad_p tiene valor 1  retornara null,caso contrario continua.
-                return null;
-
             
             //regla 1: Valida datos obligatorios 
             //implementado en la clase Pedido a travez del DataAnnotations
@@ -49,7 +44,7 @@ namespace WebApiUberEats.Models
             Pedido pedidos = new Pedido()
             {
                 instrucciones_especiales_pedido = pedidodt.instrucciones_especiales_pedido,
-                cantidad_pedido = pedidodt.cantidad_pedido,
+                item = pedidodt.item,
                 direccion_entrega = pedidodt.direccion_entrega,
                 idcomercio = pedidodt.idcomercio,
                 idproducto = pedidodt.idproducto,
@@ -58,10 +53,9 @@ namespace WebApiUberEats.Models
 
             try
             {
-                db.Pedido.Add(pedidos); //Agrega el objeto pedidos a la clase Pedido
-                db.SaveChanges();//guarda cambios.
+                db.Pedido.Add(pedidos); 
+                db.SaveChanges();
 
-               
                 Producto producto = db.Producto.Find(pedidodt.idproducto);
                 //trae stock
                 var list = from b in db.Producto.Where(p => p.idproducto == pedidodt.idproducto)
@@ -71,13 +65,12 @@ namespace WebApiUberEats.Models
                            };
                 
                 //actualizar el stock
-                producto.stock -= pedidodt.cantidad_pedido;
+                producto.stock -= pedidodt.item;
                 db.Entry(producto).State = EntityState.Modified;
                 db.SaveChanges();   
 
 
             }
-            //captura los campos que estan vacios y muestra mensaje segun configuracion en la clase Pedido
             catch (DbEntityValidationException ex)
             {
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
@@ -87,12 +80,12 @@ namespace WebApiUberEats.Models
         }
 
         public static pedidodetalledt ObtieneListaDetallePedido(int idpedido) {
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            var obj = db.Pedido.Select(b => 
                 new pedidodetalledt()
                 {   
                     idpedido            = b.idpedido,
-                   cantidad_pedido      = (int)b.cantidad_pedido,
+                   item      = (int)b.item,
                    direccion_entrega    = b.direccion_entrega,
                     estadopedidodt      = new estadopedidodt() { descripcion = b.Estados.descripcion},
                     productocategoriadt = new productocategoriadt(){nombreproducto = b.Producto.nombreproducto,
@@ -107,11 +100,11 @@ namespace WebApiUberEats.Models
 
         public static estadopedidodt ConfirmarPedido(int idpedido, pedidodt pedidodt) {
             
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla 1: valida que el id pedido exista en bd
-            var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();//si es true devuelve 1,caso contrario devuelve 0
+            var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();
             //regla 2: valida que el pedido se encuentre en estado generado(1)
-            var vestadogenerado = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 1).Count();//si es true devuelve 1, caso contrario devuelve 0
+            var vestadogenerado = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 1).Count();
 
 
             if (vidpedidoexiste > 0)
@@ -129,8 +122,8 @@ namespace WebApiUberEats.Models
 
         public static estadopedidodt PedidoConfirmado(int idpedido) {
             //trae lista del pedido que se ha confirmado
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            var obj = db.Pedido.Select(b =>
                 new estadopedidodt()
                 {
                     idpedido    = b.idpedido,
@@ -140,16 +133,14 @@ namespace WebApiUberEats.Models
             return obj;
         }
 
-
         public static estadopedidodt CancelarPedido(int idpedido, pedidodt pedidodt)
         {
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
             //regla 1: valida que el id pedido exista en bd
-            var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();//si es true devuelve 1,caso contrario devuelve 0
+            var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();
             //regla 2: valida que el pedido se encuentre en estado generado(1)
-            var vestadogenerado = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 1).Count();//si es true devuelve 1, caso contrario devuelve 0
-
+            var vestadogenerado = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 1).Count();
 
             if (vidpedidoexiste > 0)
                 return null;
@@ -166,8 +157,8 @@ namespace WebApiUberEats.Models
 
         public static estadopedidodt PedidoCancelado(int idpedido)
         {
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            var obj = db.Pedido.Select(b => 
                 new estadopedidodt()
                 {
                     idpedido = b.idpedido,
@@ -179,15 +170,15 @@ namespace WebApiUberEats.Models
 
         public static pedidosestado2dt ObtieneListaPedidosConfirmados(int estado) {
             
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
 
             //regla 1: valida el estado en confirmado (2)
-            var vestado2 = db.Pedido.Where(p => p.estado != estado).Count();//si es true devuelve 1,caso contrario devuelve 0
+            var vestado2 = db.Pedido.Where(p => p.estado != estado).Count();
 
-            if (vestado2 > 0) //condicional  : si vestado2 > 0 ,termina proceso y retorna null
+            if (vestado2 > 0) 
                 return null;
 
-            var obj = db.Pedido.Select(b => // Obtiene lista de Pedido
+            var obj = db.Pedido.Select(b => 
                 new pedidosestado2dt()
                 {
                     idpedido = b.idpedido,
@@ -197,20 +188,19 @@ namespace WebApiUberEats.Models
                         nombreproducto = b.Producto.nombreproducto,
                         precio = (decimal)b.Producto.precio
                     },
-                    cantidad_pedido =(int) b.cantidad_pedido,
+                    item =(int) b.item,
                     direccion_entrega = b.direccion_entrega
 
-                }).SingleOrDefault(b => b.estado == estado);//si cumple condicional retorna data del obj  
-            return obj;//retorna obj
+                }).SingleOrDefault(b => b.estado == estado);
+            return obj;
         }
-
 
         public static estadopedidodt PedidoEntregado(int idpedido, pedidodt pedidodt)
         {
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
 
             //regla 1: el pedido debe estar en estado confirmado (2)
-            var vpedidoconfirmado2 = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 2).Count();//si es true devuelve 1, caso contrario devuelve 0
+            var vpedidoconfirmado2 = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 2).Count();
 
             if (vpedidoconfirmado2 > 0)
                 return null;

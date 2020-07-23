@@ -12,6 +12,7 @@ namespace WebApiUberEats.Transfers
         public decimal precio { get; set; }
         public string nombrefotoproducto { get; set; }
         public int idcomercio { get; set; }
+        public usuariocomerciodt usuariocomerciodt { get; set; }
         public categoria_comerciodt categoria_Comerciodt { get; set; }
 
     }

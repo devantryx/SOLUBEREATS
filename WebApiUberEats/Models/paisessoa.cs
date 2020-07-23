@@ -11,11 +11,11 @@ namespace WebApiUberEats.Models
   
     public partial class paises
     {
-        //Obtiene lista de paises
+
         public static IEnumerable<paisesdt> ObtenerListaPaises()
         {
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
+            BdUberEatsEntities1 db = new BdUberEatsEntities1();
 
             var list = from b in db.Pais.Where(p => p.idpais == p.idpais).OrderBy(p => p.codigo_pais)
                        select new paisesdt()

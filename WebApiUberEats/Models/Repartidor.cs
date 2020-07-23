@@ -21,7 +21,7 @@ namespace WebApiUberEats.Models
         }
     
         public int idrepartidor { get; set; }
-        public string fotoperfil { get; set; }
+        public string fotovehiculo { get; set; }
         public string fotolicenciaconducir { get; set; }
         public string fotoantecedentes { get; set; }
         public string fotosoat { get; set; }
@@ -32,6 +32,7 @@ namespace WebApiUberEats.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Entrega> Entrega { get; set; }
+        public virtual Estado_Repartidor Estado_Repartidor { get; set; }
         public virtual Metodo_Entrega Metodo_Entrega { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
