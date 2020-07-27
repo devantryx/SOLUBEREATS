@@ -12,7 +12,7 @@ namespace WebApiUberEats.Models
         public static IEnumerable<productocomerciodt> ListarProductosComercio(int idcomercio)
         {
            
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var list = from b in db.Producto.Where(b => b.idcomercio == idcomercio)
                        select new productocomerciodt()
                        {
@@ -41,7 +41,7 @@ namespace WebApiUberEats.Models
         public static productodt ObtenerProductoRegistrado(int idproducto)       
         {
             //ObtenerProductoRegistrado -> no mostrarlo en la presentacion por que no fue enviado
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Producto.Select(b => // Obtiene lista de Producto
                 new productodt()
                 {   //Propiedad de la clase Producto
@@ -59,7 +59,7 @@ namespace WebApiUberEats.Models
         }
         public static IEnumerable<productocategoriadt> ListarProductoCategoria(int idcategoria_producto)
         {
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 2: lista de forma descendente de mayor a menor el precio
             var list = from b in db.Producto.Where(p => p.idcategoria_producto == idcategoria_producto).OrderByDescending(p => p.precio)
                        select new productocategoriadt()
@@ -79,7 +79,7 @@ namespace WebApiUberEats.Models
         }
         public static productodt InsertarProducto(productodt productodt) 
         {
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida datos unicos (idproducto)
             var idproducto = db.Producto.Where(p => p.idproducto == productodt.idproducto).Count();
             var istock = db.Producto.Where(p => productodt.stock <= 0).Count(); //regla 2:   valida el stock ingresado si es 0 devuelve 1

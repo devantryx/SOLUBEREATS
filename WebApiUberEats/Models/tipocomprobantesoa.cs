@@ -13,7 +13,7 @@ namespace WebApiUberEats.Models
         public static IEnumerable<tipo_comprobantedt> ObtieneListaTipoComprobante()
         {
 
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            BdUberEatsEntities db = new BdUberEatsEntities();
 
             var list = from r in db.Tipo_Comprobante
                        select new tipo_comprobantedt()
