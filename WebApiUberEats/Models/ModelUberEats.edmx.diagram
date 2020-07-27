@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4ce6de472fe9457a9a844d97be7ec294" Name="Diagram1">
+      <Diagram DiagramId="dd11316e0390415a8289419eaf79a8ea" Name="Diagram1">
         <EntityTypeShape EntityType="bdubereatsModel.Categoria_Comercio" Width="1.5" PointX="3" PointY="20.625" IsExpanded="true" />
         <EntityTypeShape EntityType="bdubereatsModel.Categoria_Producto" Width="1.5" PointX="8.25" PointY="26.625" IsExpanded="true" />
         <EntityTypeShape EntityType="bdubereatsModel.Cliente" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
@@ -20,7 +20,6 @@
         <EntityTypeShape EntityType="bdubereatsModel.Pedido" Width="1.5" PointX="7.5" PointY="20.375" IsExpanded="true" />
         <EntityTypeShape EntityType="bdubereatsModel.Producto" Width="1.5" PointX="10.5" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bdubereatsModel.Repartidor" Width="1.5" PointX="8.25" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="bdubereatsModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="bdubereatsModel.Tarjeta" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="bdubereatsModel.Tipo_Comprobante" Width="1.5" PointX="10.5" PointY="26.5" IsExpanded="true" />
         <EntityTypeShape EntityType="bdubereatsModel.Tipo_Documento" Width="1.5" PointX="10.5" PointY="28.875" IsExpanded="true" />

@@ -9,10 +9,12 @@ namespace WebApiUberEats.Models
 {
     public partial class producto
     {
+       
         public static IEnumerable<productocomerciodt> ListarProductosComercio(int idcomercio)
         {
-           
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            //Lista doble comercio cosa q esta mal.
+            //servicio se encuentra en lo enviado.
+            bdubereatsEntities db = new bdubereatsEntities();
             var list = from b in db.Producto.Where(b => b.idcomercio == idcomercio)
                        select new productocomerciodt()
                        {
@@ -23,7 +25,7 @@ namespace WebApiUberEats.Models
                            nombrefotoproducto = b.nombrefotoproducto,
 
                            usuariocomerciodt = new usuariocomerciodt() { 
-                           nombrefoto = b.Comercio.Usuario.nombrefoto
+                           
                            },
 
                            categoria_Comerciodt = new categoria_comerciodt()
@@ -41,7 +43,7 @@ namespace WebApiUberEats.Models
         public static productodt ObtenerProductoRegistrado(int idproducto)       
         {
             //ObtenerProductoRegistrado -> no mostrarlo en la presentacion por que no fue enviado
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            bdubereatsEntities db = new bdubereatsEntities();
             var obj = db.Producto.Select(b => // Obtiene lista de Producto
                 new productodt()
                 {   //Propiedad de la clase Producto
@@ -59,7 +61,7 @@ namespace WebApiUberEats.Models
         }
         public static IEnumerable<productocategoriadt> ListarProductoCategoria(int idcategoria_producto)
         {
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            bdubereatsEntities db = new bdubereatsEntities();
             //regla 2: lista de forma descendente de mayor a menor el precio
             var list = from b in db.Producto.Where(p => p.idcategoria_producto == idcategoria_producto).OrderByDescending(p => p.precio)
                        select new productocategoriadt()
@@ -79,7 +81,7 @@ namespace WebApiUberEats.Models
         }
         public static productodt InsertarProducto(productodt productodt) 
         {
-            BdUberEatsEntities1 db = new BdUberEatsEntities1();
+            bdubereatsEntities db = new bdubereatsEntities();
             //regla 1: valida datos unicos (idproducto)
             var idproducto = db.Producto.Where(p => p.idproducto == productodt.idproducto).Count();
             var istock = db.Producto.Where(p => productodt.stock <= 0).Count(); //regla 2:   valida el stock ingresado si es 0 devuelve 1
@@ -131,6 +133,93 @@ namespace WebApiUberEats.Models
 
         }
 
-          
+        //Lista comercio seleccionado con todos sus productos menos las bebidas
+        public static IEnumerable<usuariocomercioproductosdt> ListarComercioProductos(int idcomercio)
+        {
+            bdubereatsEntities db = new bdubereatsEntities();
+            var list = from b in db.Comercio
+                       join s in db.Producto on b.idcomercio equals s.idcomercio 
+                       where
+                       b.idcomercio == idcomercio &&
+                       s.idcategoria_producto != 3
+                       //.Where(b => b.idcomercio == idcomercio)
+                       select new usuariocomercioproductosdt()
+                       {
+                           //idcomercio                  = b.idcomercio,
+                           //idusuario                   = (int)b.idusuario,
+                           //idcategoria_comercio        = (int)b.idcategoria_comercio,
+
+                           usuariocomerciodt = new usuariocomerciodt() {
+                               razonsocial = b.Usuario.razonsocial,
+                               nombrefoto = b.Usuario.nombrefoto,
+                               categoria_Comerciodt = new categoria_comerciodt() {
+                                   descripcion = b.Categoria_Comercio.descripcion
+                               }
+                           },
+                           comercioproductosdt = new comercioproductosdt()
+                           {
+                               nombreproducto = s.nombreproducto,
+                               descripcion = s.descripcion,
+                               precio =(decimal)s.precio,
+                               nombrefotoproducto = s.nombrefotoproducto,
+
+                               categoria_Productodt = new categoria_productodt() {
+                                    descripcion_categoria = s.Categoria_Producto.descripcion
+                               }
+                           },
+                       };
+
+            return list;
+
         }
+
+
+        //Lista comercio seleccionado producto bebidas
+        public static IEnumerable<usuariocomercioproductosdt> ListarComercioProductosBebidas(int idcomercio)
+        {
+            bdubereatsEntities db = new bdubereatsEntities();
+            var list = from b in db.Comercio
+                       join s in db.Producto on b.idcomercio equals s.idcomercio
+                       where
+                       b.idcomercio == idcomercio &&
+                       s.idcategoria_producto == 3
+                       select new usuariocomercioproductosdt()
+                       {
+                          
+                           comercioproductosdt = new comercioproductosdt()
+                           {
+                               nombreproducto = s.nombreproducto,
+                               descripcion = s.descripcion,
+                               precio = (decimal)s.precio,
+                               nombrefotoproducto = s.nombrefotoproducto,
+
+                               categoria_Productodt = new categoria_productodt()
+                               {
+                                   descripcion_categoria = s.Categoria_Producto.descripcion
+                               }
+                           }
+                       };
+
+            return list;
+
+        }
+
+        //Lista categoria producto Adicionales: bebidas,guarniciones,platos especiales
+        public static IEnumerable<categoria_productodt> ListarComercioProductosAdicionales()
+        {
+            bdubereatsEntities db = new bdubereatsEntities();
+            int[] ids = {3,7,8 };
+            var list = from b in db.Categoria_Producto                      
+                       where ids.Contains(b.idcategoria_producto)
+                      
+                       select new categoria_productodt()
+                       {
+                           descripcion_categoria = b.descripcion
+                       };
+
+            return list;
+
+        }
+
     }
+}

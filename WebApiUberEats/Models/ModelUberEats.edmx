@@ -147,16 +147,6 @@
           <Property Name="idusuario" Type="int" />
           <Property Name="estado" Type="int" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
             <PropertyRef Name="idtarjeta" />
@@ -522,7 +512,6 @@
           <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Repartidor" EntityType="Self.Repartidor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Comprobante" EntityType="Self.Tipo_Comprobante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Documento" EntityType="Self.Tipo_Documento" Schema="dbo" store:Type="Tables" />
@@ -813,16 +802,6 @@
           <NavigationProperty Name="Estado_Repartidor" Relationship="Self.FK__Repartido__estad__123EB7A3" FromRole="Repartidor" ToRole="Estado_Repartidor" />
           <NavigationProperty Name="Metodo_Entrega" Relationship="Self.FK__Repartido__idmet__5EBF139D" FromRole="Repartidor" ToRole="Metodo_Entrega" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK__Repartido__idusu__5FB337D6" FromRole="Repartidor" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
@@ -1185,7 +1164,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BdUberEatsEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bdubereatsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categoria_Comercio" EntityType="Self.Categoria_Comercio" />
           <EntitySet Name="Categoria_Producto" EntityType="Self.Categoria_Producto" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
@@ -1201,7 +1180,6 @@
           <EntitySet Name="Pedido" EntityType="Self.Pedido" />
           <EntitySet Name="Producto" EntityType="Self.Producto" />
           <EntitySet Name="Repartidor" EntityType="Self.Repartidor" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" />
           <EntitySet Name="Tipo_Comprobante" EntityType="Self.Tipo_Comprobante" />
           <EntitySet Name="Tipo_Documento" EntityType="Self.Tipo_Documento" />
@@ -1313,7 +1291,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="BdUberEatsEntities1">
+        <EntityContainerMapping StorageEntityContainer="bdubereatsModelStoreContainer" CdmEntityContainer="bdubereatsEntities">
           <EntitySetMapping Name="Categoria_Comercio">
             <EntityTypeMapping TypeName="bdubereatsModel.Categoria_Comercio">
               <MappingFragment StoreEntitySet="Categoria_Comercio">
@@ -1468,17 +1446,6 @@
                 <ScalarProperty Name="idmetodoentrega" ColumnName="idmetodoentrega" />
                 <ScalarProperty Name="idusuario" ColumnName="idusuario" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="bdubereatsModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

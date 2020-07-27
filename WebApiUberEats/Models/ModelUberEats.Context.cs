@@ -13,10 +13,10 @@ namespace WebApiUberEats.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BdUberEatsEntities1 : DbContext
+    public partial class bdubereatsEntities : DbContext
     {
-        public BdUberEatsEntities1()
-            : base("name=BdUberEatsEntities1")
+        public bdubereatsEntities()
+            : base("name=bdubereatsEntities")
         {
         }
     
@@ -40,7 +40,6 @@ namespace WebApiUberEats.Models
         public virtual DbSet<Pedido> Pedido { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Repartidor> Repartidor { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tarjeta> Tarjeta { get; set; }
         public virtual DbSet<Tipo_Comprobante> Tipo_Comprobante { get; set; }
         public virtual DbSet<Tipo_Documento> Tipo_Documento { get; set; }
