@@ -1,0 +1,147 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>UberEats::Orden</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h5><span class="glyphicon"></span> Registro de cliente</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="p1" class="panel-body">
+
+                        <div class="row">
+                            <div class="col-xs-8 col-xs-offset-2">
+                                <h2>Ingresa número de telefono movil</h2>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-xs-10 col-xs-offset-1">
+                                            <select id="selectPais" class="form-control">
+                                                <option v-for="item in paises" :value="item.id">{{item.nombre}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-10 col-xs-offset-1">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="txtCodigoPais">+ 051</span>
+                                                <input type="number" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="p1" class="panel-body">
+
+                        <div class="row">
+                            <div class="col-xs-8 col-xs-offset-2">
+                                <h2>Ingresa codigo de 4 digitos enviado al XXXXXXX</h2>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-xs-2 col-xs-offset-2">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <div class="row text-center">
+                            <div class="col-xs-9">
+                                <h4 class="text-right"></h4>
+                            </div>
+                            <div class="col-xs-3">
+                                <button id="btnSiguiente" data-loading-text="Cargando..." type="button" class="btn btn-success btn-block">
+                                    Siguiente
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vApp = new Vue({
+            el: "#app",
+            data: {
+                paises: [
+                    { id: 1, nombre: "Perú", codigo:"+ 051" },
+                    { id: 2, nombre: "Colombia", codigo: "+ 052" },
+                    { id: 3, nombre: "Estados Unidos", codigo: "+ 053" },
+                ],
+                pedido: {
+                    totalVenta: 4.0,
+                    detalle: [
+                        { secuencia: 1, codigoProducto: "1", descripcion: "Producto 1", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 },
+                        { secuencia: 2, codigoProducto: "2", descripcion: "Producto 2", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 }
+                    ]
+                }
+
+            }
+        });
+        $("#selectPais").on('change', function (e) {
+            console.log(this.value,
+                this.options[this.selectedIndex].value,
+                $(this).find("option:selected").val());
+
+            var Pais = vApp.data.paises.find(element = element.codigoProducto == this.options[this.selectedIndex].value);
+            console(Object.values(Pais));
+            $('#txtCodigoPais').text("AA");
+
+        });
+        $('#btnSiguiente').on('click', function () {
+            var $btn = $(this).button('loading')
+            // business logic...
+            $btn.button('reset')
+        })
+    </script>
+</body>
+</html>

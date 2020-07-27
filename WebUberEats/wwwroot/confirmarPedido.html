@@ -1,0 +1,111 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>UberEats::Confirmar pedido</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+</head>
+
+
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-2">
+                            <input type="checkbox" checked data-toggle="toggle">
+                        </div>
+                        <div class="col-xs-10">
+                            <select class="form-control">
+                                <option v-for="item in direcciones" :value="item.id">{{item.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <form class="form-horizontal" role="form">
+                    <fieldset>
+
+                        <!-- Form Name -->
+                        <legend>Detalle de la dirección de envio</legend>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="textinput">Dirección:</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="Av./ Mz. /Lt." class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="textinput">Referencia</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="Alt. / Cerca a" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="textinput">Provincia</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <label class="col-sm-2 control-label" for="textinput">Distrito</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-danger">Cancelar pedido</button>
+                                    <button type="submit" class="btn btn-success">Confirmar pedido</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div><!-- /.col-lg-12 -->
+        </div><!-- /.row -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                direcciones: [
+                    { id: 1, descripcion: "Mi casa" },
+                    { id: 2, descripcion: "Mi Trabajo" }
+                ],
+                pedido: {
+                    totalVenta: 4.0,
+                    detalle: [
+                        { secuencia: 1, codigoProducto: "1", descripcion: "Producto 1", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 },
+                        { secuencia: 2, codigoProducto: "2", descripcion: "Producto 2", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 }
+                    ]
+                }
+
+            }
+        })
+    </script>
+</body>
+</html>

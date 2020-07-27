@@ -1,0 +1,112 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>UberEats::Orden</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h5><span class="glyphicon glyphicon-shopping-cart"></span> Realizar pedido</h5>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button type="button" class="btn btn-primary btn-sm btn-block">
+                                        <span class="glyphicon glyphicon-share-alt"></span> Agregar más
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div v-for="item in pedido.detalle">
+                            <div class="row">
+                                <div class="col-xs-2">
+                                    <img class="img-responsive" src="http://placehold.it/100x70">
+                                </div>
+                                <div class="col-xs-4">
+                                    <h4 class="product-name"><strong>{{item.codigoProducto}}</strong></h4><h4><small>{{item.descripcion}}</small></h4>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="col-xs-6 text-right">
+                                        <h6><strong>{{item.precioTotal}} <span class="text-muted">x</span></strong></h6>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control input-sm" value="1">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <button type="button" class="btn btn-link btn-xs">
+                                            <span class="glyphicon glyphicon-trash"> </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="text-center">
+                                <div class="col-xs-9">
+                                    <h6 class="text-right">Otras opciones</h6>
+                                </div>
+                                <div class="col-xs-3">
+                                    <button type="button" class="btn btn-warning btn-sm btn-block">
+                                        Vaciar carrito
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row text-center">
+                            <div class="col-xs-9">
+                                <h4 class="text-right">Total <strong>${{pedido.totalVenta}}</strong></h4>
+                            </div>
+                            <div class="col-xs-3">
+                                <button type="button" class="btn btn-success btn-block">
+                                    Realizar pedido
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                pedido: {
+                    totalVenta: 4.0,
+                    detalle: [
+                        { secuencia: 1, codigoProducto: "1", descripcion: "Producto 1", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 },
+                        { secuencia: 2, codigoProducto: "2", descripcion: "Producto 2", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 }
+                    ]
+                }
+
+            }
+        })
+    </script>
+</body>
+</html>
