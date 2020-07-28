@@ -14,8 +14,7 @@ namespace WebApiUberEats.Models
         public static usuariodt ObtenerUsuarioClienteRegistrado(int idusuario)       
         {
             
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Usuario.Select(b => 
+            BdUberEatsEntities db = new BdUberEatsEntities();            var obj = db.Usuario.Select(b => 
                 new usuariodt()
                 {  
                     idusuario   = b.idusuario,
@@ -31,8 +30,7 @@ namespace WebApiUberEats.Models
         public static comerciodt ObtenerUsuarioComercioRegistrado(int idcomercio)       
         {
             //ObtenerUsuarioComercioRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Comercio.Select(b => // Obtiene lista de usuario comercio
+            BdUberEatsEntities db = new BdUberEatsEntities();            var obj = db.Comercio.Select(b => // Obtiene lista de usuario comercio
                 new comerciodt()
                 {   //Propiedad de la clase Usuario
                     idusuario = (int)b.idusuario,
@@ -52,8 +50,7 @@ namespace WebApiUberEats.Models
         }
         public static tarjetadt ObtenerTarjetaRegistrado(int? idusuario) {
             //ObtenerTarjetaRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            var obj = db.Tarjeta.Select(b => 
+            BdUberEatsEntities db = new BdUberEatsEntities();            var obj = db.Tarjeta.Select(b => 
             new tarjetadt()
             {
                 idusuario           = (int)b.idusuario,
@@ -68,8 +65,7 @@ namespace WebApiUberEats.Models
         }
         public static usuariodt InsertarUsuarioCliente(usuariodt usuariodt)
         {
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            //regla 1: valida datos unicos (correo,numero telefono)
+            BdUberEatsEntities db = new BdUberEatsEntities();            //regla 1: valida datos unicos (correo,numero telefono)
 
             var vcorreo = db.Usuario.Where(u => u.correo.ToLower().Trim()   == usuariodt.correo.ToLower().Trim()).Count();
             var vnrotel = db.Usuario.Where(u => u.telefono.ToLower().Trim() == usuariodt.telefono.ToLower().Trim()).Count();
@@ -126,8 +122,7 @@ namespace WebApiUberEats.Models
         public static tarjetadt InsertarTarjeta(tarjetadt tarjetadt)
         {
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            //regla 1: valida datos unicos (nùmero tarjeta)
+            BdUberEatsEntities db = new BdUberEatsEntities();            //regla 1: valida datos unicos (nùmero tarjeta)
             var vnrotarjeta = db.Tarjeta.Where(t => t.numero_tarjeta == tarjetadt.numero_tarjeta).Count();//si el numero de tarjeta ingresada existe en bd la variable vnrotarjeta sera 1
             //regla 2: valida que el numero de tarjeta este asociado a una persona registrada
             var vidusuario = db.Tarjeta.Where(t => t.idusuario == tarjetadt.idusuario).Count(); // si el idusuario ingresado es igual al idusuario registrado en bd retornara valor 0 vidusuario
@@ -166,8 +161,7 @@ namespace WebApiUberEats.Models
         public static usuariodt InsertarUsuarioComercio(usuariodt usuariodt)
         {
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            //regla 1: valida datos unicos (correo,numero telefono)
+            BdUberEatsEntities db = new BdUberEatsEntities();            //regla 1: valida datos unicos (correo,numero telefono)
             var vcorreo = db.Usuario.Where(u => u.correo.ToLower().Trim() == usuariodt.correo.ToLower().Trim()).Count();
             var vnrotel = db.Usuario.Where(u => u.telefono.ToLower().Trim() == usuariodt.telefono.ToLower().Trim()).Count();
 
@@ -224,7 +218,6 @@ namespace WebApiUberEats.Models
         {
 
             BdUberEatsEntities db = new BdUberEatsEntities();
-
             var list = from b in db.Comercio
                        select new comerciodt()
                        {

@@ -9,6 +9,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace WebUberEats
 {
@@ -24,6 +27,7 @@ namespace WebUberEats
             //GenerarCodigoUberEatsAleatorio();
 
             CreateHostBuilder(args).Build().Run();
+            //Envio().Wait();
         }
 
         //[JSInvokable]
@@ -36,7 +40,7 @@ namespace WebUberEats
         //        var seed = int.Parse(justNumbers.Substring(0, 4));
 
         //        var random = new Random(seed);
-               
+
 
         //        var message = MessageResource.Create(
         //           body: ($"{seed}"),
@@ -47,6 +51,18 @@ namespace WebUberEats
         //    }       
         //}
 
+        //static async Task Envio()
+        //{
+        //    var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+        //    var client = new SendGridClient(apiKey);
+        //    var from = new EmailAddress("devantryx@gmail.com", "Cliente1");
+        //    var subject = "Envio de correo a clientes registrados";
+        //    var to = new EmailAddress("devantryx@gmail.com", "Cliente1");
+        //    var plainTextContent = "Mensaje";
+        //    var htmlContent = "<strong>Mensaje de prueba</strong>";
+        //    var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+        //    var response = await client.SendEmailAsync(msg);
+        //}
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

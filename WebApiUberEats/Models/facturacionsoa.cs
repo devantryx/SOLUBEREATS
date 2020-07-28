@@ -18,8 +18,7 @@ namespace WebApiUberEats.Models
                 return null;
             }
 
-            BdUberEatsEntities db = new BdUberEatsEntities();
-            //regla1: validar que el pedido existe
+            BdUberEatsEntities db = new BdUberEatsEntities();            //regla1: validar que el pedido existe
             var vCountPedido = db.Pedido.Where(p => p.idpedido == facturaciondt.idpedido).Count();
             if (vCountPedido != 1)
             {

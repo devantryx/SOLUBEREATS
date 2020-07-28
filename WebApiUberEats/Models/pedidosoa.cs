@@ -80,6 +80,7 @@ namespace WebApiUberEats.Models
         }
 
         public static pedidodetalledt ObtieneListaDetallePedido(int idpedido) {
+
             BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Pedido.Select(b => 
                 new pedidodetalledt()
@@ -100,6 +101,7 @@ namespace WebApiUberEats.Models
 
         public static estadopedidodt ConfirmarPedido(int idpedido, pedidodt pedidodt) {
             
+
             BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida que el id pedido exista en bd
             var vidpedidoexiste = db.Pedido.Where(p => p.idpedido != idpedido).Count();
@@ -171,7 +173,6 @@ namespace WebApiUberEats.Models
         public static pedidosestado2dt ObtieneListaPedidosConfirmados(int estado) {
             
             BdUberEatsEntities db = new BdUberEatsEntities();
-
             //regla 1: valida el estado en confirmado (2)
             var vestado2 = db.Pedido.Where(p => p.estado != estado).Count();
 
@@ -198,7 +199,6 @@ namespace WebApiUberEats.Models
         public static estadopedidodt PedidoEntregado(int idpedido, pedidodt pedidodt)
         {
             BdUberEatsEntities db = new BdUberEatsEntities();
-
             //regla 1: el pedido debe estar en estado confirmado (2)
             var vpedidoconfirmado2 = db.Pedido.Where(p => p.idpedido == idpedido && p.estado != 2).Count();
 

@@ -16,8 +16,7 @@ namespace WebApiUberEats.Models
     public partial class BdUberEatsEntities : DbContext
     {
         public BdUberEatsEntities()
-            : base("name=BdUberEatsEntities")
-        {
+            : base("name=BdUberEatsEntities")        {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -40,7 +39,6 @@ namespace WebApiUberEats.Models
         public virtual DbSet<Pedido> Pedido { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Repartidor> Repartidor { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tarjeta> Tarjeta { get; set; }
         public virtual DbSet<Tipo_Comprobante> Tipo_Comprobante { get; set; }
         public virtual DbSet<Tipo_Documento> Tipo_Documento { get; set; }
