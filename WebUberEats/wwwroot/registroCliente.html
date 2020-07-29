@@ -37,17 +37,17 @@
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <div class="col-xs-10 col-xs-offset-1">
-                                                <select id="selectPais" class="form-control">
+                                                <select id="selectPais" class="form-control" v-model="cliente.idpais">
                                                     <option> </option>
-                                                    <option v-for="item in paises" :value="item.id">{{item.nombre}}</option>
+                                                    <option v-for="item in paises" :value="item.idpais">{{item.nombre}}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-xs-10 col-xs-offset-1">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon" id="txtCodigoPais">{{pais.codigo}}</span>
-                                                    <input type="text" class="form-control" aria-describedby="basic-addon1">
+                                                    <span class="input-group-addon" id="txtCodigoPais">{{pais.codigo_pais}}</span>
+                                                    <input type="text" class="form-control" aria-describedby="basic-addon1" v-model="cliente.telefono">
                                                 </div>
                                             </div>
                                         </div>
@@ -93,11 +93,11 @@
                                     <form>
                                         <div class="form-group">
                                             <label for="nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre">
+                                            <input type="text" class="form-control" v-model="cliente.nombre">
                                         </div>
                                         <div class="form-group">
-                                            <label for="apellido">Apellido</label>
-                                            <input type="text" class="form-control" id="apellido">
+                                            <label for="apellido">Apellidos</label>
+                                            <input type="text" class="form-control" v-model="cliente.apellidos">
                                         </div>
                                     </form>
                                 </div>
@@ -110,7 +110,7 @@
                                     <form>
                                         <div class="form-group">
                                             <label for="nombre">Correo</label>
-                                            <input type="text" class="form-control" id="nombre">
+                                            <input type="text" class="form-control" v-model="cliente.correo">
                                         </div>
                                     </form>
                                 </div>
@@ -122,8 +122,8 @@
                                     <h2>Crea la contraseña para tu cuenta</h2>
                                     <form>
                                         <div class="form-group">
-                                            <label for="nombre">Correo</label>
-                                            <input type="text" class="form-control" id="nombre">
+                                            <label for="nombre">Contraseña</label>
+                                            <input type="text" class="form-control" v-model="cliente.contraseña">
                                         </div>
                                     </form>
                                 </div>
@@ -132,31 +132,7 @@
                         <div id="page6" style="display:none">
                             <div class="row">
                                 <div class="col-xs-8 col-xs-offset-2">
-                                    <h2>Seleccion tu método de pago preferido</h2>
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <div class="col-xs-2 col-xs-offset-2">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <h2>Al registrarte aceptas los terminos y condiciones</h2>
                                 </div>
                             </div>
                         </div>
@@ -181,23 +157,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="js/site.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
     <script>
         var vApp = new Vue({
             el: "#app",
             data: {
                 paises: [
-                    { id: 1, nombre: "Perú", codigo: "+ 051" },
-                    { id: 2, nombre: "Colombia", codigo: "+ 052" },
-                    { id: 3, nombre: "Estados Unidos", codigo: "+ 053" }
+                    //{ id: 1, nombre: "Perú", codigo: "+ 051" },
+                    //{ id: 2, nombre: "Colombia", codigo: "+ 052" },
+                    //{ id: 3, nombre: "Estados Unidos", codigo: "+ 053" }
                 ],
                 pais: {},
-                pedido: {
-                    totalVenta: 4.0,
-                    detalle: [
-                        { secuencia: 1, codigoProducto: "1", descripcion: "Producto 1", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 },
-                        { secuencia: 2, codigoProducto: "2", descripcion: "Producto 2", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 }
-                    ]
+                cliente: {                   
+                    nombre: "",
+                    apellidos: "",
+                    telefono: "",
+                    correo: "",
+                    direccion: "",
+                    nombrefoto: "",
+                    idpais: null,
+                    razonsocial: "",
+                    idcategoria_comercio: null
                 },
                 ui: {
                     btn: "Siguiente"
@@ -208,8 +189,21 @@
                     var url = base_url + "api/paises/ObtenerListaPaises";
                     this.$http.get(url).then(function (response) {
                         this.paises = response.body;
-                    })
+                    });
+                },
+                validarNumero: function (numero) {
+                    console.log(numero);
+                },
+                registarCliente: function (cliente) {
+                    var url = base_url + "api/Usuariocliente/InsertarUsuarioCliente";
+                    console.log(cliente);
+                    this.$http.post(url, cliente).then(function (response) {
+                        this.paises = response.body;
+                    });
                 }
+            },
+            mounted: function () {
+                this.fetchPaises();
             }
         });
         $("#selectPais").on('change', function (e) {
@@ -217,7 +211,7 @@
             console.log(vApp.paises);
             var id = this.value;
             var vPais = vApp.paises.find(function (item) {
-                if (item.id == id) {
+                if (item.idpais == id) {
                     return item;
                 }
 
@@ -227,7 +221,7 @@
             //$('#txtCodigoPais').text("AA");
         });
         var vListPage = [
-            { id: "page1", isOmitir: false },
+            { id: "page1" },
             { id: "page2", isOmitir: false },
             { id: "page3", isOmitir: false },
             { id: "page4", isOmitir: false },
@@ -237,32 +231,39 @@
         var numPage = vListPage[0];
         $('#' + numPage.id).show();
         $('#btnSiguiente').on('click', function () {
-            var $btn = $(this).button('loading');
-            //var vChildrens = $('pagesRegistro').children;
-            var vNext = false
-            vListPage.some(function (elemento) {
-                if (vNext) {
-                    numPage = elemento;
-                    return true;
-                }
-                if (elemento == numPage) {
-                    vNext = true;
-                }
+            var continuar = false;
+            if (numPage.id == "page1") {
+                continuar = true;
+            } else {
+                continuar = true;
+            }
+            if (continuar) {
+                //var vChildrens = $('pagesRegistro').children;
+                var vNext = false
+                vListPage.some(function (elemento) {
+                    if (vNext) {
+                        numPage = elemento;
+                        return true;
+                    }
+                    if (elemento == numPage) {
+                        vNext = true;
+                    }
 
-            });
-            vListPage.forEach(function (elemento) {
-                $('#' + elemento.id).hide();
-            });
-            $('#' + numPage.id).show();
+                });
+                vListPage.forEach(function (elemento) {
+                    $('#' + elemento.id).hide();
+                });
+                $('#' + numPage.id).show();
 
-            //for (i = 0; i < vChildrens.length; i++) {
-            //    vChildrens[i].hide();
-            //}
-            //console.log(vChildrens);
-            // business logic...
-            $btn.button('reset');
-            if (numPage.isOmitir) {
-                vApp.ui.btn = "Registrar";
+                //for (i = 0; i < vChildrens.length; i++) {
+                //    vChildrens[i].hide();
+                //}
+                //console.log(vChildrens);
+                // business logic...
+                if (numPage.isOmitir) {
+                    vApp.registarCliente(vApp.cliente);
+                    vApp.ui.btn = "Registrar";
+                }
             }
         })
     </script>
