@@ -61,7 +61,33 @@ namespace WebApiUberEats.Controllers
             return producto.ListarComercioProductosAdicionales();
         }
 
-        
+        [HttpGet]
+        [Route("api/Producto/BuscarProductoPorNombre")]
+        public productodt BuscarProductoPorNombre(string nombreproducto, int idcomercio)
+        {
+            return producto.BuscarProductoPorNombre(nombreproducto, idcomercio);
+        }
+
+        [HttpPut]
+        [Route("api/Producto/ActualizarProducto")]
+        public productodt ActualizarProducto(int idproducto,int idcomercio, productodt productodt)
+        {
+            return producto.ActualizarProducto(idproducto,idcomercio, productodt);
+        }
+
+        [HttpGet]
+        [Route("api/Producto/ObtenerProductoModificado")]
+        public productodt ObtenerProductoModificado(int idproducto)
+        {
+            return producto.ObtenerProductoModificado(idproducto);
+        }
+
+        [HttpDelete]
+        [Route("api/Producto/EliminarProducto")]
+        public bool EliminarProducto(int idproducto, int idcomercio)
+        {
+            return producto.EliminarProducto(idproducto, idcomercio);
+        }
 
     }
 }

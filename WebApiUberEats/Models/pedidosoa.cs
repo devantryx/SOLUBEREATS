@@ -216,7 +216,7 @@ namespace WebApiUberEats.Models
         public static IEnumerable<tipo_pagodt> ObtenerListaTipopago()
         {
 
-            bdubereatsEntities db = new bdubereatsEntities();
+            BdUberEatsEntities db = new BdUberEatsEntities();
 
             var list = from b in db.Tipo_Pago.Where(p => p.idtipopago == p.idtipopago)
                        select new tipo_pagodt()

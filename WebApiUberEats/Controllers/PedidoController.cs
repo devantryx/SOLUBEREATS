@@ -65,7 +65,7 @@ namespace WebApiUberEats.Controllers
         }
 
         [HttpGet]
-        [Route("api/paises/ObtenerListaTipopago")]
+        [Route("api/pedido/ObtenerListaTipopago")]
         public IEnumerable<tipo_pagodt> ObtenerListaTipopago()
         {
             return pedido.ObtenerListaTipopago();

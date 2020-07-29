@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
@@ -43,8 +44,8 @@ namespace WebApiUberEats.Models
 
         public static productodt ObtenerProductoRegistrado(int idproducto)       
         {
-          
-            bdubereatsEntities db = new bdubereatsEntities();
+
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Producto.Select(b => 
                 new productodt()
                 {   
@@ -223,5 +224,99 @@ namespace WebApiUberEats.Models
 
         }
 
+        //Buscar producto por nombre
+        public static productodt BuscarProductoPorNombre(string nombreproducto, int idcomercio)
+        {
+
+            BdUberEatsEntities db = new BdUberEatsEntities();
+            //valida si existe producto por su nombre
+            //valida el idcomercio si existe
+            var vExisteNombreProductoyIdComercio = db.Producto.Where(u => u.nombreproducto.ToLower().Trim() == nombreproducto.ToLower().Trim() & u.idcomercio == idcomercio).Count();
+            //si vExisteNombreProductoyIdComercio devuelve valor 1 continua caso contrario termina proceso.
+
+
+            if (vExisteNombreProductoyIdComercio != 1) 
+                return null;
+
+
+            var obj = db.Producto.Select(b =>
+                new productodt()
+                {
+                    idproducto           = b.idproducto,
+                    nombreproducto       = b.nombreproducto,
+                    descripcion          = b.descripcion,
+                    stock                = (int)b.stock,
+                    precio               = (decimal)b.precio,
+                    porcentajedsc        = (decimal)b.porcentajedsc,
+                    idcomercio           = (int)b.idcomercio,
+                    nombrefotoproducto   = b.nombrefotoproducto,
+                    idcategoria_producto = (int)b.idcategoria_producto
+
+                }).SingleOrDefault(b => b.nombreproducto == nombreproducto && b.idcomercio == idcomercio );
+            return obj;
+        }
+
+        //Actualizar Producto existente
+        public static productodt ActualizarProducto(int idproducto,int idcomercio, productodt productodt)
+        {
+            BdUberEatsEntities db = new BdUberEatsEntities();
+
+            //valida que el idproducto y idcomercio existan en bd
+            var vidproducto = db.Producto.Where(p => p.idproducto == idproducto & p.idcomercio == idcomercio).Count();
+            
+                if (vidproducto != 1)
+                return null;
+
+                Producto productos               = db.Producto.Find(idproducto);
+                productos.nombreproducto         = productodt.nombreproducto;
+                productos.descripcion            = productodt.descripcion;
+                productos.stock                  = productodt.stock;
+                productos.precio                 = productodt.precio;
+                productos.idcomercio             = productodt.idcomercio;
+                productos.idcategoria_producto   = productodt.idcategoria_producto;    
+                
+
+         
+                db.Entry(productos).State = EntityState.Modified;
+                db.SaveChanges();
+                return producto.ObtenerProductoModificado(productos.idproducto);
+        }
+
+        //Eliminar producto por idproducto
+        public static bool EliminarProducto(int idproducto,int idcomercio)
+        {
+            BdUberEatsEntities db = new BdUberEatsEntities();
+
+            //valida que el idproducto y idcomercio existan en bd
+            var vidproducto = db.Producto.Where(p => p.idproducto == idproducto & p.idcomercio == idcomercio).Count();
+            
+            if (vidproducto != 1)
+                return false;
+
+           
+            Producto productos = db.Producto.Find(idproducto);
+            db.Producto.Remove(productos);
+            db.SaveChanges();
+            return true;
+        }
+
+        public static productodt ObtenerProductoModificado(int idproducto)
+        {
+
+            BdUberEatsEntities db = new BdUberEatsEntities();
+            var obj = db.Producto.Select(b =>
+                new productodt()
+                {
+                    idproducto = b.idproducto,
+                    nombreproducto = b.nombreproducto,
+                    descripcion = b.descripcion,
+                    stock = (int)b.stock,
+                    precio = (decimal)b.precio,
+                    idcomercio = (int)b.idcomercio,                   
+                    idcategoria_producto = (int)b.idcategoria_producto
+
+                }).SingleOrDefault(b => b.idproducto == idproducto);
+            return obj;
+        }
     }
 }
