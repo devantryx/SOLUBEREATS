@@ -176,9 +176,7 @@
                     correo: "",
                     direccion: "",
                     nombrefoto: "",
-                    idpais: null,
-                    razonsocial: "",
-                    idcategoria_comercio: null
+                    idpais: null
                 },
                 ui: {
                     btn: "Siguiente"
@@ -198,7 +196,8 @@
                     var url = base_url + "api/Usuariocliente/InsertarUsuarioCliente";
                     console.log(cliente);
                     this.$http.post(url, cliente).then(function (response) {
-                        this.paises = response.body;
+                        var vResponse = response;
+                        console.log(vResponse);
                     });
                 }
             },

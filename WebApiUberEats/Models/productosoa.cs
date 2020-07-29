@@ -44,7 +44,7 @@ namespace WebApiUberEats.Models
         public static productodt ObtenerProductoRegistrado(int idproducto)       
         {
           
-            bdubereatsEntities db = new bdubereatsEntities();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Producto.Select(b => 
                 new productodt()
                 {   
