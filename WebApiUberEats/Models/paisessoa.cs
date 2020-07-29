@@ -15,8 +15,7 @@ namespace WebApiUberEats.Models
         public static IEnumerable<paisesdt> ObtenerListaPaises()
         {
 
-            bdubereatsEntities db = new bdubereatsEntities();
-
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var list = from b in db.Pais.Where(p => p.idpais == p.idpais).OrderBy(p => p.codigo_pais)
                        select new paisesdt()
                        {

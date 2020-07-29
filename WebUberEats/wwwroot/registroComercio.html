@@ -1,0 +1,273 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>UberEats::Orden</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <h5><span class="glyphicon"></span> Registro de comercio</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="page1" style="display:none">
+                            <div class="row">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <h2>Ingresa número de telefono movil</h2>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="col-xs-10 col-xs-offset-1">
+                                                <select id="selectPais" class="form-control">
+                                                    <option> </option>
+                                                    <option v-for="item in paises" :value="item.id">{{item.nombre}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-10 col-xs-offset-1">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" id="txtCodigoPais">{{pais.codigo}}</span>
+                                                    <input type="number" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="page2" style="display:none">
+                            <div class="row">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <h2>Ingresa codigo de 4 digitos enviado al XXXXXXX</h2>
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="col-xs-2 col-xs-offset-2">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="page3" style="display:none">
+                            <div class="row">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <h2>¿Cual es tu nombre?</h2>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="apellido">Apellido</label>
+                                            <input type="text" class="form-control" id="apellido">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="page4" style="display:none">
+                            <div class="row">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <h2>¿Cual es tu dirección de correo?</h2>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="nombre">Correo</label>
+                                            <input type="text" class="form-control" id="nombre">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="page5" style="display:none">
+                            <div class="row">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <h2>Crea la contraseña para tu cuenta</h2>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="nombre">Correo</label>
+                                            <input type="text" class="form-control" id="nombre">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="page6" style="display:none">
+                            <div class="row">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <h2>Datos del comercio</h2>
+                                    <form>
+                                        <div class="form-group">
+                                            <label>Direccion</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">File input</label>
+                                            <input type="file" id="exampleInputFile">
+                                            <p class="help-block">Example block-level help text here.</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Razon social</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Seleccione una categoria</label>
+                                            <select class="form-control">
+                                                <option v-for="item in categorias" :value="item.id">{{item.descripcion}}</option>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="page7" style="display:none">
+                            <div class="row">
+                                <div class="col-xs-8 col-xs-offset-2">
+                                    <h2>Terminos y condiciones</h2>
+                                    <h3>Al aceptar esta aceptando</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row text-center">
+                            <div class="col-xs-9">
+                                <h4 class="text-right"></h4>
+                            </div>
+                            <div class="col-xs-3">
+                                <button id="btnSiguiente" data-loading-text="Cargando..." type="button" class="btn btn-success btn-block">
+                                    {{ui.btn}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var vApp = new Vue({
+            el: "#app",
+            data: {
+                paises: [
+                    { id: 1, nombre: "Perú", codigo: "+ 051" },
+                    { id: 2, nombre: "Colombia", codigo: "+ 052" },
+                    { id: 3, nombre: "Estados Unidos", codigo: "+ 053" },
+                ],
+                pais: {},
+                pedido: {
+                    totalVenta: 4.0,
+                    detalle: [
+                        { secuencia: 1, codigoProducto: "1", descripcion: "Producto 1", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 },
+                        { secuencia: 2, codigoProducto: "2", descripcion: "Producto 2", precioUnitario: 1.0, cantidad: 2, precioTotal: 2.0 }
+                    ]
+                },
+                categorias: [
+                    { id: 1, descripcion: "Comida china" },
+                    { id: 2, descripcion: "Comida japonesa" },
+                ],
+                ui: {
+                    btn: "Siguiente"
+                }
+            }
+        });
+        $("#selectPais").on('change', function (e) {
+            console.log(this.value, this.options[this.selectedIndex].value, $(this).find("option:selected").val());
+            console.log(vApp.paises);
+            var id = this.value;
+            var vPais = vApp.paises.find(function (item) {
+                if (item.id == id) {
+                    return item;
+                }
+
+            });
+            console.log(vPais);
+            vApp.pais = vPais;
+            //$('#txtCodigoPais').text("AA");
+        });
+        var vListPage = [
+            { id: "page1", isOmitir: false },
+            { id: "page2", isOmitir: false },
+            { id: "page3", isOmitir: false },
+            { id: "page4", isOmitir: false },
+            { id: "page5", isOmitir: false },
+            { id: "page6", isOmitir: true },
+            { id: "page7", isOmitir: true }
+        ];
+        var numPage = vListPage[0];
+        $('#' + numPage.id).show();
+        $('#btnSiguiente').on('click', function () {
+            var $btn = $(this).button('loading');
+            //var vChildrens = $('pagesRegistro').children;
+            var vNext = false
+            vListPage.some(function (elemento) {
+                if (vNext) {
+                    numPage = elemento;
+                    return true;
+                }
+                if (elemento == numPage) {
+                    vNext = true;
+                }
+
+            });
+            vListPage.forEach(function (elemento) {
+                $('#' + elemento.id).hide();
+            });
+            $('#' + numPage.id).show();
+
+            //for (i = 0; i < vChildrens.length; i++) {
+            //    vChildrens[i].hide();
+            //}
+            //console.log(vChildrens);
+            // business logic...
+            $btn.button('reset');
+            if (numPage.isOmitir) {
+                vApp.ui.btn = "Registrar";
+            }
+        })
+    </script>
+</body>
+</html>

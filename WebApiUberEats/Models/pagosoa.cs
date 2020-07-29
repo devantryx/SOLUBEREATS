@@ -13,7 +13,7 @@ namespace WebApiUberEats.Models
         public static IEnumerable<tipo_pagodt> ObtenerListaTiposPago()
         {
 
-            bdubereatsEntities db = new bdubereatsEntities();
+            BdUberEatsEntities db = new BdUberEatsEntities();
 
             var list = from r in db.Tipo_Pago
                        select new tipo_pagodt()
@@ -33,7 +33,7 @@ namespace WebApiUberEats.Models
                 return null;
             }
 
-            bdubereatsEntities db = new bdubereatsEntities();
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla1: validar que el pedido existe
             var vCountPedido = db.Pedido.Where(p => p.idpedido == pagodt.idpedido).Count();
             if(vCountPedido != 1)

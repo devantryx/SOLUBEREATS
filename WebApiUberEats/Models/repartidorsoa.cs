@@ -11,8 +11,7 @@ namespace WebApiUberEats.Models
         public static repartidorestadodt ObtenerRepartidorDisponible(int estado)
         {
 
-            bdubereatsEntities db = new bdubereatsEntities();
-
+            BdUberEatsEntities db = new BdUberEatsEntities();
             //regla 1: valida si esta disponible el repartidor estado en(1)
             var vrepestado1 = db.Repartidor.Where(p => p.estado != estado).Count();
 

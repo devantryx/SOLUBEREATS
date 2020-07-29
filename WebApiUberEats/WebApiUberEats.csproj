@@ -327,10 +327,6 @@
     <Compile Include="Transfers\usuariotarjetadt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\mssqllocaldb.mdf" />
-    <Content Include="App_Data\mssqllocaldb_log.ldf">
-      <DependentUpon>mssqllocaldb.mdf</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Models\ModelUberEats.Context.tt">
@@ -351,7 +347,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\ModelUberEats.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

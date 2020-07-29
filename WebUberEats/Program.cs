@@ -11,8 +11,6 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace WebUberEats
