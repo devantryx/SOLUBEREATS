@@ -11,7 +11,8 @@ namespace WebApiUberEats.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Producto
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +20,12 @@ namespace WebApiUberEats.Models
         {
             this.Pedido = new HashSet<Pedido>();
         }
-    
+
         public int idproducto { get; set; }
         public string nombreproducto { get; set; }
         public string descripcion { get; set; }
         public Nullable<int> stock { get; set; }
+        [Column(TypeName = "decimal(9,2)")]
         public Nullable<decimal> precio { get; set; }
         public Nullable<decimal> porcentajedsc { get; set; }
         public string nombrefotoproducto { get; set; }

@@ -7,7 +7,7 @@ namespace WebApiUberEats.Transfers
 {
     public class comercioproductosdt
     {
-        
+        public int idproducto { get; set; }
         public string nombreproducto { get; set; }
         public string descripcion { get; set; }
         public decimal precio { get; set; }

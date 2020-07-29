@@ -42,23 +42,25 @@ namespace WebApiUberEats.Models
 
         public static productodt ObtenerProductoRegistrado(int idproducto)       
         {
-            //ObtenerProductoRegistrado -> no mostrarlo en la presentacion por que no fue enviado
+          
             bdubereatsEntities db = new bdubereatsEntities();
-            var obj = db.Producto.Select(b => // Obtiene lista de Producto
+            var obj = db.Producto.Select(b => 
                 new productodt()
-                {   //Propiedad de la clase Producto
+                {   
                     idproducto = b.idproducto,
-                    nombrefotoproducto = b.nombreproducto,
+                    nombreproducto = b.nombreproducto,
                     descripcion = b.descripcion,
                     stock = (int)b.stock,
                     precio = (decimal)b.precio,
                     porcentajedsc =(decimal) b.porcentajedsc,
                     idcomercio = (int)b.idcomercio,
+                    nombrefotoproducto = b.nombrefotoproducto,
                     idcategoria_producto =(int) b.idcategoria_producto
 
-                }).SingleOrDefault(b => b.idproducto == idproducto); // devuelvo elemento si cumple con la condicion
+                }).SingleOrDefault(b => b.idproducto == idproducto); 
             return obj;
         }
+        
         public static IEnumerable<productocategoriadt> ListarProductoCategoria(int idcategoria_producto)
         {
             bdubereatsEntities db = new bdubereatsEntities();
@@ -79,6 +81,7 @@ namespace WebApiUberEats.Models
             return list;
 
         }
+        
         public static productodt InsertarProducto(productodt productodt) 
         {
             bdubereatsEntities db = new bdubereatsEntities();
@@ -145,7 +148,7 @@ namespace WebApiUberEats.Models
                        //.Where(b => b.idcomercio == idcomercio)
                        select new usuariocomercioproductosdt()
                        {
-                           //idcomercio                  = b.idcomercio,
+                           idcomercio                  = b.idcomercio,
                            //idusuario                   = (int)b.idusuario,
                            //idcategoria_comercio        = (int)b.idcategoria_comercio,
 
@@ -158,9 +161,10 @@ namespace WebApiUberEats.Models
                            },
                            comercioproductosdt = new comercioproductosdt()
                            {
+                               idproducto = s.idproducto,
                                nombreproducto = s.nombreproducto,
                                descripcion = s.descripcion,
-                               precio =(decimal)s.precio,
+                               precio =(decimal)s.precio,                                
                                nombrefotoproducto = s.nombrefotoproducto,
 
                                categoria_Productodt = new categoria_productodt() {
@@ -172,7 +176,6 @@ namespace WebApiUberEats.Models
             return list;
 
         }
-
 
         //Lista comercio seleccionado producto bebidas
         public static IEnumerable<usuariocomercioproductosdt> ListarComercioProductosBebidas(int idcomercio)

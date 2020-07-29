@@ -20,7 +20,7 @@
     <meta name="theme-color" content="#083756" />
 
     <script>
-
+     
         function LlamarInicioRestaurantes() {
             $("#svgAtraz1").removeClass('active');
             $("#imagenInicioRestaurantes").removeClass('active');
@@ -38,7 +38,11 @@
         }
 
         function LlamarMenu3() {
-            $("#pills-menu3").slideToggle("slow"); //oculta hacia arriba          
+            /* $("#pills-menu3").slideToggle("slow");*/ //oculta hacia arriba
+            $("#contenedor_menu3").slideDown("slow");
+            $("#oculta_atraz3").slideDown("slow");
+            $("#cerrar_m4").slideUp("slow");
+
             $("#contenedor1").hide("slow");
 
             $("#divProducto1").removeClass('active');
@@ -48,10 +52,53 @@
         function LlamarRealizarPedido() {           
             $("#btnAgregarProducto").removeClass('active');
             $("#svgAtraz3").removeClass('active');
-            $("#pills-menu3").slideUp("slow");
+            //$("#pills-menu3").slideUp("slow");
+            $("#contenedor_menu3").slideUp("slow");
+            $("#oculta_atraz3").slideUp("slow");
+            $("#cerrar_m4").slideDown("slow");
+
             $("#contenedor1").show("slow");
+
+            $("#Contenedor_Boton_Confirmar_Cancelar_Pedido").slideUp("slow");
+
+              
         }
-        
+
+        function LlamarConfirmarCancelarPedido() {
+            $("#txtDireccion").prop("disabled", true);
+            $("#selectTipoPago").prop("disabled", true);            
+            $("#contenedor_boton_confirmar_pedido").slideUp("slow");
+            $("#Contenedor_Boton_Confirmar_Cancelar_Pedido").slideDown("slow");
+        }
+
+        function AlertaSiDeseaCancelarPedido() {
+            alertify.confirm("¿Realmente deseas cancelar el pedido?",
+                function () {
+                    
+                   location.reload();
+                },
+                function () {
+                   
+                });
+        }
+
+        //dinamica tipo de pago (tarjeta o efectivo)
+        function selectTipoPago() {
+            var optionValue = $("#selectTipoPago").val();
+            $('#contenedor_Pago_Tarjeta').hide();
+            if (optionValue == 1) {
+                $('#contenedor_Pago_Tarjeta').show();
+                $("#txtNombreTarjeta").prop("disabled", true);  
+                $("#txtNumeroTarjeta").prop("disabled", true);  
+                
+                $("#selectTipoPagoTarjeta").prop("disabled", true);  
+                
+
+            } else {
+                $('#contenedor_Pago_Tarjeta').hide();
+            }         
+        }
+         
     </script>
 
 </head>
@@ -74,6 +121,9 @@
                             <!--#IniHeader-->
                             <div class="it-header-slim-wrapper theme-light">
                                 <div class="container">
+                                    <div style="text-align: right">
+                                        <span style="font-weight:bold">{{usuarios.usuariotarjetadt.idusuario}} {{usuarios.usuariotarjetadt.nombre}} {{usuarios.usuariotarjetadt.apellidos}}</span>
+                                    </div>                                    
                                     <div class="row">
                                         <div class="col-12" style="padding-left:0px">
                                             <div class="it-header-slim-wrapper-content">
@@ -84,8 +134,8 @@
                                                             <div class="row">
                                                                 <div class="col-sm-1">
                                                                     <!--<svg class="icon">
-                                                        <use xlink:href="../svg/sprite.svg#it-burger"></use>
-                                                    </svg>-->
+                                        <use xlink:href="../svg/sprite.svg#it-burger"></use>
+                                    </svg>-->
                                                                 </div>
                                                                 <div class="col-sm-10 text-center">
                                                                     <span>Ordenar Restaurante</span>
@@ -233,7 +283,7 @@
                     <div class="tab-pane fade" id="pills-menu3" role="tabpanel" aria-labelledby="pills-menu3-tab">
 
                         <div id="app3" class="">
-                            <div class="container-fluid">
+                            <div class="container-fluid" id="oculta_atraz3">
                                 <svg width="2em" height="2em" style="cursor:pointer;" viewBox="0 0 16 16" id="svgAtraz2" onclick="LlamarRestauranteProductos();" data-toggle="pill" href="#pills-menu2" class="bi bi-arrow-left" style="color:black" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M5.854 4.646a.5.5 0 0 1 0 .708L3.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
                                     <path fill-rule="evenodd" d="M2.5 8a.5.5 0 0 1 .5-.5h10.5a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
@@ -241,7 +291,7 @@
                             </div>
                             <!--start card1-->
                             <div id="contenedor3" class="card-wrapper" v-for="item in comercioproductos" :value="item.idcomercio">
-                                <div class="card card-img no-after">
+                                <div class="card card-img no-after" id="contenedor_menu3">
                                     <div class="img-responsive-wrapper">
 
                                         <div class="img-responsive">
@@ -273,7 +323,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-12" style="text-align:center;font-weight:bold;color:#0e1f2f;">
                                                             Cantidad:
-                                                            <input type="number" style="width:15%;font-weight:bold;color:#0e1f2f;" id="txtCantidadPlatoSeleccionado" name="txtCantidadPlatoSeleccionado" value="1" min="1" max="5" step="1" />
+                                                            <input type="number" style="width:15%;font-weight:bold;color:#0e1f2f;" v-model="cantidad" id="txtCantidadPlatoSeleccionado" name="txtCantidadPlatoSeleccionado" value="1" min="1" max="5" step="1" />
                                                             <button class="btn btn-dark btn-icon btn-xs" id="btnAgregarProducto" @click="AgregarProductoAlCarrito" onclick="LlamarRealizarPedido()" data-toggle="pill" href="#pills-menu4">
                                                                 <svg class="icon icon-white">
                                                                     <use xlink:href="../svg/sprite.svg#it-plus"></use>
@@ -317,96 +367,205 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!--end card1-->
 
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Producto</th>
-                                            <th scope="col">Cantidad</th>
-                                            <th scope="col">Precio</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(producto, index) in productos">
-                                            <th scope="row">1</th>
-                                            <td>{{producto.nombreproducto}}</td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            </br></br>
-                        </div>
-                    </div>
+                                <!--##########################################-->
+                                <!--4. Realizar Pedido-->
+                                <div class="tab-pane fade" id="pills-menu4" role="tabpanel" aria-labelledby="pills-menu4-tab">
+                                   
+                                    <div id="">
+                                        <div class="container-fluid" id="cerrar_m4">
 
-                    <!--4. Realizar Pedido-->
+                                            <svg width="2em" height="2em" style="cursor:pointer;" viewBox="0 0 16 16" id="svgAtraz3" onclick="LlamarMenu3();" data-toggle="pill" href="#pills-menu3" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
+                                                <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
+                                            </svg>
 
-                    <div class="tab-pane fade" id="pills-menu4" role="tabpanel" aria-labelledby="pills-menu4-tab">
+                                        </div>
+                                        <!--start card1-->
+                                        <div style="text-align: right">
+                                            <span style="font-size:14px">{{usuarios.usuariotarjetadt.idusuario}} {{usuarios.usuariotarjetadt.nombre}} {{usuarios.usuariotarjetadt.apellidos}}</span>
+                                        </div>
+                                        <div id="contenedor1" class="card-wrapper" v-for="item in comercioproductos" :value="item.idcomercio">
+                                            <div class="" style="padding:14px">
+                                                <h6 style="font-weight:bold;">Realizar Pedido</h6>
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">#</th>
+                                                                <th scope="col">Producto</th>
+                                                                <th scope="col">Cantidad</th>
+                                                                <th scope="col">Precio</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr v-for="(producto, index) in productos">
+                                                                <th scope="row">{{index + 1}}</th>
+                                                                <td>{{item.comercioproductosdt.nombreproducto}}</td>
+                                                                <td>{{producto.cantidad}}</td>
+                                                                <td>{{item.comercioproductosdt.precio * producto.cantidad}}.00</td>
 
-                        <div id="">
-                            <div class="container-fluid">
-                               
-                                <svg width="2em" height="2em" style="cursor:pointer;" viewBox="0 0 16 16"  id="svgAtraz3" onclick="LlamarMenu3();"data-toggle="pill" href="#pills-menu3"  class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
-                                    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
-                                </svg>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
 
-                            </div>
-                            <!--start card1-->
-                            <div id="contenedor1" class="card-wrapper"> 
-                                <div class="" style="padding:14px">
-                                    <h6 style="font-weight:bold;">Realizar Pedido</h6>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Producto</th>
-                                                    <th scope="col">Cantidad</th>
-                                                    <th scope="col">Precio</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="(producto, index) in productos">
-                                                    <th scope="row">1</th>
-                                                    <td>{{producto.nombreproducto}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    </br>
+                                                </div>
+                                                </br>
 
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                               
-                                            </div>
-                                            <div class="col-sm">
-                                               
-                                            </div>
-                                            <div class="col-sm text-center">
+                                                <form>
+                                                    <div class="form-row">
+                                                        <div class="col-7">
+                                                            <input type="text" hidden class="form-control" placeholder="">
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="text" class="form-control" value="S./" readonly style="border-bottom:0px;background-color:#fff;margin-left:40px">
+                                                        </div>
+                                                        <div class="col" style="text-align:center;">
+                                                            <input type="text" class="form-control" v-model.number="item.comercioproductosdt.precio" id="txtSubTotal" style="background-color:#fff;text-align:center;" readonly>
+                                                            <label class="" for="txtSubTotal">SubTotal</label>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <hr />
+                                                <span>Comercio:<b>{{item.usuariocomerciodt.razonsocial}}</b></span>
+                                                <hr />
+                                                <form>
+                                                    <div class="form-row">
+                                                        <div class="col" style="text-align:center;">
+                                                            <input type="text" class="form-control" value="1" v-model="item_" id="txtItem" style="text-align:center;" readonly>
+                                                            <label class="" for="txtItem">Item</label>
+                                                        </div>
+                                                        <div class="col" style="text-align:center;">
+                                                            <input type="text" class="form-control" value="1" id="txtTCantidad" style="text-align:center;" readonly>
+                                                            <label class="" for="txtTCantidad">Cantidad</label>
+                                                        </div>
+                                                        <div class="col" style="text-align:center;">
+                                                            <input type="text" class="form-control" v-model.number="item.comercioproductosdt.precio" id="txtTotal" style="text-align:center;" readonly>
+                                                            <label class="" for="txtTotal">Total</label>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <hr />
+                                                <div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="txtDireccion" v-model="direccion_entrega">
+                                                        <label for="txtDireccion">Ingrese Dirección</label>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <label for="selectTipoPago">Seleccione tipo de pago</label>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" id="txtSubTotal" style="width:50px" readonly value="0.00">
-                                                    <label for="txtSubTotal">SubTotal</label>
+                                                    <select v-model="idtipopago" class="form-control" id="selectTipoPago" onchange="selectTipoPago();">
+                                                        <option v-for="item in tipopagos" :value="item.idtipopago">{{item.descripcion}}</option>
+                                                    </select>
+                                                </div>
+
+                                                <div id="contenedor_Pago_Tarjeta" class="hide">
+                                                    <h5>Usar tarjeta registrada</h5>
+                                                    <hr />
+
+                                                    <form>
+                                                        <div class="form-row">
+                                                            <div class="col">
+                                                                <input type="text" id="txtNombreTarjeta" readonly v-model="usuarios.nombre_tarjeta" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <input type="text" id="txtNumeroTarjeta" readonly v-model="usuarios.numero_tarjeta" />
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="link-list-wrapper">
+                                                                    <ul class="link-list">
+                                                                        <li>
+                                                                            <div class="toggles">
+                                                                                <label for="switchTarjeta">
+                                                                                    <input type="checkbox" id="switchTarjeta"><span class="lever"></span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                                    <div class="form-group" id="selecttipotarjeta">
+                                                        <select v-model="idtipopago" class="form-control" id="selectTipoPagoTarjeta">
+                                                            <option v-for="item in tipopagos" :value="item.idtipopago">{{item.descripcion}}</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <hr />
+
+                                                    <h5>Agregar una tarjeta</h5>
+
+                                                    <div class="form-group" id="">
+                                                        <select class="form-control" id="selectTipoTarjetas">
+                                                            <option value="1">BCP VISA</option>
+                                                            <option value="2">INTERBANK VISA</option>
+                                                            <option value="3">BBVA VISA</option>
+                                                            <option value="4">SCOTIABANK VISA</option>
+
+                                                        </select>
+                                                    </div>
+
+
+
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <input type="number" class="form-control" id="txtnumerotarjeta"  required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;">
+                                                                    <label for="txtnumerotarjeta">Ingrese Nùmero Tarjeta</label>
+                                                                </div>
+                                                            </div>                                                            
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" id="txtfechavencimientotarjeta"  required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;">
+                                                                    <label for="txtfechavencimientotarjeta">Ingrese Fecha vto. [MM/AA]</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <input type="number" class="form-control" id="txtcvv" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;">
+                                                                    <label for="txtcvv">Ingrese CVV [123]</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+
+                                                </br>
+
+                                                <div id="contenedor_boton_confirmar_pedido">
+                                                    <button class="btn btn-dark btn-lg btn-block" id="btnRealizarPedido" onclick="LlamarConfirmarCancelarPedido()" data-toggle="pill" href="#pills-menu5">
+                                                        <span>Realizar Pedido</span>
+                                                    </button>
+                                                </div>
+
+                                                </br>
+
+                                                <div id="Contenedor_Boton_Confirmar_Cancelar_Pedido">
+                                                    <button class="btn btn-success" id="btnConfirmarPedido" @onclick="fetchConfirmarPedido" onclick="LlamarPedidoConfirmado()" data-toggle="pill" href="#pills-menu5">
+                                                        <span>Confirmar Pedido</span>
+                                                    </button>
+                                                    <button class="btn btn-dark" type="button" id="btnCancelarPedido" @onclick="fetchCancelarPedido" onclick="AlertaSiDeseaCancelarPedido()">
+                                                        <span>Cancelar Pedido</span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--end card1-->
                                     </div>
-
-                                </div>                              
+                                </div>
+                                <!--##########################################-->
                             </div>
                             <!--end card1-->
                         </div>
                     </div>
-
-
 
                     <!--0.Barra opciones-->
                     <nav class="bottom-nav">
@@ -452,16 +611,21 @@
             el: "#app",
             data: {   
                 src:"https://res.cloudinary.com/dxqdhkf3m/image/upload/v1595389866/ubereats/comercios/",
+                usuarios: [],
+                idusuario: 1,
                 comercios: [],
                 comercioproductos: [],
-                idcomercio:2
+                idcomercio: 2,
+              
             },
             mounted: function () {
+                this.ObtenerUsuarioLogueado();
                 this.ListarComercios();
                 this.fetchListarComercioProductos(this.idcomercio);
             },
 
             methods: {
+
                 ListarComercios: function () {
                     var url = "http://localhost:58201/api/Usuariocliente/ListarComercios";
                     this.$http.get(url).then(function (response) {
@@ -473,6 +637,13 @@
                     var url = ("http://localhost:58201/api/Producto/ListarComercioProductos?idcomercio=" + this.idcomercio);
                     this.$http.get(url).then(function (response) {
                         this.comercioproductos = response.body;
+                    });
+                },
+
+                ObtenerUsuarioLogueado() {
+                    var url = "http://localhost:58201/api/tarjeta/ObtenerTarjetaRegistrado?idusuario=" + this.idusuario;
+                    this.$http.get(url).then(function (response) {
+                        this.usuarios = response.body;
                     });
                 },
             }
@@ -505,21 +676,45 @@
         new Vue({
             el: "#app3",
             data: {
-                
+                usuarios: [],
+                idusuario: 1,
+
                 src3: "https://res.cloudinary.com/dxqdhkf3m/image/upload/v1595384183/ubereats/Productos/productos640x426/",
                 comercioproductos: [],
                 comercioproductosadicionales: [], 
                 idcomercio: 2,
-                nombreproducto: 'x',
-               productos:[]
+                cantidad: 1,
+                precio:'',
+                productos: [],
 
+                idtipopago: 1,
+                descripcion: "",
+                tipopagos: [],   
+
+                datosrealizarpedido: [],
+                idpedido: 4, // tiene q estar en bd
+                item_: 1,
+                direccion_entrega: "",
+                estado1: 2, //confirmado
+                estado: 3, //cancelado
+               
             },
             mounted: function () {
+                this.ObtenerUsuarioLogueado();
                 this.fetchListarComercioProductos(this.idcomercio);
                 this.fetchListarComercioProductosAdicionales();
+                this.btipopagos();
+                this.fetchCancelarPedido();
             },
 
             methods: {
+                ObtenerUsuarioLogueado() {
+                    var url = "http://localhost:58201/api/tarjeta/ObtenerTarjetaRegistrado?idusuario=" + this.idusuario;
+                    this.$http.get(url).then(function (response) {
+                        this.usuarios = response.body;
+                    });
+                },
+
                 fetchListarComercioProductos: function () {
                     var url = ("http://localhost:58201/api/Producto/ListarComercioProductos?idcomercio=" + this.idcomercio);
                     this.$http.get(url).then(function (response) {
@@ -537,32 +732,64 @@
                 AgregarProductoAlCarrito: function () {
                     this.productos.push({
                         item: 1,
-                        nombreproducto: this.nombreproducto
+                        cantidad: this.cantidad
 
                     });
 
+                },
+
+                btipopagos: function () {
+                    var url = "http://localhost:58201/api/paises/ObtenerListaTipopago";
+                    this.$http.get(url).then(function (response) {
+                        this.tipopagos = response.body;
+                    });
+                },
+
+                //Registra en la tabla Pedido 
+                //fetchRealizarPedido: function () {
+                //    var url = "http://localhost:58201/" + this.categoria_id;
+                //    var param = { };
+                //    this.$http.post(url, param).then(function (response) {
+                //        this.productos = response.body;
+                //    });
+                //}
+                fetchCancelarPedido: function () {
+                    var url = "http://localhost:58201/api/pedido/CancelarPedido?idpedido=" + this.idpedido;
+                    var param = {
+                        instrucciones_especiales_pedido: "",
+                        item: this.item_,
+                        direccion_entrega: this.direccion_entrega,
+                        idcomercio: this.idcomercio,
+                        idproducto: this.idproducto,
+                        estado: this.estado, //Cancelado
+                        idtipopago: this.idtipopago
+                    };
+                    this.$http.put(url, param).then(function (response) {
+                        this.datosrealizarpedido = response.body;
+                    });
+                },
+
+                fetchConfirmarPedido: function () {
+                    var url = "http://localhost:58201/api/pedido/ConfirmarPedido?idpedido=" + this.idpedido;
+                    var param = {
+                        instrucciones_especiales_pedido: "",
+                        item: this.item_,
+                        direccion_entrega: this.direccion_entrega,
+                        idcomercio: this.idcomercio,
+                        idproducto: this.idproducto,
+                        estado: this.estado1, //Generado
+                        idtipopago: this.idtipopago
+                    };
+                    this.$http.post(url, param).then(function (response) {
+                        this.datosrealizarpedido = response.body;
+                    });
                 }
-            }
+            
+            }, //cierra methods
+
+
         });
 
-        //new Vue({
-        //    el: "#app4",
-        //    data: {
-        //        comercioproductos: [],
-        //        nombreproducto: '',
-                
-        //    },
-        //    methods: {
-        //        AgregarProductoAlCarrito: function () {
-        //            this.comercioproductos.push({
-        //                item: 1,
-        //                nombreproducto: this.nombreproducto
-
-        //            });
-
-        //        }
-        //    },
-        //});
 
     </script>
 </body>

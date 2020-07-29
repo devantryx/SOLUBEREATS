@@ -7,7 +7,7 @@ namespace WebApiUberEats.Transfers
 {
     public class usuariocomercioproductosdt
     {
-        //public int idcomercio { get; set; }
+        public int idcomercio { get; set; }
         //public int idusuario { get; set; }       
         //public int idcategoria_comercio { get; set; }
         //public int idproducto { get; set; }

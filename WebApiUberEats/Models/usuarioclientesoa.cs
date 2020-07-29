@@ -56,9 +56,13 @@ namespace WebApiUberEats.Models
             var obj = db.Tarjeta.Select(b => 
             new tarjetadt()
             {
+                idtarjeta           = b.idtarjeta,
                 idusuario           = (int)b.idusuario,
+                nombre_tarjeta      = b.nombre_tarjeta,
+                idpais              = (int)b.idpais,
                 numero_tarjeta      = b.numero_tarjeta,
                 usuariotarjetadt    = new usuariotarjetadt() { 
+                idusuario           =(int) b.idusuario,
                 nombre              = b.Usuario.nombre,
                 apellidos           = b.Usuario.apellidos
                 }
