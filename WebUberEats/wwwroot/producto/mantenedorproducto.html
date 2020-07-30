@@ -9,39 +9,84 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
 
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
 </head>
+
 
 <body>
 
-    <div class="container">
+    <div id="app" class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">COMERCIO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="../producto/buscarproducto.html">Buscar Producto</a>
+                    <a class="nav-item nav-link active" href="../producto/mantenedorproducto.html">Mantenedor Producto<span class="sr-only">(current)</span></a>
+                    
+                </div>
+            </div>
+        </nav>
         <div class="row">
             <div class="col-sm">
             </div>
             <div class="col-sm">
-                </br></br>
-                <div style="text-align:center;">
-                    <h5>Busqueda Producto</h5>
-                </div>
+                </br> </br>
+               
+                <div class="container">
+                    <div style="text-align:right;">
+                        <b>Comercio: </b>{{productos.idcomercio}} | {{usuarios.razonsocial}}
+                    </div>                  
+                    </br> </br>
+                    <div>
+                        <span>IdProducto</span>
+                        <input class="form-control" readonly type="number" placeholder="idproducto" v-model="productos.idproducto">
+                    </div>
+                    <div>
+                        <span style="color:gray">Nombre Producto</span>
+                        <input class="form-control" type="text" placeholder="nombre producto" v-model="productos.nombreproducto">
+                    </div>
+                    </br>
+                    <div>
+                        <span style="color:gray">Descripciòn</span>
+                        <textarea class="form-control" style="height: 121px;" placeholder="descripcion" v-model="productos.descripcion"></textarea>
+                    </div>
+                    </br>
+                    <div>
+                        <span style="color:gray">Stock</span>
+                        <input class="form-control" type="number" placeholder="stock" v-model="productos.stock">
+                    </div>
+                    </br>
+                    <div>
+                        <span style="color:gray">Precio</span>
+                        <input class="form-control" type="number" placeholder="precio" v-model="productos.precio">
+                    </div>
+                    </br>
 
-                </br>
-                <div style="text-align:center;">
-                    <input class="form-control" type="text" placeholder="Buscar producto por nombre">
+                    <div class="form-group">
+                        <div class="">
+                            <span style="color:gray">Categoria Producto</span>
+                            <select id="selectCategoriaProducto" class="form-control" v-model="productos.idcategoria_producto">
+                                <option value="0">--Seleccione categoria--</option>
+                                <option v-for="item in categoria_productos" :value="item.idcategoria_producto">{{item.descripcion_categoria}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    </br></br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-block btn-dark" @click="fetchActualizarProducto">Actualizar</button>
+                            </div>
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-block btn-dark" @click="fetchEliminarProducto">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                </br></br>
-                <div style="text-align:center;">
-                    <span>Resultado Busqueda</span>
-                </div>
-                </br>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"></li>
-                </ul>
-                </br>
-                </br>
-
-                <div style="text-align:center;">
-                    <button type="button" class="btn btn-dark btn-lg btn-block">Busqueda</button>
-                </div>
-            </div>
+            </div>              
             <div class="col-sm">
             </div>
         </div>
@@ -52,5 +97,80 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
     <!--fin script vuejs-->
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {           
+                productos: [],
+                producto: [{ idproducto: 0 }],
+                usuarios: [],
+                usuario: [{correo:''}],
+                //--------------------------
+                //Variables para producto
+                idcomercio: 1,                
+                idproducto: 15,
+                //Variables para InicioSession
+                correo: 'apborja@gmail.com',
+                clave:'12345',
+                //-------------------------
+                categoria_productos: [],
+                idcategoria_producto:0,
+                //-------------------------
+                actualizardatosproducto: [],
+            },
+            mounted: function () {
+                this.InicioSession();
+                this.BuscarProductoPorId(); 
+              this.fetchCategoria_Productos();
+            },
+
+            methods: {
+
+                InicioSession: function () {
+                    var url = "http://localhost:58201/api/Usuario/IniciarSession?correo=" + this.correo + "&clave=" + this.clave;
+                    this.$http.get(url).then(function (response) {
+                        this.usuarios = response.body;
+                    });
+                },
+
+                BuscarProductoPorId: function () {
+                    var url = "http://localhost:58201/api/Producto/ObtenerProductoId?idproducto=" + this.idproducto + "&idcomercio=" + this.idcomercio;
+                    this.$http.get(url).then(function (response) {
+                        this.productos = response.body;
+                    });
+                },
+
+                fetchCategoria_Productos: function () {
+                    var url = "http://localhost:58201/api/Producto/ObtenerListaCategoriaProducto";
+                    this.$http.get(url).then(function (response) {
+                        this.categoria_productos = response.body;
+                    });
+                },
+
+                fetchActualizarProducto: function () {
+                    var url = "http://localhost:58201/api/Producto/ActualizarProducto?idproducto=" + this.idproducto + "&idcomercio=" + this.idcomercio;                    
+                    this.$http.put(url, this.productos).then(function (response) {
+                        this.fetchActualizarProducto();
+                        $(document).ready(function () {                                                        
+                                location.reload();                                
+                            });
+                    });
+                },
+
+                fetchEliminarProducto: function () {
+                    var url = "http://localhost:58201/api/Producto/EliminarProducto?idproducto=" + this.idproducto + "&idcomercio=" + this.idcomercio;
+                    this.$http.delete(url).then(function (response) {
+                        this.BuscarProductoPorId();
+                        $(document).ready(function () {
+                            $('input[type="text"]').val('');
+                            $('input[type="number"]').val('');
+                           $(location).attr('href',"../producto/buscarproducto.html")
+                        });
+                    });
+                },
+            }
+        });
+    </script>
 </body>
 </html>

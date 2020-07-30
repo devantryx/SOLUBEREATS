@@ -50,6 +50,12 @@ namespace WebApiUberEats.Controllers
             return usuariocliente.ListarComercios();
         }
 
-     
+        [HttpGet]
+        [Route("api/Usuario/IniciarSession")]
+        public usuariodt IniciarSession(string correo, string clave)
+        {
+            return usuariocliente.IniciarSession(correo, clave);
+        }
+        
     }
 }

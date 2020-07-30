@@ -242,6 +242,29 @@ namespace WebApiUberEats.Models
             return list;
         }
 
-        
+        //Iniciar session comercio o cliente
+        public static usuariodt IniciarSession(string correo, string clave)
+        {
+            BdUberEatsEntities db = new BdUberEatsEntities();
+
+            //valida que el correo y clave coincidan en bd
+            var vValidarUsuario = db.Usuario.Where(p => p.correo == correo & p.clave == clave).Count();
+
+            if (vValidarUsuario != 1)
+                return null;
+
+            var obj = db.Usuario.Select(b =>
+               new usuariodt()
+               {
+                   idusuario = b.idusuario,
+                   nombre = b.nombre,
+                   apellidos = b.apellidos,
+                   correo    = b.correo,
+                   razonsocial = b.razonsocial
+
+               }).SingleOrDefault(b => b.correo == correo);
+            return obj;
+
+        }
     }
 }

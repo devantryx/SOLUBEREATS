@@ -63,9 +63,16 @@ namespace WebApiUberEats.Controllers
 
         [HttpGet]
         [Route("api/Producto/BuscarProductoPorNombre")]
-        public productodt BuscarProductoPorNombre(string nombreproducto, int idcomercio)
+        public IEnumerable<productodt> BuscarProductoPorNombre(string nombreproducto, int idcomercio)
         {
             return producto.BuscarProductoPorNombre(nombreproducto, idcomercio);
+        }
+
+        [HttpGet]
+        [Route("api/Producto/ObtenerProductoId")]
+        public productodt ObtenerProductoId(int idproducto, int idcomercio)
+        {
+            return producto.ObtenerProductoId(idproducto, idcomercio);
         }
 
         [HttpPut]
@@ -87,6 +94,14 @@ namespace WebApiUberEats.Controllers
         public bool EliminarProducto(int idproducto, int idcomercio)
         {
             return producto.EliminarProducto(idproducto, idcomercio);
+        }
+
+        
+        [HttpGet]
+        [Route("api/Producto/ObtenerListaCategoriaProducto")]
+        public IEnumerable<categoria_productodt> ObtenerListaCategoriaProducto()
+        {
+            return producto.ObtenerListaCategoriaProducto();
         }
 
     }

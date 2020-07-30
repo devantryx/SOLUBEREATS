@@ -225,34 +225,49 @@ namespace WebApiUberEats.Models
         }
 
         //Buscar producto por nombre
-        public static productodt BuscarProductoPorNombre(string nombreproducto, int idcomercio)
+        public static IEnumerable<productodt> BuscarProductoPorNombre(string nombreproducto, int idcomercio)
         {
 
             BdUberEatsEntities db = new BdUberEatsEntities();
-            //valida si existe producto por su nombre
-            //valida el idcomercio si existe
-            var vExisteNombreProductoyIdComercio = db.Producto.Where(u => u.nombreproducto.ToLower().Trim() == nombreproducto.ToLower().Trim() & u.idcomercio == idcomercio).Count();
-            //si vExisteNombreProductoyIdComercio devuelve valor 1 continua caso contrario termina proceso.
 
+            var lista = from b in db.Producto.Where(p => p.nombreproducto.ToLower().Trim() == nombreproducto.ToLower().Trim() & p.idcomercio == idcomercio)
+                        select new productodt()
+                        {
+                            idproducto = b.idproducto,
+                            nombreproducto       = b.nombreproducto,
+                            descripcion          = b.descripcion,
+                            stock                = (int)b.stock,
+                            precio               = (decimal)b.precio,
+                            porcentajedsc        = (decimal)b.porcentajedsc,
+                            idcomercio           = (int)b.idcomercio,
+                            nombrefotoproducto   = b.nombrefotoproducto,
+                            idcategoria_producto = (int)b.idcategoria_producto
 
-            if (vExisteNombreProductoyIdComercio != 1) 
-                return null;
+                        };
 
+            return lista;
 
+        }
+
+        //Obtener producto del comercio 
+        public static productodt ObtenerProductoId(int idproducto,int idcomercio)
+        {
+
+            BdUberEatsEntities db = new BdUberEatsEntities();
             var obj = db.Producto.Select(b =>
                 new productodt()
                 {
-                    idproducto           = b.idproducto,
-                    nombreproducto       = b.nombreproducto,
-                    descripcion          = b.descripcion,
-                    stock                = (int)b.stock,
-                    precio               = (decimal)b.precio,
-                    porcentajedsc        = (decimal)b.porcentajedsc,
-                    idcomercio           = (int)b.idcomercio,
-                    nombrefotoproducto   = b.nombrefotoproducto,
+                    idproducto = b.idproducto,
+                    nombreproducto = b.nombreproducto,
+                    descripcion = b.descripcion,
+                    stock = (int)b.stock,
+                    precio = (decimal)b.precio,
+                    porcentajedsc = (decimal)b.porcentajedsc,
+                    idcomercio = (int)b.idcomercio,
+                    nombrefotoproducto = b.nombrefotoproducto,
                     idcategoria_producto = (int)b.idcategoria_producto
 
-                }).SingleOrDefault(b => b.nombreproducto == nombreproducto && b.idcomercio == idcomercio );
+                }).SingleOrDefault(b => b.idproducto == idproducto && b.idcomercio == idcomercio);
             return obj;
         }
 
@@ -318,5 +333,22 @@ namespace WebApiUberEats.Models
                 }).SingleOrDefault(b => b.idproducto == idproducto);
             return obj;
         }
+
+        public static IEnumerable<categoria_productodt> ObtenerListaCategoriaProducto()
+        {
+            BdUberEatsEntities db = new BdUberEatsEntities();           
+            var list = from b in db.Categoria_Producto
+                       select new categoria_productodt()
+                       {
+                           idcategoria_producto = (int)b.idcategoria_producto,
+                           descripcion_categoria = b.descripcion,
+                          
+                       };
+
+            return list;
+
+        }
+
+        
     }
 }
