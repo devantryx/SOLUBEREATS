@@ -51,6 +51,13 @@ namespace WebApiUberEats.Controllers
         }
 
         [HttpGet]
+        [Route("api/Usuariocliente/ListaCategoriasComercio")]
+        public IEnumerable<categoria_comerciodt> ListaCategoriasComercio()
+        {
+            return usuariocliente.ObtenerListaCategoriasComercio();
+        }
+
+        [HttpGet]
         [Route("api/Usuario/IniciarSession")]
         public usuariodt IniciarSession(string correo, string clave)
         {

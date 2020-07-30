@@ -241,7 +241,20 @@ namespace WebApiUberEats.Models
 
             return list;
         }
+        public static IEnumerable<categoria_comerciodt> ObtenerListaCategoriasComercio()
+        {
 
+            BdUberEatsEntities db = new BdUberEatsEntities();
+            var list = from b in db.Categoria_Comercio
+                       select new categoria_comerciodt()
+                       {
+                           idcategoria_comercio = b.idcategoria_comercio,
+                           descripcion = b.descripcion
+                       };
+
+            return list;
+
+        }
         //Iniciar session comercio o cliente
         public static usuariodt IniciarSession(string correo, string clave)
         {

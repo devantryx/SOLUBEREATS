@@ -33,7 +33,7 @@
                         <div id="page1" style="display:none">
                             <div class="row">
                                 <div class="col-xs-8 col-xs-offset-2">
-                                    <h2>Ingresa número de telefono movil</h2>
+                                    <h2> Ingresa número de telefono movil</h2>
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <div class="col-xs-10 col-xs-offset-1">
@@ -120,12 +120,15 @@
                             <div class="row">
                                 <div class="col-xs-8 col-xs-offset-2">
                                     <h2>Crea la contraseña para tu cuenta</h2>
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="nombre">Contraseña</label>
-                                            <input type="text" class="form-control" v-model="cliente.contraseña">
+                                    <div class="form-group">
+                                        <label for="nombre">Contraseña</label>
+                                        <div class="input-group">
+                                            <input id="lblPwd" type="password" class="form-control" v-model="cliente.clave">
+                                            <span class="input-group-btn">
+                                                <button id="btnPwd" class="btn btn-default" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
+                                            </span>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +147,10 @@
                             </div>
                             <div class="col-xs-3">
                                 <button id="btnSiguiente" data-loading-text="Cargando..." type="button" class="btn btn-success btn-block">
-                                    {{ui.btn}}
+                                    Siguiente
+                                </button>
+                                <button id="btnGuardar" data-loading-text="Cargando..." type="button" class="btn btn-success btn-block" style="display:none" @click="registarCliente(cliente)">
+                                    Guardar
                                 </button>
                             </div>
                         </div>
@@ -164,9 +170,6 @@
             el: "#app",
             data: {
                 paises: [
-                    //{ id: 1, nombre: "Perú", codigo: "+ 051" },
-                    //{ id: 2, nombre: "Colombia", codigo: "+ 052" },
-                    //{ id: 3, nombre: "Estados Unidos", codigo: "+ 053" }
                 ],
                 pais: {},
                 cliente: {                   
@@ -174,30 +177,28 @@
                     apellidos: "",
                     telefono: "",
                     correo: "",
+                    clave: "",
                     direccion: "",
                     nombrefoto: "",
                     idpais: null
                 },
-                ui: {
-                    btn: "Siguiente"
-                }
             },
             methods: {
                 fetchPaises: function () {
-                    var url = base_url + "api/paises/ObtenerListaPaises";
+                    let url = base_url + "api/paises/ObtenerListaPaises";
                     this.$http.get(url).then(function (response) {
                         this.paises = response.body;
                     });
                 },
-                validarNumero: function (numero) {
-                    console.log(numero);
-                },
                 registarCliente: function (cliente) {
-                    var url = base_url + "api/Usuariocliente/InsertarUsuarioCliente";
-                    console.log(cliente);
+                    let url = base_url + "api/Usuariocliente/InsertarUsuarioCliente";
                     this.$http.post(url, cliente).then(function (response) {
-                        var vResponse = response;
-                        console.log(vResponse);
+                        console.log(response);
+                        if (response.body == null) {
+                            console.log("regla de negocio no cumplida");
+                        } else {
+                            console.log(response.body.idusuario);
+                        }                        
                     });
                 }
             },
@@ -206,8 +207,6 @@
             }
         });
         $("#selectPais").on('change', function (e) {
-            console.log(this.value, this.options[this.selectedIndex].value, $(this).find("option:selected").val());
-            console.log(vApp.paises);
             var id = this.value;
             var vPais = vApp.paises.find(function (item) {
                 if (item.idpais == id) {
@@ -215,54 +214,40 @@
                 }
 
             });
-            console.log(vPais);
             vApp.pais = vPais;
-            //$('#txtCodigoPais').text("AA");
         });
         var vListPage = [
             { id: "page1" },
-            { id: "page2", isOmitir: false },
-            { id: "page3", isOmitir: false },
-            { id: "page4", isOmitir: false },
-            { id: "page5", isOmitir: false },
-            { id: "page6", isOmitir: true }
+            { id: "page2" },
+            { id: "page3" },
+            { id: "page4" },
+            { id: "page5" },
+            { id: "page6" }
         ];
         var numPage = vListPage[0];
         $('#' + numPage.id).show();
         $('#btnSiguiente').on('click', function () {
-            var continuar = false;
-            if (numPage.id == "page1") {
-                continuar = true;
+            let vNumPage = vListPage.indexOf(numPage) + 1;
+            numPage = vListPage[vNumPage];
+            vListPage.forEach(function (elemento) {
+                $('#' + elemento.id).hide();
+            });
+            $('#' + numPage.id).show();
+
+            let vhasNext = vNumPage < vListPage.length - 1;
+            if (vhasNext) {
+                numPage = vListPage[vNumPage];
             } else {
-                continuar = true;
+                $(this).hide();
+                $('#btnGuardar').show();
             }
-            if (continuar) {
-                //var vChildrens = $('pagesRegistro').children;
-                var vNext = false
-                vListPage.some(function (elemento) {
-                    if (vNext) {
-                        numPage = elemento;
-                        return true;
-                    }
-                    if (elemento == numPage) {
-                        vNext = true;
-                    }
-
-                });
-                vListPage.forEach(function (elemento) {
-                    $('#' + elemento.id).hide();
-                });
-                $('#' + numPage.id).show();
-
-                //for (i = 0; i < vChildrens.length; i++) {
-                //    vChildrens[i].hide();
-                //}
-                //console.log(vChildrens);
-                // business logic...
-                if (numPage.isOmitir) {
-                    vApp.registarCliente(vApp.cliente);
-                    vApp.ui.btn = "Registrar";
-                }
+        })
+        $('#btnPwd').on('click', function () {
+            let vLblPwd = $('#lblPwd');
+            if (vLblPwd.attr('type') === 'password') {
+                vLblPwd.attr('type', 'text');
+            } else {
+                vLblPwd.attr('type', 'password');
             }
         })
     </script>
