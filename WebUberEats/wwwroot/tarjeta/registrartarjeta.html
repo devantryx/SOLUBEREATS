@@ -1,0 +1,134 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>UberEats::Realizar Pago</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+    <script>window.__PUBLIC_PATH__ = '../fonts/'</script>
+    <script src="../js/bootstrap-italia.min.js"></script>
+
+</head>
+
+
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <br>
+        </div>
+        <div class="row">
+
+            <div class="container">
+
+                <div id="contenedor_Pago_Tarjeta">
+
+                    </br>
+                    <div id="dvAgregarNuevaTarjeta">
+                        <h6>Agregar una tarjeta</h6>
+
+                        <div class="form-group" id="">
+                            <select class="form-control selectBancoTarjeta" id="selectBancoTarjeta" v-model="tarjeta.nombre_tarjeta">
+                                <option value="Seleccione banco">Seleccione banco</option>
+                                <option value="BCP VISA">BCP VISA</option>
+                                <option value="INTERBANK VISA">INTERBANK VISA</option>
+                                <option value="BBVA VISA">BBVA VISA</option>
+
+                            </select>
+                        </div>
+
+                        <form>
+                            <div class="row">
+                              
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" id="txtnumerotarjetanueva" v-model="tarjeta.numero_tarjeta" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==12) return false;">
+                                        <label for="txtnumerotarjetanueva">Nùmero Tarjeta</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="txtfechavencimientotarjetanueva" v-model="tarjeta.fechaven_tarjeta" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;">
+                                        <label for="txtfechavencimientotarjetanueva">Fecha vto</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" id="txtcvvnuevo" v-model="tarjeta.codigo_tarjeta" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;">
+                                        <label for="txtcvvnuevo">CVV</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!--<div>
+                            <select v-model="idpais" class="form-control" style="margin-left:15px;width:80px">
+                                <option v-for="item in paises" :value="item.idpais">{{item.nombre}}</option>
+                            </select>
+                        </div>-->
+                    </div>
+
+
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6" id="contenedor_boton_confirmar">
+                            <button type="button" id="btnConfirmar" @click="fetchRealizarPagoPedidoConNuevaTarjeta" class="btn btn-secondary btn-lg btn-block btn-success">GUARDAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                
+                tarjeta: [],
+                
+                usuarios: [],
+                idusuario: 3,
+
+               
+
+            },
+            mounted: function () {
+               
+            },
+
+            methods: {
+
+                fetchRealizarPagoPedidoConNuevaTarjeta: function () {
+                    var url = "http://localhost:58201/api/tarjeta/InsertarTarjeta";
+                    var param = {
+                        nombre_tarjeta: this.tarjeta.nombre_tarjeta,
+                        numero_tarjeta: this.tarjeta.numero_tarjeta,
+                        codigo_tarjeta: this.tarjeta.codigo_tarjeta,
+                        fechaven_tarjeta: this.tarjeta.fechaven_tarjeta,
+                        idusuario: 3,
+                        idpais: 7
+                    };
+                    this.$http.post(url, param).then(function (response) {
+                        this.tarjeta = response.body;                     
+                     
+                    });
+                },
+
+            }
+        });
+    </script>
+</body>
+</html>

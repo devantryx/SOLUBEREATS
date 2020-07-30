@@ -15,14 +15,14 @@ namespace WebApiUberEats.Controllers
         
         [HttpGet]
         [Route("api/tarjeta/ObtenerTarjetaRegistrado")]
-        public tarjetadt ObtenerTarjetaRegistrado(int idusuario)
+        public IEnumerable<tarjetadt> ObtenerTarjetaRegistrado(int idusuario)
         {
             return usuariocliente.ObtenerTarjetaRegistrado(idusuario);
         }
 
         [HttpPost]
         [Route("api/tarjeta/InsertarTarjeta")]
-        public tarjetadt InsertarTarjeta(tarjetadt tarjetadt)
+        public int InsertarTarjeta(tarjetadt tarjetadt)
         {
             return usuariocliente.InsertarTarjeta(tarjetadt);
         }

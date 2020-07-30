@@ -65,10 +65,12 @@
         }
 
         function LlamarConfirmarCancelarPedido() {
-            $("#txtDireccion").prop("disabled", true);
-            $("#selectTipoPago").prop("disabled", true);            
-            $("#contenedor_boton_confirmar_pedido").slideUp("slow");
-            $("#Contenedor_Boton_Confirmar_Cancelar_Pedido").slideDown("slow");
+            var url = "../pago/realizarpago.html";
+            $(location).attr('href', url);
+            //$("#txtDireccion").prop("disabled", true);
+            //$("#selectTipoPago").prop("disabled", true);            
+            //$("#contenedor_boton_confirmar_pedido").slideUp("slow");
+            //$("#Contenedor_Boton_Confirmar_Cancelar_Pedido").slideDown("slow");
         }
 
         function AlertaSiDeseaCancelarPedido() {
@@ -122,7 +124,7 @@
                             <div class="it-header-slim-wrapper theme-light">
                                 <div class="container">
                                     <div style="text-align: right">
-                                        <span style="font-weight:bold">{{usuarios.usuariotarjetadt.idusuario}} {{usuarios.usuariotarjetadt.nombre}} {{usuarios.usuariotarjetadt.apellidos}}</span>
+                                        <span style="font-weight:bold"></span>
                                     </div>                                    
                                     <div class="row">
                                         <div class="col-12" style="padding-left:0px">
@@ -383,8 +385,10 @@
                                         </div>
                                         <!--start card1-->
                                         <div style="text-align: right">
-                                            <span style="font-size:14px">{{usuarios.usuariotarjetadt.idusuario}} {{usuarios.usuariotarjetadt.nombre}} {{usuarios.usuariotarjetadt.apellidos}}</span>
+                                           
+                                            <span style="font-size:14px"></span>
                                         </div>
+                                       
                                         <div id="contenedor1" class="card-wrapper" v-for="item in comercioproductos" :value="item.idcomercio">
                                             <div class="" style="padding:14px">
                                                 <h6 style="font-weight:bold;">Realizar Pedido</h6>
@@ -445,117 +449,128 @@
                                                         </div>
                                                     </div>
                                                 </form>
-                                                <hr />
-                                                <div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" id="txtDireccion" v-model="direccion_entrega">
-                                                        <label for="txtDireccion">Ingrese Dirección</label>
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <label for="selectTipoPago">Seleccione tipo de pago</label>
-                                                <div class="form-group">
-                                                    <select v-model="idtipopago" class="form-control" id="selectTipoPago" onchange="selectTipoPago();">
-                                                        <option v-for="item in tipopagos" :value="item.idtipopago">{{item.descripcion}}</option>
-                                                    </select>
-                                                </div>
-
-                                                <div id="contenedor_Pago_Tarjeta" class="hide">
-                                                    <h5>Usar tarjeta registrada</h5>
-                                                    <hr />
-
-                                                    <form>
-                                                        <div class="form-row">
-                                                            <div class="col">
-                                                                <input type="text" id="txtNombreTarjeta" readonly v-model="usuarios.nombre_tarjeta" />
-                                                            </div>
-                                                            <div class="col">
-                                                                <input type="text" id="txtNumeroTarjeta" readonly v-model="usuarios.numero_tarjeta" />
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="link-list-wrapper">
-                                                                    <ul class="link-list">
-                                                                        <li>
-                                                                            <div class="toggles">
-                                                                                <label for="switchTarjeta">
-                                                                                    <input type="checkbox" id="switchTarjeta"><span class="lever"></span>
-                                                                                </label>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-
-                                                    <div class="form-group" id="selecttipotarjeta">
-                                                        <select v-model="idtipopago" class="form-control" id="selectTipoPagoTarjeta">
-                                                            <option v-for="item in tipopagos" :value="item.idtipopago">{{item.descripcion}}</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <hr />
-
-                                                    <h5>Agregar una tarjeta</h5>
-
-                                                    <div class="form-group" id="">
-                                                        <select class="form-control" id="selectTipoTarjetas">
-                                                            <option value="1">BCP VISA</option>
-                                                            <option value="2">INTERBANK VISA</option>
-                                                            <option value="3">BBVA VISA</option>
-                                                            <option value="4">SCOTIABANK VISA</option>
-
-                                                        </select>
-                                                    </div>
-
-
-
-                                                    <form>
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="form-group">
-                                                                    <input type="number" class="form-control" id="txtnumerotarjeta"  required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;">
-                                                                    <label for="txtnumerotarjeta">Ingrese Nùmero Tarjeta</label>
-                                                                </div>
-                                                            </div>                                                            
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <input type="text" class="form-control" id="txtfechavencimientotarjeta"  required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;">
-                                                                    <label for="txtfechavencimientotarjeta">Ingrese Fecha vto. [MM/AA]</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <input type="number" class="form-control" id="txtcvv" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;">
-                                                                    <label for="txtcvv">Ingrese CVV [123]</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-
-                                                </div>
-
-                                                </br>
 
                                                 <div id="contenedor_boton_confirmar_pedido">
                                                     <button class="btn btn-dark btn-lg btn-block" id="btnRealizarPedido" onclick="LlamarConfirmarCancelarPedido()" data-toggle="pill" href="#pills-menu5">
                                                         <span>Realizar Pedido</span>
                                                     </button>
                                                 </div>
+                                                <!--##################################################################################-->
+                                                <div id="realiza_pago" class=" fade">
+                                                    <hr />
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="txtDireccion" v-model="direccion_entrega">
+                                                            <label for="txtDireccion">Ingrese Dirección</label>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <label for="selectTipoPago">Seleccione tipo de pago</label>
+                                                    <div class="form-group">
+                                                        <select v-model="idtipopago" class="form-control" id="selectTipoPago" onchange="selectTipoPago();">
+                                                            <option v-for="item in tipopagos" :value="item.idtipopago">{{item.descripcion}}</option>
+                                                        </select>
+                                                    </div>
 
-                                                </br>
+                                                    <div id="contenedor_Pago_Tarjeta" class="hide">
+                                                        <h5>Usar tarjeta registrada</h5>
+                                                        <hr />
 
-                                                <div id="Contenedor_Boton_Confirmar_Cancelar_Pedido">
-                                                    <button class="btn btn-success" id="btnConfirmarPedido" @click="fetchConfirmarPedido" onclick="LlamarPedidoConfirmado()" data-toggle="pill" href="#pills-menu5">
-                                                        <span>Confirmar Pedido</span>
-                                                    </button>
-                                                    <button class="btn btn-dark" type="button" id="btnCancelarPedido" @click="fetchCancelarPedido" onclick="AlertaSiDeseaCancelarPedido()">
-                                                        <span>Cancelar Pedido</span>
-                                                    </button>
+                                                        <form>
+                                                            <div class="form-row">
+                                                                <div class="col">
+                                                                    <input type="text" id="txtNombreTarjeta" readonly v-model="usuarios.nombre_tarjeta" />
+                                                                </div>
+                                                                <div class="col">
+                                                                    <input type="text" id="txtNumeroTarjeta" readonly v-model="usuarios.numero_tarjeta" />
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="link-list-wrapper">
+                                                                        <ul class="link-list">
+                                                                            <li>
+                                                                                <div class="toggles">
+                                                                                    <label for="switchTarjeta">
+                                                                                        <input type="checkbox" id="switchTarjeta"><span class="lever"></span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                        <div class="form-group" id="selecttipotarjeta">
+                                                            <select v-model="idtipopago" class="form-control" id="selectTipoPagoTarjeta">
+                                                                <option v-for="item in tipopagos" :value="item.idtipopago">{{item.descripcion}}</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <hr />
+
+                                                        <h5>Agregar una tarjeta</h5>
+
+                                                        <div class="form-group" id="">
+                                                            <select class="form-control" id="selectTipoTarjetas">
+                                                                <option value="1">BCP VISA</option>
+                                                                <option value="2">INTERBANK VISA</option>
+                                                                <option value="3">BBVA VISA</option>
+                                                                <option value="4">SCOTIABANK VISA</option>
+
+                                                            </select>
+                                                        </div>
+
+
+
+                                                        <form>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <input type="number" class="form-control" id="txtnumerotarjeta" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;">
+                                                                        <label for="txtnumerotarjeta">Ingrese Nùmero Tarjeta</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control" id="txtfechavencimientotarjeta" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;">
+                                                                        <label for="txtfechavencimientotarjeta">Ingrese Fecha vto. [MM/AA]</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <input type="number" class="form-control" id="txtcvv" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;">
+                                                                        <label for="txtcvv">Ingrese CVV [123]</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+
+                                                    </br>
+
+                                                    <div id="contenedor_boton_confirmar_pedido">
+                                                        <button class="btn btn-dark btn-lg btn-block" id="btnRealizarPedido" onclick="LlamarConfirmarCancelarPedido()" data-toggle="pill" href="#pills-menu5">
+                                                            <span>Realizar Pedido</span>
+                                                        </button>
+                                                    </div>
+
+                                                    </br>  </br>  </br>
+
+                                                    <div id="Contenedor_Boton_Confirmar_Cancelar_Pedido">
+                                                        <button class="btn btn-success" id="btnConfirmarPedido" @click="fetchConfirmarPedido" onclick="LlamarPedidoConfirmado()" data-toggle="pill" href="#pills-menu5">
+                                                            <span>Confirmar Pedido</span>
+                                                        </button>
+                                                        <button class="btn btn-dark" type="button" id="btnCancelarPedido" @click="fetchCancelarPedido" onclick="AlertaSiDeseaCancelarPedido()">
+                                                            <span>Cancelar Pedido</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
+
+                                                <!--####################################################################################-->
                                             </div>
                                         </div>
                                         <!--end card1-->
@@ -778,7 +793,7 @@
                         direccion_entrega: this.direccion_entrega,
                         idcomercio: this.idcomercio,
                         idproducto: this.idproducto,
-                        estado: this.estado1, //Generado
+                        estado: this.estado2, //confirmado
                         idtipopago: this.idtipopago
                     };
                     this.$http.post(url, param).then(function (response) {

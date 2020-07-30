@@ -62,12 +62,12 @@
                     </br>
                     <div>
                         <span style="color:gray">Stock</span>
-                        <input class="form-control" type="number" placeholder="stock" v-model="productos.stock">
+                        <input class="form-control" type="number" placeholder="stock" v-model="productos.stock" min="1" max="20" step="1">
                     </div>
                     </br>
                     <div>
                         <span style="color:gray">Precio</span>
-                        <input class="form-control" type="number" placeholder="precio" v-model="productos.precio">
+                        <input class="form-control" type="number" placeholder="precio" v-model="productos.precio" value="1">
                     </div>
                     </br>
                     <!--<div>

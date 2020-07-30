@@ -1,0 +1,468 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>UberEats::Realizar Pago</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+    <script>window.__PUBLIC_PATH__ = '../fonts/'</script>
+    <script src="../js/bootstrap-italia.min.js"></script>
+
+    <!--iniAlertify-->
+    <script src="../js/alertify.min.js"></script>
+    <link rel="stylesheet" href="../css/alertify.min.css" />
+    <link rel="stylesheet" href="../css/themes/default.min.css" />
+    <!--endAlertify-->
+
+    <link rel="stylesheet" href="../css/bootstrap-italia.min.css">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <script>
+        $(document).ready(function () {
+            $('#contenedor_Pago_Tarjeta').hide();
+            $('#dvAgregarNuevaTarjeta').hide();
+            $('#txtnumerotarjetanueva').prop('disabled', true);
+            $('#txt4primerosdigitosTarjeta').prop('disabled', true);
+            $('#txtfechavencimientotarjetanueva').prop('disabled', true);
+            $('#txtcvvnuevo').prop('disabled', true);
+            $('#btnConfirmar').prop('disabled', true);
+
+            $('#btnConfirmarConNuevaTarjeta').hide();
+            $('#btnConfirmarConNuevaTarjeta').prop('disabled', true);
+            
+
+            $('#contenedor_boton_confirmar_con_nuevaTarjeta').hide();
+
+
+
+            $(function () {
+                $('.chkHabilitarNuevaTarjeta').change(function () {
+                    if (!$(this).prop('checked')) {
+                        $('#dvAgregarNuevaTarjeta').show();
+                        $('#txtNombreTarjeta').css('color', 'gray');
+                        $('#txtNumeroTarjeta').css('color', 'gray');
+                        //muestra
+                        $('#contenedor_boton_confirmar_con_nuevaTarjeta').show();
+                        $('#btnConfirmarConNuevaTarjeta').prop('disabled', false);
+                        $('#btnConfirmarConNuevaTarjeta').show();
+                        //oculta
+                        $('#contenedor_boton_confirmar').hide();
+                        $('#btnConfirmar').prop('disabled', true);
+                        $('#btnConfirmar').hide();
+
+                    } else {
+                        $('#dvAgregarNuevaTarjeta').hide();
+                        $('#txtNombreTarjeta').css('color', 'black');
+                        $('#txtNumeroTarjeta').css('color', 'black');
+
+                        $('#btnConfirmarConNuevaTarjeta').hide();
+                        $('#btnConfirmarConNuevaTarjeta').prop('disabled', true);
+
+                        $('#contenedor_boton_confirmar').show();
+                        $('#btnConfirmar').prop('disabled', false);
+                        $('#btnConfirmar').show();
+
+                        $('#contenedor_boton_confirmar_con_nuevaTarjeta').hide();
+                    }
+
+                });
+            });
+
+            $(function () {
+                $('.selectTipoPago').change(function () {
+                    var idtipopago = $("#selectTipoPago").val();
+                    if (idtipopago == 0) {
+                        $('#contenedor_Pago_Tarjeta').hide();
+                        $('#btnConfirmar').prop('disabled', true);
+                    } if (idtipopago == 1) { //Tarjeta
+                        $('#contenedor_Pago_Tarjeta').show();
+                        $('#btnConfirmar').prop('disabled', false);
+                    } if (idtipopago == 2) { //Efectivo
+                        $('#contenedor_Pago_Tarjeta').hide();
+                        $('#btnConfirmar').prop('disabled', false);
+                    }
+                });
+            });
+
+            $(function () {
+                $('.selectBancoTarjeta').change(function () {
+                    var nombrebanco = $("#selectBancoTarjeta").val();
+                    if (nombrebanco == "Seleccione banco") { //Seleccione banco
+                        $('#txt4primerosdigitosTarjeta').val('');
+                        $('#txtnumerotarjetanueva').val('');
+                        $('#txtfechavencimientotarjetanueva').val('');
+                        $('#txtcvvnuevo').val('');
+
+                        $('#txtnumerotarjetanueva').attr("placeholder", "000000000000");
+                        $('#txtfechavencimientotarjetanueva').attr("placeholder", "MM / AA");
+                        $('#txtcvvnuevo').attr("placeholder", "123");
+                            
+
+                        $('#txtnumerotarjetanueva').prop('disabled', true);
+                        $('#txtfechavencimientotarjetanueva').prop('disabled', true);
+                        $('#txtcvvnuevo').prop('disabled', true);
+
+                        $('#btnConfirmar').prop('disabled', true);
+                       
+                    } if (nombrebanco == "BCP VISA") {//BCP VISA
+                      $('#txt4primerosdigitosTarjeta').val('4557');
+                      $('#txtnumerotarjetanueva').prop('disabled', false);
+                      $('#txtnumerotarjetanueva').val('');
+                      $('#txtnumerotarjetanueva').focus();   
+
+                      $('#txtfechavencimientotarjetanueva').prop('disabled', false);
+                      $('#txtfechavencimientotarjetanueva').val('');
+                      
+                      $('#txtcvvnuevo').prop('disabled', false);
+                      $('#txtcvvnuevo').val('');
+                      
+                      $('#btnConfirmar').prop('disabled', false);
+                      
+                    } if (nombrebanco == "INTERBANK VISA") {//INTERBANK VISA
+                        $('#txt4primerosdigitosTarjeta').val('4213');
+                      $('#txtnumerotarjetanueva').prop('disabled', false);
+                      $('#txtnumerotarjetanueva').val('');
+                      $('#txtnumerotarjetanueva').focus();
+
+                      $('#txtfechavencimientotarjetanueva').prop('disabled', false);
+                      $('#txtfechavencimientotarjetanueva').val('');
+               
+
+                      $('#txtcvvnuevo').prop('disabled', false);
+                      $('#txtcvvnuevo').val('');
+                 
+                      $('#btnConfirmar').prop('disabled', false);
+
+                    } if (nombrebanco == "BBVA VISA") {//BBVA VISA
+                      $('#txt4primerosdigitosTarjeta').val('4551');
+                      $('#txtnumerotarjetanueva').prop('disabled', false);
+                      $('#txtnumerotarjetanueva').val('');
+                      $('#txtnumerotarjetanueva').focus();
+
+                      $('#txtfechavencimientotarjetanueva').prop('disabled', false);
+                      $('#txtfechavencimientotarjetanueva').val('');
+                     
+
+                      $('#txtcvvnuevo').prop('disabled', false);
+                      $('#txtcvvnuevo').val('');
+                    
+                      $('#btnConfirmar').prop('disabled', false);
+                      
+                       
+                  }
+                });
+            });
+
+
+            
+        });
+
+        function AlertaSiDeseaCancelarPedido() {
+            alertify.confirm("¿Realmente deseas cancelar el pedido?",
+                function () {
+
+                    var url = "../menu/menu.html";
+                    $(location).attr('href', url);
+                },
+                function () {
+
+                });
+        };
+    </script>
+</head>
+
+
+<body>
+
+    <div id="app" class="container">
+        
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+                </br> </br>
+                <h5 style="text-align:center">Realizar Pago</h5>
+                </br></br>
+                <!--Ini Detalle del pedido realizado-->
+                <div class="collapse-header" id="heading3">
+                    <button data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        Detalle del pedido
+                    </button>
+                </div>
+                <div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="heading3" >
+                    <div class="collapse-body" style="padding:0px">                       
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Comercio</th>
+                                        <th scope="col">Estado</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody v-if="!loading"> <!--v-for="item in pedidos" :value="item.idpedido"-->
+                                    <tr>
+                                        <th scope="row">{{pedidos.item}}</th>
+                                        <td>{{pedidos.idpedido}}</td>
+                                        <td >{{pedidos.productocategoriadt.nombreproducto}}</td>
+                                        <td>{{pedidos.productocategoriadt.precio}}</td>
+                                        <td>{{pedidos.usuariocomerciodt.razonsocial}}</td>
+                                        <td>{{pedidos.estadopedidodt.descripcion}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin Detalle del pedido realizado-->
+                </br> </br>
+                <div class="container">
+
+                    <div class="form-group">
+                        <select v-model="idtipopago" class="form-control selectTipoPago" id="selectTipoPago">
+                            <option value="0">Seleccione tipo pago</option>
+                            <option v-for="item in tipopagos" :value="item.idtipopago">{{item.descripcion}}</option>
+                        </select>
+                    </div>
+
+                    <div id="contenedor_Pago_Tarjeta">
+                        <h6>Usar tarjeta registrada</h6>
+                       
+                        <!--<span>Propietario:</span>
+                        <b>{{usuarios.usuariotarjetadt.nombre}}{{usuarios.usuariotarjetadt.apellidos}}</b>-->
+                        <form>
+                            <div class="form-row">
+                                <div class="col-4">
+
+                                    <input type="text" style="font-size:14px" id="txtNombreTarjeta" readonly v-model="usuarios.nombre_tarjeta" />
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" style="font-size:14px" id="txtNumeroTarjeta" readonly v-model="usuarios.numero_tarjeta" />
+                                </div>
+
+                                <div class="col-2">
+                                    <div>
+                                        <div class="row">
+                                            <div class="form-check form-check-inline">
+                                                <input id="chkHabilitarNuevaTarjeta" type="checkbox" class="chkHabilitarNuevaTarjeta" checked>
+                                                <label for="chkHabilitarNuevaTarjeta"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        </br>
+                        <div id="dvAgregarNuevaTarjeta">
+                            <h6>Agregar una tarjeta</h6>
+
+                            <div class="form-group" id="">
+                                <select class="form-control selectBancoTarjeta" id="selectBancoTarjeta" v-model="tarjeta.nombre_tarjeta">
+                                    <option value="Seleccione banco">Seleccione banco</option>
+                                    <option value="BCP VISA">BCP VISA</option>
+                                    <option value="INTERBANK VISA">INTERBANK VISA</option>
+                                    <option value="BBVA VISA">BBVA VISA</option>
+
+                                </select>
+                            </div>
+
+                            <form>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <input type="number" value="" placeholder="xxxx" id="txt4primerosdigitosTarjeta" style="font-size:1rem" />
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="txtnumerotarjetanueva" v-model="tarjeta.numero_tarjeta" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==12) return false;">
+                                            <label for="txtnumerotarjetanueva">Nùmero Tarjeta</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="txtfechavencimientotarjetanueva" v-model="tarjeta.fechaven_tarjeta" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==5) return false;">
+                                            <label for="txtfechavencimientotarjetanueva">Fecha vto</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="txtcvvnuevo" v-model="tarjeta.codigo_tarjeta" required pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==3) return false;">
+                                            <label for="txtcvvnuevo">CVV</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6" id="contenedor_boton_confirmar">
+                                <button type="button" id="btnConfirmar" @click="fetchRealizarPagoPedido" class="btn btn-secondary btn-lg btn-block btn-success">CONFIRMAR</button>
+                            </div>
+                            
+                            <div class="col-sm-6" id="contenedor_boton_confirmar_con_nuevaTarjeta">
+                                <button type="button" id="btnConfirmarConNuevaTarjeta" @click="fetchRealizarPagoPedidoConNuevaTarjeta" class="btn btn-secondary btn-lg btn-block btn-success">CONFIRMAR</button>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                <button type="button" id="btnCancelar" @click="fetchCancelarPedido" class="btn btn-secondary btn-lg btn-block" onclick="AlertaSiDeseaCancelarPedido()">CANCELAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>              
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Ini script Vuejs-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.js"></script>
+    <!--fin script vuejs-->
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {           
+                loading: false,
+                productocategoriadt: {}, usuariocomerciodt: {}, estadopedidodt: {}, usuariotarjetadt: {},
+
+                tipopagos: [], 
+                tarjeta:[],
+                pedidos: [],
+               
+                idtipopago: 0,
+                usuarios: [],
+                idusuario: 1,
+
+                //--Obtener el pedido q fue registrado---
+                item:0,
+                idpedido: 6,                 
+                //nombreproducto: "",
+                precio: 0,
+                razonsocial:"",
+                descripcion: "",
+                //---------------------------------------
+
+                //Realizar Pago-------------------------
+                idtarjeta:0,
+
+                //----------------------------------------
+                //Cancelar Pedido-------------------------
+                datosrealizarpedido: [],
+               
+                item_: 1,
+                direccion_entrega: "",                
+                estado: 3, //cancelado
+                //----------------------------------------
+
+            },
+            mounted: function () {
+                loading: true,
+                this.fetchObtenerPedidoRegistrado();
+                this.fetchTipoPago();
+                this.ObtenerUsuarioLogueado();
+            },
+
+            methods: {
+
+                fetchObtenerPedidoRegistrado: function () {
+                    this.loading = true;
+                    var url = "http://localhost:58201/api/pedido/ObtieneListaDetallePedido?idpedido=" + this.idpedido;
+                    this.$http.get(url).then(function (response) {
+                        this.pedidos = response.body;
+                        this.loading = false;
+                    });
+                },
+
+                fetchTipoPago: function () {
+                    var url = "http://localhost:58201/api/pedido/ObtenerListaTipopago";
+                    this.$http.get(url).then(function (response) {
+                        this.tipopagos = response.body;
+                    });
+                },
+
+                ObtenerUsuarioLogueado() {
+                    var url = "http://localhost:58201/api/tarjeta/ObtenerTarjetaRegistrado?idusuario=" + this.idusuario;
+                    this.$http.get(url).then(function (response) {
+                        this.usuarios = response.body;
+                    });
+                },
+
+                fetchRealizarPagoPedido: function () {//Ok
+                    var url = "http://localhost:58201/api/pago/RealizarPago";
+                    var param = {
+                        idpedido: this.idpedido,
+                        idtipopago: this.idtipopago,
+                        idtarjeta: this.usuarios.idtarjeta,
+                        idcliente: this.usuarios.idusuario
+                    };
+                    this.$http.post(url, param).then(function (response) {  
+                        
+                        this.productos = response.body;
+                        //$(document).ready(function () {                                                        
+                        //       // location.reload();    
+                        //         //var url = "../pedido/pedidoconfirmado.html";
+                        //         //$(location).attr('href', url);
+                        //    });
+                    });
+                },
+
+                fetchRealizarPagoPedidoConNuevaTarjeta: function () {
+                    var url = "http://localhost:58201/api/tarjeta/InsertarTarjeta";
+                    var param = {
+                        nombre_tarjeta:this.usuarios.nombre_tarjeta,
+                        numero_tarjeta: this.usuarios.numero_tarjeta,
+                        codigo_tarjeta: this.tarjeta.codigo_tarjeta,
+                        fechaven_tarjeta: this.tarjeta.fechaven_tarjeta,
+                        idusuario: this.usuarios.idusuario,
+                        idpais:7
+                    };
+                    this.$http.post(url, param).then(function (response) {
+
+                        this.tarjeta = response.body;
+                        this.fetchRealizarPagoPedido();
+                        //$(document).ready(function () {                                                        
+                        //       // location.reload();    
+                        //         //var url = "../pedido/pedidoconfirmado.html";
+                        //         //$(location).attr('href', url);
+                        //    });
+                    });
+                },
+
+                fetchCancelarPedido: function () {
+                    var url = "http://localhost:58201/api/pedido/CancelarPedido?idpedido=" + this.idpedido;
+                    var param = {
+                        instrucciones_especiales_pedido: "",
+                        item: this.item_,
+                        direccion_entrega: this.direccion_entrega,
+                        idcomercio: this.idcomercio,
+                        idproducto: this.idproducto,
+                        estado: this.estado, //Cancelado
+                        idtipopago: this.idtipopago
+                    };
+                    this.$http.put(url, param).then(function (response) {
+                        this.datosrealizarpedido = response.body;
+                    });
+                },
+
+
+                
+            }
+        });
+    </script>
+</body>
+</html>

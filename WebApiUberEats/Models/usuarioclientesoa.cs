@@ -48,24 +48,26 @@ namespace WebApiUberEats.Models
                 }).SingleOrDefault(b => b.idusuario == idcomercio); // devuelvo elemento si cumple con la condicion
             return obj; //lista el obj con sus propiedades 
         }
-        public static tarjetadt ObtenerTarjetaRegistrado(int? idusuario) {
-            //ObtenerTarjetaRegistrado -> no mostrarlo en la presentacion por que no fue enviado.
-            BdUberEatsEntities db = new BdUberEatsEntities();            var obj = db.Tarjeta.Select(b => 
-            new tarjetadt()
-            {
-                idtarjeta           = b.idtarjeta,
-                idusuario           = (int)b.idusuario,
-                nombre_tarjeta      = b.nombre_tarjeta,
-                idpais              = (int)b.idpais,
-                numero_tarjeta      = b.numero_tarjeta,
-                usuariotarjetadt    = new usuariotarjetadt() { 
-                idusuario           =(int) b.idusuario,
-                nombre              = b.Usuario.nombre,
-                apellidos           = b.Usuario.apellidos
-                }
-
-            }).SingleOrDefault(b => b.idusuario == idusuario);
-            return obj;
+        public static IEnumerable<tarjetadt> ObtenerTarjetaRegistrado(int? idusuario) {           
+            BdUberEatsEntities db = new BdUberEatsEntities();            
+            var list = from b in db.Tarjeta                      
+                       where
+                       b.idusuario == idusuario
+                       select new tarjetadt()
+                       {
+                           idtarjeta = b.idtarjeta,
+                           idusuario = (int)b.idusuario,
+                           nombre_tarjeta = b.nombre_tarjeta,
+                           idpais = (int)b.idpais,
+                           numero_tarjeta = b.numero_tarjeta,
+                           usuariotarjetadt = new usuariotarjetadt()
+                           {
+                               idusuario = (int)b.idusuario,
+                               nombre = b.Usuario.nombre,
+                               apellidos = b.Usuario.apellidos
+                           }
+                       };
+            return list;
         }
         public static usuariodt InsertarUsuarioCliente(usuariodt usuariodt)
         {
@@ -123,19 +125,19 @@ namespace WebApiUberEats.Models
            
             return usuariocliente.ObtenerUsuarioClienteRegistrado(usuario.idusuario); // Si el registro es exitoso, pasa como parametro el idusuario
         }
-        public static tarjetadt InsertarTarjeta(tarjetadt tarjetadt)
+        public static int  InsertarTarjeta(tarjetadt tarjetadt)
         {
 
             BdUberEatsEntities db = new BdUberEatsEntities();            //regla 1: valida datos unicos (nùmero tarjeta)
             var vnrotarjeta = db.Tarjeta.Where(t => t.numero_tarjeta == tarjetadt.numero_tarjeta).Count();//si el numero de tarjeta ingresada existe en bd la variable vnrotarjeta sera 1
-            //regla 2: valida que el numero de tarjeta este asociado a una persona registrada
-            var vidusuario = db.Tarjeta.Where(t => t.idusuario == tarjetadt.idusuario).Count(); // si el idusuario ingresado es igual al idusuario registrado en bd retornara valor 0 vidusuario
+            //regla 2: valida si el usuario existe
+            //var vidusuario = db.Tarjeta.Where(t => t.idusuario != tarjetadt.idusuario).Count(); // si el idusuario ingresado es igual al idusuario registrado en bd retornara valor 0 vidusuario
 
             if (vnrotarjeta > 0) //si la variable vnrotarjeta > a 0 retornara null.
-                return null;
+                return 0;
 
-            if (vidusuario > 0) //si la variable vidusuario > 0 retorna null.
-                return null;
+            //if (vidusuario > 0) //si la variable vidusuario > 0 retorna null.
+              //  return null;
 
             Tarjeta tarjeta = new Tarjeta()
             {
@@ -160,7 +162,7 @@ namespace WebApiUberEats.Models
                 string errorMessages = string.Join("; ", ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage));
                 throw new DbEntityValidationException(errorMessages);
             }
-            return usuariocliente.ObtenerTarjetaRegistrado(tarjeta.idusuario);
+            return tarjetadt.idtarjeta;
         }               
         public static usuariodt InsertarUsuarioComercio(usuariodt usuariodt)
         {
