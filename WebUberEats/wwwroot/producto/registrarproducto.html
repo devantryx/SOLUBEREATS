@@ -46,13 +46,10 @@
                
                 <div class="container">
                     <div style="text-align:right;">
-                        <b>Comercio: </b>{{productos.idcomercio}} | {{usuarios.razonsocial}}
-                    </div>                  
-                    </br> </br>
-                    <div>
-                        <span>IdProducto</span>
-                        <input class="form-control" readonly type="number" placeholder="idproducto" v-model="productos.idproducto">
+                        <b>Comercio: </b> {{usuarios.razonsocial}}
                     </div>
+                    </br> </br>
+
                     <div>
                         <span style="color:gray">Nombre Producto</span>
                         <input class="form-control" type="text" placeholder="nombre producto" v-model="productos.nombreproducto">
@@ -73,11 +70,15 @@
                         <input class="form-control" type="number" placeholder="precio" v-model="productos.precio">
                     </div>
                     </br>
-
+                    <!--<div>
+                        <span style="color:gray">Subir foto</span>
+                        <input class="form-control" type="text" placeholder="subir foto" v-model="productos.nombrefotoproducto">
+                    </div>-->
+                    </br>
                     <div class="form-group">
                         <div class="">
                             <span style="color:gray">Categoria Producto</span>
-                            <select id="selectCategoriaProducto" class="form-control" v-model="productos.idcategoria_producto">
+                            <select id="selectCategoriaProducto" class="form-control" v-model="idcategoria_producto">
                                 <option value="0">--Seleccione categoria--</option>
                                 <option v-for="item in categoria_productos" :value="item.idcategoria_producto">{{item.descripcion_categoria}}</option>
                             </select>
@@ -86,12 +87,10 @@
                     </br></br>
                     <div class="container">
                         <div class="row">
-                            <div class="col-sm">
-                                <button type="button" class="btn btn-block btn-dark" @click="fetchActualizarProducto">Actualizar</button>
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-secondary btn-lg btn-block"   @click="fetchRegistrarProducto">Registrar</button>
                             </div>
-                            <div class="col-sm">
-                                <button type="button" class="btn btn-block btn-dark" @click="fetchEliminarProducto">Eliminar</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -112,13 +111,12 @@
             el: "#app",
             data: {           
                 productos: [],
-                producto: [{ idproducto: 0 }],
+                producto:{},
                 usuarios: [],
-                usuario: [{correo:''}],
+                usuario: [{ correo: '' }],
+              
                 //--------------------------
-                //Variables para producto
-                idcomercio: 1,                
-                idproducto: 15,
+                idproducto:0,
                 //Variables para InicioSession
                 correo: 'apborja@gmail.com',
                 clave:'12345',
@@ -129,9 +127,8 @@
                 actualizardatosproducto: [],
             },
             mounted: function () {
-                this.InicioSession();
-                this.BuscarProductoPorId(); 
-              this.fetchCategoria_Productos();
+                this.InicioSession();               
+                this.fetchCategoria_Productos();
             },
 
             methods: {
@@ -143,12 +140,13 @@
                     });
                 },
 
-                BuscarProductoPorId: function () {
-                    var url = "http://localhost:58201/api/Producto/ObtenerProductoId?idproducto=" + this.idproducto + "&idcomercio=" + this.idcomercio;
+                fetchProductos: function () {
+                    var url = "http://localhost:58201/api/Producto/ObtenerProductoRegistrado?idproducto=" + this.idproducto;
                     this.$http.get(url).then(function (response) {
-                        this.productos = response.body;
+                        this.producto = response.body;
                     });
                 },
+
 
                 fetchCategoria_Productos: function () {
                     var url = "http://localhost:58201/api/Producto/ObtenerListaCategoriaProducto";
@@ -157,27 +155,29 @@
                     });
                 },
 
-                fetchActualizarProducto: function () {
-                    var url = "http://localhost:58201/api/Producto/ActualizarProducto?idproducto=" + this.idproducto + "&idcomercio=" + this.idcomercio;                    
-                    this.$http.put(url, this.productos).then(function (response) {
-                        this.fetchActualizarProducto();
+                fetchRegistrarProducto: function () {
+                    var url = "http://localhost:58201/api/Producto/InsertarProducto";    
+                    var param = {
+                        nombreproducto: this.productos.nombreproducto,
+                        descripcion: this.productos.descripcion,
+                        stock: this.productos.stock,
+                        precio: this.productos.precio,
+                        porcentajedsc: this.productos.porcentajedsc,
+                        nombrefotoproducto: this.productos.nombrefotoproducto,
+                        idcomercio: 1,
+                        idcategoria_producto: this.idcategoria_producto
+                    };
+                    this.$http.post(url, param).then(function (response) {  
+                        
+                        this.productos = response.body;
                         $(document).ready(function () {                                                        
                                 location.reload();                                
                             });
                     });
                 },
 
-                fetchEliminarProducto: function () {
-                    var url = "http://localhost:58201/api/Producto/EliminarProducto?idproducto=" + this.idproducto + "&idcomercio=" + this.idcomercio;
-                    this.$http.delete(url).then(function (response) {
-                        this.BuscarProductoPorId();
-                        $(document).ready(function () {
-                            $('input[type="text"]').val('');
-                            $('input[type="number"]').val('');
-                           $(location).attr('href',"../producto/buscarproducto.html")
-                        });
-                    });
-                },
+
+                
             }
         });
     </script>

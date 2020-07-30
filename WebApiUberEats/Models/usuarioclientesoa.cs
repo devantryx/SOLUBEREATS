@@ -256,11 +256,12 @@ namespace WebApiUberEats.Models
             var obj = db.Usuario.Select(b =>
                new usuariodt()
                {
-                   idusuario = b.idusuario,
-                   nombre = b.nombre,
-                   apellidos = b.apellidos,
-                   correo    = b.correo,
-                   razonsocial = b.razonsocial
+                   idusuario    = b.idusuario,
+                   nombre       = b.nombre,
+                   apellidos    = b.apellidos,
+                   correo       = b.correo,
+                   razonsocial  = b.razonsocial
+                   
 
                }).SingleOrDefault(b => b.correo == correo);
             return obj;
